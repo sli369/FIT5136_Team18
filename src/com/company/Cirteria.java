@@ -10,8 +10,14 @@ public class Cirteria {
     private ArrayList<String> occupations;
     private ArrayList<String> computerSkills;
     private ArrayList<String> languageSpoken;
+    private ArrayList<String[]> healthRecords;
+    private ArrayList<String[]> criminalRecords;
 
-    public Cirteria(int minimumAge, int maximumAge, ArrayList<String> qualification, int yearsOfWorkExperience, ArrayList<String> occupations, ArrayList<String> computerSkills, ArrayList<String> languageSpoken)
+
+    public Cirteria(int minimumAge, int maximumAge, ArrayList<String> qualification,
+                    int yearsOfWorkExperience, ArrayList<String> occupations,
+                    ArrayList<String> computerSkills, ArrayList<String> languageSpoken,
+                    ArrayList<String[]> healthRecords, ArrayList<String[]> criminalRecords)
     {
         this.minimumAge = minimumAge;
         this.maximumAge = maximumAge;
@@ -20,6 +26,8 @@ public class Cirteria {
         this.occupations = occupations;
         this.computerSkills = computerSkills;
         this.languageSpoken = languageSpoken;
+        this.healthRecords = healthRecords;
+        this.criminalRecords = criminalRecords;
     }
 
     public int getMinimumAge() {
@@ -77,4 +85,14 @@ public class Cirteria {
     public void setLanguageSpoken(ArrayList<String> languageSpoken) {
         this.languageSpoken = languageSpoken;
     }
+
+    public ArrayList<String[]> getHealthRecords() {
+        return healthRecords;
+    }
+
+    public ArrayList<String[]> getCriminalRecords() {
+        return criminalRecords;
+    }
+
+    
 }
