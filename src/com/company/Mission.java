@@ -10,7 +10,7 @@ public class Mission {
     private String missionDescription;
     private String countryOfOrigin;
     private boolean countriesAllowed;
-//- coordinator: Coordinator
+    private Coordinator coordinator;
     private ArrayList<Job> job;
     private String employmentRequirement;
     private ArrayList<Cargo> cargo;
@@ -21,9 +21,8 @@ public class Mission {
 //- candidate: ArrayList<Candidate>
 //- shuttle:ArrayList<Shuttle>
 
-
-    public Mission(ArrayList<Cargo> cargo) {
-        this.cargo = cargo;
+    public Mission(int missionId){
+        this.missionId = missionId;
     }
 
     public Mission(int missionId, String missionName, String missionDescription, String countryOfOrigin,
@@ -127,10 +126,40 @@ public class Mission {
         return job;
     }
 
+    public String getCoordinatorName(){
+        return coordinator.getName();
+    }
+
+    public String getCoordinatorEmail(){
+        return coordinator.getEmail();
+    }
 
     public ArrayList<Cargo> addCargo() {
         return cargo;
     }
 
+    public void showMission(){
+        System.out.println("1.Mission Name:    " + missionName);
+        System.out.println("2.Mission description:    " + missionDescription);
+        System.out.println("3.Country of origin:    " + countryOfOrigin);
+        System.out.println("4.countries allowed:    " + countriesAllowed);
+        System.out.println("5.Coordinator information: " );
+        System.out.println("a.name: " + getCoordinatorName());
+        System.out.println("b.contact: " + getCoordinatorEmail());
+        System.out.println("6.Job information");
+//        print
+        System.out.println("7.Employment requirements");
+//        print
+        System.out.println("8.Cargo requirements");
+        System.out.println("     8.1 Cargo for journey");
+        System.out.println("     8.2 Cargo for mission");
+        System.out.println("9.Launch date: " + launchDate);
+        System.out.println("10.Location: " + locationDestination);
+        System.out.println("11.Duration of the mission: " + missionDuration);
+        System.out.println("12.Status of the mission " + "(" + missionStatus +")");
+
+
+
+    }
 
 }
