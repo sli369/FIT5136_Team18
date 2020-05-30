@@ -3,7 +3,7 @@ package com.company;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Candidate {
+public class Candidate extends User{
 
     private String name;
     private Date dateOfBirth;
