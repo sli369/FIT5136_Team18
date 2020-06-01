@@ -9,14 +9,16 @@ public class Shuttle {
     private int passengerCapacity;
     private int cargoCapacity;
     private int travelSpeed;
+    private String origin;
 
-    public Shuttle(String shuttleName, Date manuYear, int fuelCapacity, int passengerCapacity, int cargoCapacity, int travelSpeed){
+    public Shuttle(String shuttleName, Date manuYear, int fuelCapacity, int passengerCapacity, int cargoCapacity, int travelSpeed, String origin){
         this.shuttleName = shuttleName;
         this.manuYear = manuYear;
         this.fuelCapacity = fuelCapacity;
         this.passengerCapacity = passengerCapacity;
         this.cargoCapacity = cargoCapacity;
         this.travelSpeed = travelSpeed;
+        this.origin = origin;
     }
 
     public void setCargoCapacity(int cargoCapacity) {
@@ -43,6 +45,10 @@ public class Shuttle {
         this.travelSpeed = travelSpeed;
     }
 
+    public void setOrigin(String origin){
+        this.origin = origin;
+    }
+
     public int getCargoCapacity() {
         return cargoCapacity;
     }
@@ -65,6 +71,14 @@ public class Shuttle {
 
     public String getShuttleName() {
         return shuttleName;
+    }
+
+    public String getOrigin() {
+        return origin;
+    }
+
+    public void showShuttles(){
+        //是否要用txt文件存储数据？
     }
 }
 
