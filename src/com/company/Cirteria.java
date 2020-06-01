@@ -94,5 +94,17 @@ public class Cirteria {
         return criminalRecords;
     }
 
-    
+    public void readVenueFile()
+    {
+        File file = new File("sample missionToMars data.xlsx");
+        ArrayList<String[]> dataFile = file.readFile();
+        for(String[] value: dataFile)
+        {
+            //String venueName = value[0];
+            //int noOfLaps = Integer.parseInt(value[1]);
+            //int averageLapTime = Integer.parseInt(value[2]);
+            //double chanceOfRain = Double.parseDouble(value[3]);
+            //venues.addVenue(venueName, noOfLaps, averageLapTime, chanceOfRain);
+        }
+    }
 }
