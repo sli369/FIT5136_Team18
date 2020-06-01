@@ -18,8 +18,8 @@ public class Mission {
     private String locationDestination;
     private int missionDuration;
     private char missionStatus;
-//- candidate: ArrayList<Candidate>
-//- shuttle:ArrayList<Shuttle>
+    private ArrayList<Candidate> candidates;
+    private ArrayList<Shuttle> shuttles;
 
     public Mission(int missionId){
         this.missionId = missionId;
@@ -27,7 +27,7 @@ public class Mission {
 
     public Mission(int missionId, String missionName, String missionDescription, String countryOfOrigin,
                    boolean countriesAllowed, String employmentRequirement, Date launchDate, String locationDestination,
-                   int missionDuration, char missionStatus, ArrayList<Job> job, ArrayList<Cargo> cargo) {
+                   int missionDuration, char missionStatus, ArrayList<Job> job, ArrayList<Cargo> cargo, ArrayList<Candidate> candidates, ArrayList<Shuttle> shuttles) {
         this.missionId = missionId;
         this.missionName = missionName;
         this.missionDescription = missionDescription;
@@ -40,6 +40,8 @@ public class Mission {
         this.missionStatus = missionStatus;
         this.job = job;
         this.cargo = cargo;
+        this.candidates = candidates;
+        this.shuttles = shuttles;
     }
 
     public int getMissionId() {
@@ -136,6 +138,39 @@ public class Mission {
 
     public ArrayList<Cargo> addCargo() {
         return cargo;
+    }
+
+
+    public ArrayList<Job> getJob() {
+        return job;
+    }
+
+    public void setJob(ArrayList<Job> job) {
+        this.job = job;
+    }
+
+    public ArrayList<Cargo> getCargo() {
+        return cargo;
+    }
+
+    public void setCargo(ArrayList<Cargo> cargo) {
+        this.cargo = cargo;
+    }
+
+    public ArrayList<Candidate> getCandidates() {
+        return candidates;
+    }
+
+    public void setCandidates(ArrayList<Candidate> candidates) {
+        this.candidates = candidates;
+    }
+
+    public ArrayList<Shuttle> getShuttles() {
+        return shuttles;
+    }
+
+    public void setShuttles(ArrayList<Shuttle> shuttles) {
+        this.shuttles = shuttles;
     }
 
     public void showMission(){
