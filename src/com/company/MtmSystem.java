@@ -6,7 +6,7 @@ public class MtmSystem {
     private ArrayList<User> users;
     private ArrayList<Mission> missions;
     private ArrayList<Shuttle> shuttles;
-
+    private ArrayList<Criteria> criterias;
 
 
 }
