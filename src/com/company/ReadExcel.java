@@ -14,13 +14,15 @@ public class ReadExcel {
             int sheetSize = book.getNumberOfSheets();
             Sheet sheet = book.getSheet(0);
             int row_total = sheet.getRows();
-            for (int j = 0; j < row_total; j++) {
-                if(j == 0){
-                    Cell[] cells = sheet.getRow(j);
+            int columns_total = sheet.getColumns();
 
-                    System.out.println(cells[0].getContents());
-                    System.out.println(cells[1].getContents());
-                    System.out.println(cells[2].getContents());
+            // get one line of mission
+            for (int j = 0; j < row_total; j++) {
+                if(j == 1){
+                    Cell[] cells = sheet.getRow(j);
+                    for(int i=0; i< sheet.getColumns(); i++) {
+                        System.out.println(cells[i].getContents());
+                    }
                 }
             }
         } catch (Exception e) {
