@@ -8,15 +8,21 @@ import jxl.Workbook;
 
 public class ReadExcel {
     public static void main(String args[]) {
-        try {
-            Workbook book = Workbook.getWorkbook(new File("test.xls"));
-            // 获得第一个工作表对象
+        try{
+            Workbook book = Workbook.getWorkbook(new File("C:\\Users\\harry\\IdeaProjects\\FIT5136_Team18\\src\\com\\company\\mission.xls"));
+
+            int sheetSize = book.getNumberOfSheets();
             Sheet sheet = book.getSheet(0);
-            // 得到第一列第一行的单元格
-            Cell cell1 = sheet.getCell(0, 0);
-            String result = cell1.getContents();
-            System.out.println(result);
-            book.close();
+            int row_total = sheet.getRows();
+            for (int j = 0; j < row_total; j++) {
+                if(j == 0){
+                    Cell[] cells = sheet.getRow(j);
+
+                    System.out.println(cells[0].getContents());
+                    System.out.println(cells[1].getContents());
+                    System.out.println(cells[2].getContents());
+                }
+            }
         } catch (Exception e) {
             System.out.println(e);
         }
