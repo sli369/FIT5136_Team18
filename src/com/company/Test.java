@@ -1,7 +1,5 @@
 package com.company;
 
-import javafx.scene.control.Cell;
-
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -32,7 +30,8 @@ public class Test {
                 System.out.println(cells[2].getContents());
             }
         }
-    }catch (
+    }
+     catch (
     IOException e) {
         // TODO Auto-generated catch block
         e.printStackTrace();

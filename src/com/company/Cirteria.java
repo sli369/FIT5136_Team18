@@ -10,14 +10,20 @@ public class Cirteria {
     private ArrayList<String> occupations;
     private ArrayList<String> computerSkills;
     private ArrayList<String> languageSpoken;
-    private ArrayList<String[]> healthRecords;
-    private ArrayList<String[]> criminalRecords;
+    private int numberOfEmployee;
+    private byte requiredGender;
 
+    public Cirteria(byte requiredGender) {
+        this.requiredGender = requiredGender;
+    }
+
+    public Cirteria(int numberOfEmployee) {
+        this.numberOfEmployee = numberOfEmployee;
+    }
 
     public Cirteria(int minimumAge, int maximumAge, ArrayList<String> qualification,
                     int yearsOfWorkExperience, ArrayList<String> occupations,
-                    ArrayList<String> computerSkills, ArrayList<String> languageSpoken,
-                    ArrayList<String[]> healthRecords, ArrayList<String[]> criminalRecords)
+                    ArrayList<String> computerSkills, ArrayList<String> languageSpoken)
     {
         this.minimumAge = minimumAge;
         this.maximumAge = maximumAge;
@@ -26,8 +32,7 @@ public class Cirteria {
         this.occupations = occupations;
         this.computerSkills = computerSkills;
         this.languageSpoken = languageSpoken;
-        this.healthRecords = healthRecords;
-        this.criminalRecords = criminalRecords;
+
     }
 
     public int getMinimumAge() {
@@ -86,25 +91,33 @@ public class Cirteria {
         this.languageSpoken = languageSpoken;
     }
 
-    public ArrayList<String[]> getHealthRecords() {
-        return healthRecords;
+    public int getNumberOfEmployee() {
+        return numberOfEmployee;
     }
 
-    public ArrayList<String[]> getCriminalRecords() {
-        return criminalRecords;
+    public void setNumberOfEmployee(int numberOfEmployee) {
+        this.numberOfEmployee = numberOfEmployee;
     }
 
-    public void readVenueFile()
-    {
-        File file = new File("sample missionToMars data.xlsx");
-        ArrayList<String[]> dataFile = file.readFile();
-        for(String[] value: dataFile)
-        {
+    public byte isRequiredGender() {
+        return requiredGender;
+    }
+
+    public void setRequiredGender(byte requiredGender) {
+        this.requiredGender = requiredGender;
+    }
+
+    //public void readVenueFile()
+    //{
+        //File file = new File("sample missionToMars data.xlsx");
+        //ArrayList<String[]> dataFile = file.readFile();
+        //for(String[] value: dataFile)
+       // {
             //String venueName = value[0];
             //int noOfLaps = Integer.parseInt(value[1]);
             //int averageLapTime = Integer.parseInt(value[2]);
             //double chanceOfRain = Double.parseDouble(value[3]);
             //venues.addVenue(venueName, noOfLaps, averageLapTime, chanceOfRain);
-        }
-    }
+       // }
+    //}
 }
