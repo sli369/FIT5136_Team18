@@ -11,6 +11,7 @@ public class Main {
         ArrayList<String> userList = readFile("users.txt");
 
 
+
         while (true) {
             System.out.println("\n***** Welcome to Mission to Mars *****\r\n");
             System.out.println("1.Login\t\t2.Sign up\t\t3.Exit\r\n");
@@ -208,7 +209,7 @@ public class Main {
             writeFile(list, "users.txt");
         }
     }
-
+// Simon's Code Starts Here ************************************************
     public static void selectShuttle(){
 
 
@@ -230,15 +231,28 @@ public class Main {
                 System.out.println("Cargo Capacity (in kgs): " + shuttle_info.get(4));
                 System.out.println("Travel Speed (kms/hr)" + shuttle_info.get(5));
                 System.out.println("Origin Country: " + shuttle_info.get(6));
-                break;
+                System.out.println("\n\nWould you like to assign this shuttle to a mission?");
+                System.out.println("1. Yes");
+                System.out.println("2. No");
+                int n = new Scanner(System.in).nextInt();
+                switch(n){
+                    case 1:
+                        System.out.println("Which mission would you like to assign to?");
+                        //show mission
+                        int m = new Scanner(System.in).nextInt();
+
             }
             System.out.println("Please try again!");
         }
 
-        System.out.println("Shuttle name: " + shuttle_list.get(0).substring(0,shuttle_list.get(0).indexOf(",")));
+
+
+
+        }
+
     }
 
-
+// Simon's Code Ends Here ************************************************
 
     //    private int numberOfEmployee;
     //    private byte requiredGender;
