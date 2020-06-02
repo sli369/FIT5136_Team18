@@ -9,7 +9,7 @@ import jxl.Workbook;
 public class ReadExcel {
     public static void main(String args[]) {
         try{
-            Workbook book = Workbook.getWorkbook(new File("C:\\Users\\harry\\IdeaProjects\\FIT5136_Team18\\src\\com\\company\\mission.xls"));
+            Workbook book = Workbook.getWorkbook(new File("mission.xls"));
 
             int sheetSize = book.getNumberOfSheets();
             Sheet sheet = book.getSheet(0);
@@ -18,6 +18,7 @@ public class ReadExcel {
 
             // get one line of mission
             for (int j = 0; j < row_total; j++) {
+                // 读取第1个mission内容
                 if(j == 1){
                     Cell[] cells = sheet.getRow(j);
                     for(int i=0; i< sheet.getColumns(); i++) {
