@@ -12,8 +12,8 @@ public class Main {
 
         // search username in users.txt
         for (String i : userList) {
-                System.out.println(i.substring(0,i.indexOf(",")));
-            }
+            System.out.println(i.substring(0, i.indexOf(",")));
+        }
 
 
         while (true) {
@@ -45,25 +45,28 @@ public class Main {
         // read user input
         Scanner sc = new Scanner(System.in);
         ArrayList<String> userList = readFile();
+        //清屏
+        System.out.println('\u000C');
+
         System.out.println("Please enter your username:");
         String input_username = sc.next();
 
         // search username in users.txt
         String u1 = null;
         for (String i : userList) {
-            if (input_username.equals(i.substring(0,i.indexOf(",")))){
+            if (input_username.equals(i.substring(0, i.indexOf(",")))) {
                 u1 = i;
             }
         }
 
-        if (!userList.contains(u1)){
+        if (!userList.contains(u1)) {
             // if not exist
             System.out.print("Username doesn't exist, please try again!");
         } else {
             // if account exists
             while (true) {
                 String[] user_record = u1.split(",");
-                if (Integer.parseInt(user_record[2])>0) {
+                if (Integer.parseInt(user_record[2]) > 0) {
                     System.out.println("Please input your password: ");
                     String input_password = sc.next();
 
@@ -75,7 +78,6 @@ public class Main {
 
                         System.out.println("TO BE CONTINUED");
                         String eee = sc.next();
-
 
 
                     }
@@ -99,7 +101,7 @@ public class Main {
                             break;
                         }
                     }
-                }else {
+                } else {
                     System.out.println("Your account has been locked, please contact admin!");
                     return;
                 }
@@ -112,21 +114,26 @@ public class Main {
         ArrayList<String> list = readFile();
         Scanner sc = new Scanner(System.in);
         while (true) {
+            System.out.println("Choose an account type:" + "\n1.Administrator  2.Coordinator  3.Candidate");
+            if (sc.next().equals("3")) {
+                signupCandidate();
+            }
             System.out.println("Please input username: ");
             String input_username = sc.next();
 
             String u3 = null;
             for (String m : list) {
-                if (input_username.equals(m.substring(0,m.indexOf(",")))){
+                if (input_username.equals(m.substring(0, m.indexOf(",")))) {
                     u3 = m;
                 }
             }
 
-            if (list.contains(u3)){
+            if (list.contains(u3)) {
                 System.out.print("Username exists!");
-            }else {
+            } else {
                 System.out.println("Please input password: ");
                 String input_password = sc.next();
+                //这里要写加入user id
 
                 list.add(input_username + "," + input_password + ",3,3");
                 writeFile(list);
@@ -136,11 +143,11 @@ public class Main {
         }
     }
 
-    private static ArrayList<String> readFile(){
+    private static ArrayList<String> readFile() {
         ArrayList<String> list = new ArrayList<>();
         try (BufferedReader in = new BufferedReader(new FileReader("users.txt"))) {
             String row = null;
-            while ((row = in.readLine()) != null){
+            while ((row = in.readLine()) != null) {
                 list.add(row);
             }
 
@@ -154,7 +161,7 @@ public class Main {
         return list;
     }
 
-    private static void writeFile(ArrayList<String> list){
+    private static void writeFile(ArrayList<String> list) {
         try (BufferedWriter out = new BufferedWriter(new FileWriter("users.txt"))) {
             for (String s : list) {
                 out.write(s);
@@ -168,24 +175,135 @@ public class Main {
     }
 
 
-    private static void attemptPenalty(String n){
+    private static void attemptPenalty(String n) {
         ArrayList<String> list = readFile();
 
         String s1 = null;
         for (String s : list) {
-            if (n.equals(s.substring(0,s.indexOf(",")))){
+            if (n.equals(s.substring(0, s.indexOf(",")))) {
                 s1 = s;
             }
         }
 
         String[] split = s1.split(",");
-        if (list.contains(s1)){
+        if (list.contains(s1)) {
             int i = Integer.parseInt(split[2]);
-            i = i-1;
+            i = i - 1;
             list.remove(s1);
-            list.add(split[0]+","+split[1]+","+i+","+split[3]);
+            list.add(split[0] + "," + split[1] + "," + i + "," + split[3]);
             writeFile(list);
         }
     }
 
+    private static void signupCandidate() {
+        System.out.println('\u000C');
+        Scanner sc = new Scanner(System.in);
+        StringBuffer stringBuffer = new StringBuffer();
+        Boolean entered = false;
+        System.out.println("Please input your name:");
+        stringBuffer.append(forceinputString());
+        stringBuffer.append("~");
+        System.out.println("Please input the year your Date of birth:" + "\n(4 digits. e.g. 1980)");
+        String year = forceinputInt();
+        while(year.length() != 4)
+           year = forceinputInt();
+        stringBuffer.append(year);
+        stringBuffer.append("-");
+
+        System.out.println("Please input the year your month of birth:" + "\n(2 digits. e.g. 01)");
+        String month = forceinputInt();
+        while(year.length() != 2)
+            month = forceinputInt();
+        stringBuffer.append(month);
+        stringBuffer.append("-");
+
+        System.out.println("Please input the day your month of birth:" + "\n(2 digits. e.g. 01)");
+        String day = forceinputInt();
+        while(year.length() != 2)
+            day = forceinputInt();
+        stringBuffer.append(day);
+        stringBuffer.append("~");
+
+        System.out.println("Please enter the street number of your address:");
+        stringBuffer.append(forceinputInt());
+        stringBuffer.append(",");
+
+        System.out.println("Please enter the street name of your address:");
+        stringBuffer.append(forceinputString());
+        stringBuffer.append(",");
+
+        System.out.println("Please enter the street name of your address:");
+        stringBuffer.append(forceinputString());
+        stringBuffer.append(",");
+
+        System.out.println("Please enter other detials of your address:" + "\ne.g. Unit, Lot.");
+        stringBuffer.append(forceinputString());
+        stringBuffer.append(",");
+
+
+        return;
+
+    }
+
+    //https://stackoverflow.com/questions/237159/whats-the-best-way-to-check-if-a-string-represents-an-integer-in-java
+    public static boolean isInteger(String str) {
+        if (str == null) {
+            return false;
+        }
+        int length = str.length();
+        if (length == 0) {
+            return false;
+        }
+        int i = 0;
+        if (str.charAt(0) == '-') {
+            if (length == 1) {
+                return false;
+            }
+            i = 1;
+        }
+        for (; i < length; i++) {
+            char c = str.charAt(i);
+            if (c < '0' || c > '9') {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private static boolean validation(String str) {
+        boolean correct = false;
+        if (!(str.trim().isEmpty()))
+            correct = true;
+        return correct;
+    }
+
+    private static String forceinputString() {
+        Boolean entered = false;
+        String nextinput = "";
+        Scanner sc = new Scanner(System.in);
+        while (entered == false) {
+            System.out.println("The input is not correct, pleace enter again:");
+            nextinput = sc.nextLine();
+            if (validation(nextinput) == true) {
+                entered = true;
+                System.out.println('\u000C');
+            }
+        }
+        return nextinput;
+    }
+
+    private static String forceinputInt() {
+        Boolean inputInt = false;
+        Scanner sc = new Scanner(System.in);
+        String year = sc.nextLine();
+        while ((inputInt == false)) {
+            if (isInteger(sc.nextLine()) == false) {
+                System.out.println("The information has not been entered correctly. Please enter the year your Date of birth again:");
+                year = sc.nextLine();
+            } else {
+                inputInt = true;
+            }
+        }
+        return year;
+    }
 }
