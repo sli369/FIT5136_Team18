@@ -4,31 +4,23 @@ import java.util.*;
 
 
 public class Cargo {
-    private int cargoId;
-    private boolean cargoFor;
+
+    private String cargoFor;
     private String requirement;
     private int quantity;
 
-    public Cargo(int cargoId, boolean cargoFor, String requirement, int quantity) {
-        this.cargoId = cargoId;
+    public Cargo(String cargoFor, String requirement, int quantity) {
+
         this.cargoFor = cargoFor;
         this.requirement = requirement;
         this.quantity = quantity;
     }
 
-    public int getCargoId() {
-        return cargoId;
-    }
-
-    public void setCargoId(int cargoId) {
-        this.cargoId = cargoId;
-    }
-
-    public boolean isCargoFor() {
+    public String getCargoFor() {
         return cargoFor;
     }
 
-    public void setCargoFor(boolean cargoFor) {
+    public void setCargoFor(String cargoFor) {
         this.cargoFor = cargoFor;
     }
 
