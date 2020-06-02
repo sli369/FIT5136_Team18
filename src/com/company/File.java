@@ -33,6 +33,8 @@ public class File {
                     values.add(line);
                 }
                 return values;
+
+
             }
             finally {
                 System.out.println("Finish reading file, close file");
@@ -49,3 +51,4 @@ public class File {
     }
 
 }
+

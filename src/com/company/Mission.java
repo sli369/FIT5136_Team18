@@ -1,7 +1,7 @@
 package com.company;
 
-import java.io.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
 
 
 public class Mission {
@@ -18,8 +18,8 @@ public class Mission {
     private String locationDestination;
     private int missionDuration;
     private char missionStatus;
-//- candidate: ArrayList<Candidate>
-//- shuttle:ArrayList<Shuttle>
+    private ArrayList<Candidate> candidates;
+    private ArrayList<Shuttle> shuttles;
 
     public Mission(int missionId){
         this.missionId = missionId;
@@ -27,7 +27,7 @@ public class Mission {
 
     public Mission(int missionId, String missionName, String missionDescription, String countryOfOrigin,
                    boolean countriesAllowed, String employmentRequirement, Date launchDate, String locationDestination,
-                   int missionDuration, char missionStatus, ArrayList<Job> job, ArrayList<Cargo> cargo) {
+                   int missionDuration, char missionStatus, ArrayList<Job> job, ArrayList<Cargo> cargo, ArrayList<Candidate> candidates, ArrayList<Shuttle> shuttles) {
         this.missionId = missionId;
         this.missionName = missionName;
         this.missionDescription = missionDescription;
@@ -40,6 +40,8 @@ public class Mission {
         this.missionStatus = missionStatus;
         this.job = job;
         this.cargo = cargo;
+        this.candidates = candidates;
+        this.shuttles = shuttles;
     }
 
     public int getMissionId() {
@@ -138,25 +140,58 @@ public class Mission {
         return cargo;
     }
 
+
+    public ArrayList<Job> getJob() {
+        return job;
+    }
+
+    public void setJob(ArrayList<Job> job) {
+        this.job = job;
+    }
+
+    public ArrayList<Cargo> getCargo() {
+        return cargo;
+    }
+
+    public void setCargo(ArrayList<Cargo> cargo) {
+        this.cargo = cargo;
+    }
+
+    public ArrayList<Candidate> getCandidates() {
+        return candidates;
+    }
+
+    public void setCandidates(ArrayList<Candidate> candidates) {
+        this.candidates = candidates;
+    }
+
+    public ArrayList<Shuttle> getShuttles() {
+        return shuttles;
+    }
+
+    public void setShuttles(ArrayList<Shuttle> shuttles) {
+        this.shuttles = shuttles;
+    }
+
     public void showMission(){
-        System.out.println("1.Mission Name:    " + missionName);
-        System.out.println("2.Mission description:    " + missionDescription);
-        System.out.println("3.Country of origin:    " + countryOfOrigin);
-        System.out.println("4.countries allowed:    " + countriesAllowed);
-        System.out.println("5.Coordinator information: " );
-        System.out.println("a.name: " + getCoordinatorName());
-        System.out.println("b.contact: " + getCoordinatorEmail());
-        System.out.println("6.Job information");
+            System.out.println("1.Mission Name:    " + missionName);
+            System.out.println("2.Mission description:    " + missionDescription);
+            System.out.println("3.Country of origin:    " + countryOfOrigin);
+            System.out.println("4.countries allowed:    " + countriesAllowed);
+            System.out.println("5.Coordinator information: " );
+            System.out.println("a.name: " + getCoordinatorName());
+            System.out.println("b.contact: " + getCoordinatorEmail());
+            System.out.println("6.Job information");
 //        print
-        System.out.println("7.Employment requirements");
+            System.out.println("7.Employment requirements");
 //        print
-        System.out.println("8.Cargo requirements");
-        System.out.println("     8.1 Cargo for journey");
-        System.out.println("     8.2 Cargo for mission");
-        System.out.println("9.Launch date: " + launchDate);
-        System.out.println("10.Location: " + locationDestination);
-        System.out.println("11.Duration of the mission: " + missionDuration);
-        System.out.println("12.Status of the mission " + "(" + missionStatus +")");
+            System.out.println("8.Cargo requirements");
+            System.out.println("     8.1 Cargo for journey");
+            System.out.println("     8.2 Cargo for mission");
+            System.out.println("9.Launch date: " + launchDate);
+            System.out.println("10.Location: " + locationDestination);
+            System.out.println("11.Duration of the mission: " + missionDuration);
+            System.out.println("12.Status of the mission " + "(" + missionStatus +")");
 
 
 

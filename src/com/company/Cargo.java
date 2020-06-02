@@ -1,5 +1,8 @@
 package com.company;
 
+import java.util.*;
+
+
 public class Cargo {
     private int cargoId;
     private boolean cargoFor;
