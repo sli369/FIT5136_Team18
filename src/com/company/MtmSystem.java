@@ -1,8 +1,13 @@
 package com.company;
 
+import java.lang.reflect.Array;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import java.io.File;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
 
 import jxl.Cell;
 import jxl.Sheet;
@@ -13,7 +18,8 @@ public class MtmSystem {
     private ArrayList<Mission> missions;
     private ArrayList<Shuttle> shuttles;
     private ArrayList<Criteria> criterias;
-
+    private ArrayList<Cargo> cargos;
+    private ArrayList<Job> jobs;
 //    // get list of mission
 //    public static void main(String args[]){
 //
@@ -29,7 +35,7 @@ public class MtmSystem {
         missions = getMissions();
         System.out.println("Show all mission Id");
         for(int i=0; i<missions.size(); i++){
-            System.out.println("mission id" + missions.get(i).getMissionId());
+            System.out.println("mission id: " + missions.get(i).getMissionId() + "mission name: "+ missions.get(i).getMissionName());
         }
     }
 
@@ -42,8 +48,10 @@ public class MtmSystem {
             int columns_total = sheet.getColumns();
             // get one line of mission
             for (int j = 1; j < row_total; j++) {
+
                 int missionId;
-                String missionLauchDate;
+                Date missionLauchDate;
+                SimpleDateFormat format = new SimpleDateFormat("dd/mm/yyyy");
                 String missionOrign;
                 int missionDuration;
                 String missionType;
@@ -59,13 +67,17 @@ public class MtmSystem {
                 String cargoFor;
                 String cargoRequire;
                 int cargoQuality;
+                String missionName;
+                String destination;
+               ArrayList<String> countriesAllowed;
+               char missionStatus;
                 // 读取第1个mission内容
 //                if(j == 1){
                     Cell[] cells = sheet.getRow(j);
 //                    for(int i=0; i< columns_total; i++) {
 //                        System.out.println(cells[i].getContents());
                     missionId = Integer.parseInt(cells[0].getContents());
-                    missionLauchDate = cells[1].getContents();
+                    missionLauchDate = format.parse(cells[1].getContents());
                     missionOrign = cells[2].getContents();
                     missionDuration = Integer.parseInt(cells[3].getContents());
                     missionType = cells[4].getContents();
@@ -81,6 +93,30 @@ public class MtmSystem {
                     cargoFor = cells[14].getContents();
                     cargoRequire = cells[15].getContents();
                     cargoQuality = Integer.parseInt(cells[16].getContents());
+                    missionName = cells[17].getContents();
+                    String countrAll = cells[18].getContents();
+                    destination = cells[19].getContents();
+                    missionStatus = cells[20].getContents().charAt(0);
+
+                //set countries into arraylist
+                    if (countrAll.contains(",")) {
+                    String[] a = countrAll.split(",");
+                    countriesAllowed = new ArrayList<>(Arrays.asList(a));
+                }else {
+                        // only one country
+                    countriesAllowed = new ArrayList<String>();
+                    countriesAllowed.add(countrAll);
+                }
+
+                //set cargo
+                Cargo cargo = new Cargo(cargoFor, cargoRequire, cargoQuality);
+                    ArrayList<Cargo> cargosPerMission = new ArrayList<Cargo>();
+                    cargosPerMission.add(cargo);
+
+                // set job
+                Job job = new Job(occupation, qualification);
+                    ArrayList<Job> missionJobs = new ArrayList<Job>();
+                    missionJobs.add(job);
 
 //                    System.out.println("Mission ID: " + missionId);
 //                    System.out.println("Launch Date: " + missionLauchDate);
@@ -93,8 +129,11 @@ public class MtmSystem {
 //                    System.out.println("Cargo Requirement: " + cargoRequire);
 //                    System.out.println("Cargo quality: " + cargoQuality);
 
-                    Mission mission = new Mission(missionId);
-                    missions.add(mission);
+                    Mission mission = new Mission(missionId, missionName, missionDescription, missionOrign, countriesAllowed,
+                            employeeRequire, missionLauchDate, destination, missionDuration, missionStatus);
+
+                        missions.add(mission);
+
                 }
 //            }
         } catch (Exception e) {
