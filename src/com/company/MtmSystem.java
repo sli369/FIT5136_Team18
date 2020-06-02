@@ -12,7 +12,7 @@ public class MtmSystem {
     private ArrayList<User> users;
     private ArrayList<Mission> missions;
     private ArrayList<Shuttle> shuttles;
-
+    private ArrayList<Criteria> criterias;
 
 //    // get list of mission
 //    public static void main(String args[]){
