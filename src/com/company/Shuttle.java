@@ -3,6 +3,7 @@ package com.company;
 import java.util.Date;
 
 public class Shuttle {
+    private int shuttleId;
     private String shuttleName;
     private Date manuYear;
     private int fuelCapacity;
@@ -11,7 +12,7 @@ public class Shuttle {
     private int travelSpeed;
     private String origin;
 
-    public Shuttle(String shuttleName, Date manuYear, int fuelCapacity, int passengerCapacity, int cargoCapacity, int travelSpeed, String origin){
+    public Shuttle(int shuttleId, String shuttleName, Date manuYear, int fuelCapacity, int passengerCapacity, int cargoCapacity, int travelSpeed, String origin){
         this.shuttleName = shuttleName;
         this.manuYear = manuYear;
         this.fuelCapacity = fuelCapacity;
@@ -19,6 +20,10 @@ public class Shuttle {
         this.cargoCapacity = cargoCapacity;
         this.travelSpeed = travelSpeed;
         this.origin = origin;
+    }
+
+    public Shuttle(int shuttleId) {
+
     }
 
     public void setCargoCapacity(int cargoCapacity) {
@@ -79,6 +84,11 @@ public class Shuttle {
 
     public void showShuttles(){
         //是否要用txt文件存储数据？
+    }
+
+
+    public int getShuttleId() {
+        return shuttleId;
     }
 }
 
