@@ -1,23 +1,31 @@
 package com.company;
 
-import java.util.ArrayList;
-
-import java.io.File;
-
 import jxl.Cell;
 import jxl.Sheet;
 import jxl.Workbook;
 
+import java.io.File;
+import java.util.ArrayList;
+
 public class MtmSystem {
+    private ArrayList<Criteria> criterias;
     private ArrayList<User> users;
     private ArrayList<Mission> missions;
     private ArrayList<Shuttle> shuttles;
-    private ArrayList<Criteria> criterias;
+
 
 //    // get list of mission
 //    public static void main(String args[]){
 //
 //    }
+
+    public ArrayList<Criteria> getCriterias() {
+        return criterias;
+    }
+
+    public void setCriterias(ArrayList<Criteria> criterias) {
+        this.criterias = criterias;
+    }
 
     public ArrayList<Mission> getMissions(){
         missions = new ArrayList<Mission>();

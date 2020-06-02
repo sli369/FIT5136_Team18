@@ -1,14 +1,20 @@
 package com.company;
 
+import javax.swing.*;
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Jsave {
+    private ArrayList<Criteria> criterias;
 
 
 
-
-
+   public void startcreateCriteria()
+   {
+       Criteria criteria = new Criteria();
+       createCriteria(criteria);
+   }
     ////////////////////////////////////////////////////////////////////////
     // Joyce code start
     ///////////////////////////////////////////////////////////////////////
@@ -16,7 +22,7 @@ public class Jsave {
 
     //    private int numberOfEmployee;
     //    private byte requiredGender;
-    public void createCriteria(String[] args) {
+    public void createCriteria(Criteria criteria) {
 
         //ArrayList<String> candidateList = readFile("users.txt");
         Validate validate = new Validate();
@@ -27,6 +33,23 @@ public class Jsave {
             System.out.println("\n****** please select the criteria that you want to set ******\r\n");
             System.out.println("1.minimumAge & maximumAge\t\t2.qualification\t\t3.yearsOfWorkExperience\r\n");
             System.out.println("4.occupations\t\t5.computerSkills\t\t6.languageSpoken\r\n");
+
+            System.out.println("Please enter 'a' to finish/exit creating a criteria. ");
+            if (sc.nextLine().equals("a")) {
+                if (!(criteria.getComputerSkills().length == 0 || criteria.getLanguageSpoken().length == 0 )){
+                    criterias.add(criteria);
+                    return;
+                }
+                else{
+                    return;
+                }
+
+                return;
+            }
+
+            }
+
+
             System.out.println("*************************************************************");
             System.out.println("Please input your selection: ");
             try {
@@ -48,16 +71,16 @@ public class Jsave {
                         ageRange();
                         break;
                     case 2:
-                        qualification();
+                        qualification(criteria);
                         break;
                     case 3:
-                        yearsOfWorkExperience();
+                        yearsOfWorkExperience(criteria);
                     case 4:
-                        occupations();
+                        occupations(criteria);
                     case 5:
-                        computerSkills();
+                        computerSkills(criteria);
                     case 6:
-                        languageSpoken();
+                        languageSpoken(criteria);
 
                     default:
                         System.out.println("Invalid input!");
@@ -124,7 +147,9 @@ public class Jsave {
         }
         else{
             System.out.println("Back to create criteria page");
-            //不知道怎么回criteria page!!!!!!
+
+            createCriteria(criteria);
+
             ;
         }
 
@@ -132,7 +157,7 @@ public class Jsave {
 
     }
 
-    private Criteria qualification(){
+    private Criteria qualification(Criteria criteria){
         Scanner sc = new Scanner(System.in);
         Criteria criteria = new Criteria();
         Validate validate = new Validate();
