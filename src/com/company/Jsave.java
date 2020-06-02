@@ -1,6 +1,5 @@
 package com.company;
 
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -10,7 +9,7 @@ public class Jsave {
 
 
 
-   public void startcreateCriteria()
+   public void startCreateCriteria()
    {
        Criteria criteria = new Criteria();
        createCriteria(criteria);
@@ -29,29 +28,45 @@ public class Jsave {
         Scanner sc = new Scanner(System.in);
 
         while (true) {
-            System.out.println("\n********** create the criteria to select employees **********\r\n");
+            System.out.println("\n***************** create the criteria to select employees *****************\r\n");
             System.out.println("\n****** please select the criteria that you want to set ******\r\n");
             System.out.println("1.minimumAge & maximumAge\t\t2.qualification\t\t3.yearsOfWorkExperience\r\n");
             System.out.println("4.occupations\t\t5.computerSkills\t\t6.languageSpoken\r\n");
-
-            System.out.println("Please enter 'a' to finish/exit creating a criteria. ");
-            if (sc.nextLine().equals("a")) {
-                if (!(criteria.getComputerSkills().length == 0 || criteria.getLanguageSpoken().length == 0 )){
-                    criterias.add(criteria);
-                    return;
-                }
-                else{
-                    return;
-                }
-
-                return;
-            }
-
-            }
-
-
             System.out.println("*************************************************************");
-            System.out.println("Please input your selection: ");
+
+            System.out.println("Or you can enter 'a' to finish/exit creating a criteria. ");
+            if (sc.nextLine().equals("a") && criteria.getComputerSkills().length != 0 || criteria.getLanguageSpoken().length != 0 || criteria.getOccupations().length != 0
+                    || criteria.getQualification().length != 0 || criteria.getNumberOfEmployee() != 0 || criteria.getMinimumAge() != 0 ||
+                    criteria.getMaximumAge() != 0 || criteria.getYearsOfWorkExperience() != 0)
+                {
+                    criterias.add(criteria);
+                    System.out.println("enter number 1 to review the criteria created, enter number 2 to exit ");
+                    System.out.println("1.review criteria\t\t2.exit\r\n");
+                    String yn = sc.nextLine();
+                    while (validate.checkInt(yn) == false){
+                        System.out.println("please enter valid integer number");
+                        System.out.println("please input your selection: ");
+                        yn = sc.nextLine();
+                    }
+                    while (validate.checkRange(Integer.parseInt(yn),1,2) == false){
+                        System.out.println("Please enter valid range of number");
+                        System.out.println("Please input your selection: number between 1~2 ");
+                        yn = sc.nextLine();
+                    }
+                    int ynInt = Integer.parseInt(yn);
+                    if (ynInt == 1){
+                        criteria.showCriteria();
+                        System.out.println("Press space to exit");
+                        sc.nextLine();
+                    return;
+                }
+                    else {
+                        return;
+                    }
+
+            }
+
+                System.out.println("Please input your selection: ");
             try {
                 String c = sc.nextLine();
                 while (validate.checkInt(c) == false){
@@ -68,7 +83,7 @@ public class Jsave {
 
                 switch (ci) {
                     case 1:
-                        ageRange();
+                        ageRange(criteria);
                         break;
                     case 2:
                         qualification(criteria);
@@ -95,9 +110,8 @@ public class Jsave {
 
 
     //
-    private Criteria ageRange(){
+    private void ageRange(Criteria criteria){
         Scanner sc = new Scanner(System.in);
-        Criteria criteria = new Criteria();
         Validate validate = new Validate();
         System.out.println("please enter the min age");
         String minAge = sc.nextLine();
@@ -129,7 +143,7 @@ public class Jsave {
         criteria.setMaximumAge(maxAgeInt);
         System.out.println("you have set the minimum age as " + minAgeInt + " and the max age " + maxAgeInt);
         System.out.println("Do you want to continue to set the qualification criteria? ");
-        System.out.println("1.Yes\\t\\t2.No\\r\\n\" ");
+        System.out.println("1.Yes\t\t2.No\r\n ");
         String yn = sc.nextLine();
         while (validate.checkInt(yn) == false){
             System.out.println("please enter valid integer number");
@@ -143,7 +157,7 @@ public class Jsave {
         }
         int ynInt = Integer.parseInt(yn);
         if (ynInt == 1){
-            qualification();
+            qualification(criteria);
         }
         else{
             System.out.println("Back to create criteria page");
@@ -153,13 +167,11 @@ public class Jsave {
             ;
         }
 
-        return criteria;
 
     }
 
-    private Criteria qualification(Criteria criteria){
+    private void qualification(Criteria criteria){
         Scanner sc = new Scanner(System.in);
-        Criteria criteria = new Criteria();
         Validate validate = new Validate();
 
         System.out.println("please enter the qualifications you want to set, please split them with ','");
@@ -168,7 +180,7 @@ public class Jsave {
         System.out.println("you have set qualifications: " + quali);
 
         System.out.println("Do you want to continue to set the yearsOfWorkExperience criteria? ");
-        System.out.println("1.Yes\\t\\t2.No\\r\\n\" ");
+        System.out.println("1.Yes\t\tt2.No\r\n" );
         String yn = sc.nextLine();
         while (validate.checkInt(yn) == false){
             System.out.println("please enter valid integer number");
@@ -182,27 +194,38 @@ public class Jsave {
         }
         int ynInt = Integer.parseInt(yn);
         if (ynInt == 1){
-            yearsOfWorkExperience();
+            yearsOfWorkExperience(criteria);
         }
         else{
             System.out.println("Back to create criteria page");
-            //不知道怎么回criteria page!!!!!!
+            createCriteria(criteria);
         }
 
-        return criteria;
     }
 
 
 
-    private Criteria yearsOfWorkExperience(){
+    private void yearsOfWorkExperience(Criteria criteria){
         Scanner sc = new Scanner(System.in);
-        Criteria criteria = new Criteria();
         Validate validate = new Validate();
 
-        //补充！！！
+        System.out.println("please enter the years of work Experience");
+        String year = sc.nextLine();
+        while (validate.checkInt(year) == false){
+            System.out.println("please enter valid integer number");
+            System.out.println("please enter the years of work Experience");
+            year = sc.nextLine();
+        }
+        while (validate.checkRange(Integer.parseInt(year),0,100) == false){
+            System.out.println("Please enter valid range of number");
+            year = sc.nextLine();
+        }
+        int yearInt = Integer.parseInt(year);
+        criteria.setYearsOfWorkExperience(yearInt);
+        System.out.println("you have set the years of work Experience required " + yearInt );
 
         System.out.println("Do you want to continue to set the occupations criteria? ");
-        System.out.println("1.Yes\\t\\t2.No\\r\\n\" ");
+        System.out.println("1.Yes\t\t2.No\r\n ");
         String yn = sc.nextLine();
         while (validate.checkInt(yn) == false){
             System.out.println("please enter valid integer number");
@@ -216,20 +239,18 @@ public class Jsave {
         }
         int ynInt = Integer.parseInt(yn);
         if (ynInt == 1){
-            occupations();
+            occupations(criteria);
         }
         else{
             System.out.println("Back to create criteria page");
-            //不知道怎么回criteria page!!!!!!
+            createCriteria(criteria);
         }
 
-        return criteria;
 
     }
 
-    private Criteria occupations(){
+    private void occupations(Criteria criteria){
         Scanner sc = new Scanner(System.in);
-        Criteria criteria = new Criteria();
         Validate validate = new Validate();
 
         System.out.println("please enter the occupations you want to set, please split them with ','");
@@ -238,27 +259,24 @@ public class Jsave {
         System.out.println("you have set occupations: " + occu);
         System.out.println("please set the number of employees you need with each kind of occupations");
 
-        //for (int i = 0;i <= occu.length){
-
-        // }
-        //System.out.println("how many " + occu[0] + " you need?");
-        //String n = sc.nextLine();
-        //while (validate.checkInt(minAge) == false){
-        // System.out.println("please enter valid integer number");
-        //System.out.println("please enter the min age");
-        //minAge = sc.nextLine();
-        //}
-        // while (validate.checkRange(Integer.parseInt(minAge),15,90) == false){
-        // System.out.println("Please enter valid range of number");
-        // System.out.println("please enter the min age that above 15");
-        //minAge = sc.nextLine();
-        //}
-        // int minAgeInt = Integer.parseInt(minAge);
-        //criteria.setMinimumAge(minAgeInt);
-
+        for (int i = 0;i <= occu.length;i++){
+            System.out.println("please enter the number that how many " + occu[i] + " you need");
+            String n = sc.nextLine();
+            while (validate.checkInt(n) == false){
+                System.out.println("please enter valid integer number");
+                System.out.println("please enter the number again that how many" + occu[i] + " you need");
+                n = sc.nextLine();
+            }
+            while (validate.checkRange(Integer.parseInt(n),0,occu.length) == false){
+                System.out.println("Please enter valid range of number");
+                n = sc.nextLine();
+            }
+            int nInt = Integer.parseInt(n);
+            criteria.setNumberOfEmployee(nInt);
+         }
 
         System.out.println("Do you want to continue to set the computerSkills criteria? ");
-        System.out.println("1.Yes\\t\\t2.No\\r\\n\" ");
+        System.out.println("1.Yes\t\t2.No\r\n ");
         String yn = sc.nextLine();
         while (validate.checkInt(yn) == false){
             System.out.println("please enter valid integer number");
@@ -272,20 +290,18 @@ public class Jsave {
         }
         int ynInt = Integer.parseInt(yn);
         if (ynInt == 1){
-            computerSkills();
+            computerSkills(criteria);
         }
         else{
             System.out.println("Back to create criteria page");
-            //不知道怎么回criteria page!!!!!!
+            createCriteria(criteria);
         }
 
-        return criteria;
 
     }
 
-    private Criteria computerSkills(){
+    private void computerSkills(Criteria criteria){
         Scanner sc = new Scanner(System.in);
-        Criteria criteria = new Criteria();
         Validate validate = new Validate();
 
         System.out.println("please enter the computer skills you want to set, please split them with ','");
@@ -294,7 +310,7 @@ public class Jsave {
         System.out.println("you have set computerSkills: " + comp);
 
         System.out.println("Do you want to continue to set the languageSpoken criteria? ");
-        System.out.println("1.Yes\\t\\t2.No\\r\\n\" ");
+        System.out.println("1.Yes\t\t2.No\r\n ");
         String yn = sc.nextLine();
         while (validate.checkInt(yn) == false){
             System.out.println("please enter valid integer number");
@@ -308,20 +324,18 @@ public class Jsave {
         }
         int ynInt = Integer.parseInt(yn);
         if (ynInt == 1){
-            languageSpoken();
+            languageSpoken(criteria);
         }
         else{
             System.out.println("Back to create criteria page");
-            //不知道怎么回criteria page!!!!!!
+            createCriteria(criteria);
         }
 
-        return criteria;
 
     }
 
-    private Criteria languageSpoken(){
+    private void languageSpoken(Criteria criteria){
         Scanner sc = new Scanner(System.in);
-        Criteria criteria = new Criteria();
         Validate validate = new Validate();
 
         System.out.println("please enter the language spoken you want to set, please split them with ','");
@@ -330,7 +344,7 @@ public class Jsave {
         System.out.println("you have set language spoken: " + lang);
 
         System.out.println("You want to go back to criteria page or review the criteria created? ");
-        System.out.println("1.criteria page\\t\\t2.review criteria\\r\\n\" ");
+        System.out.println("1.criteria page\t\t2.review criteria\r\n");
         String yn = sc.nextLine();
         while (validate.checkInt(yn) == false){
             System.out.println("please enter valid integer number");
@@ -347,14 +361,13 @@ public class Jsave {
             criteria.showCriteria();
             System.out.println("Press space to go back to create criteria page");
             sc.nextLine();
-            //不知道怎么回criteria page!!!!!!
+            createCriteria(criteria);
         }
         else{
             System.out.println("Back to create criteria page");
-            //不知道怎么回criteria page!!!!!!
+            createCriteria(criteria);
         }
 
-        return criteria;
 
     }
 
