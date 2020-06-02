@@ -230,9 +230,10 @@ public class Main {
 
         System.out.println("Please input the month of your DOB:" + "\n(2 digits. e.g. 01)");
         String month = forceinputInt();
-        while (year.length() != 2){
+        while (year.length() != 2) {
             promptWrongEnter("month");
-            month = forceinputInt();}
+            month = forceinputInt();
+        }
         bufferForChecking.append(month);
         arrayListForChecking.add(month);
         bufferForChecking.append("-");
@@ -246,7 +247,7 @@ public class Main {
         bufferForChecking.append(day);
         arrayListForChecking.add(day);
 
-        userCheckInput("address", bufferForChecking.toString(),arrayListForChecking);
+        userCheckInput("address", bufferForChecking.toString(), arrayListForChecking);
         stringBuffer.append(arrayListForChecking.get(0));
         stringBuffer.append("-");
         stringBuffer.append(arrayListForChecking.get(1));
@@ -254,7 +255,8 @@ public class Main {
         stringBuffer.append(arrayListForChecking.get(2));
 
         stringBuffer.append("~");
-        bufferForChecking.
+        bufferForChecking.delete(0, bufferForChecking.length());
+        arrayListForChecking.clear();
         System.out.println('\u000C');
 
         //input address
@@ -306,7 +308,7 @@ public class Main {
         arrayListForChecking.add(postcode);
         arrayListForChecking.add(state);
         arrayListForChecking.add(country);
-        userCheckInput("address", bufferForChecking.toString(),arrayListForChecking);
+        userCheckInput("address", bufferForChecking.toString(), arrayListForChecking);
 
         stringBuffer.append(arrayListForChecking.get(0));
         stringBuffer.append(",");
@@ -598,7 +600,7 @@ public class Main {
         StringBuffer displayBuffer = new StringBuffer();
         System.out.println("Which part of information you want to modify?");
         Iterator it = arrayListForChecking.iterator();
-        while (it.hasNext()){
+        while (it.hasNext()) {
             displayBuffer.append(index);
             displayBuffer.append(it.next());
             displayBuffer.append(" ");
@@ -606,8 +608,7 @@ public class Main {
         }
         System.out.println("Choose an option above to modify:");
         String choosemodify = forceinputInt();
-        while (Integer.parseInt(choosemodify) > index || Integer.parseInt(choosemodify) < 0)
-        {
+        while (Integer.parseInt(choosemodify) > index || Integer.parseInt(choosemodify) < 0) {
             promptWrongEnter("option");
             choosemodify = forceinputInt();
         }
@@ -618,7 +619,7 @@ public class Main {
             modification = forceinputString();
 
         arrayListForChecking.set(Integer.parseInt(choosemodify), modification);
-        userCheckInput(title,input,arrayListForChecking);
+        userCheckInput(title, input, arrayListForChecking);
         return arrayListForChecking;
     }
 
