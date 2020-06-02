@@ -14,10 +14,10 @@ public class MtmSystem {
     private ArrayList<Shuttle> shuttles;
 
 
-    // get list of mission
-    public static void main(String args[]){
-
-    }
+//    // get list of mission
+//    public static void main(String args[]){
+//
+//    }
 
     public ArrayList<Mission> getMissions(){
         missions = new ArrayList<Mission>();
