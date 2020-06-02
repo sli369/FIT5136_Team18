@@ -11,7 +11,6 @@ public class Main {
         ArrayList<String> userList = readFile("users.txt");
 
 
-
         while (true) {
             System.out.println("\n***** Welcome to Mission to Mars *****\r\n");
             System.out.println("1.Login\t\t2.Sign up\t\t3.Exit\r\n");
@@ -254,6 +253,15 @@ public class Main {
 
 // Simon's Code Ends Here ************************************************
 
+
+
+
+
+    ////////////////////////////////////////////////////////////////////////
+    // Joyce code start
+    ///////////////////////////////////////////////////////////////////////
+
+
     //    private int numberOfEmployee;
     //    private byte requiredGender;
     public void createCriteria(String[] args) {
@@ -310,9 +318,6 @@ public class Main {
 
 
 
-    ////////////////////////////////////////////////////////////////////////
-    // Joyce code start
-    ///////////////////////////////////////////////////////////////////////
 
     //
     private Criteria ageRange(){
@@ -368,6 +373,7 @@ public class Main {
         else{
             System.out.println("Back to create criteria page");
             //不知道怎么回criteria page!!!!!!
+            ;
         }
 
         return criteria;
@@ -379,7 +385,10 @@ public class Main {
         Criteria criteria = new Criteria();
         Validate validate = new Validate();
 
-        //补充！！！
+        System.out.println("please enter the qualifications you want to set, please split them with ','");
+        String[] quali = sc.nextLine().split(",");
+        criteria.setQualification(quali);
+        System.out.println("you have set qualifications: " + quali);
 
         System.out.println("Do you want to continue to set the yearsOfWorkExperience criteria? ");
         System.out.println("1.Yes\\t\\t2.No\\r\\n\" ");
@@ -446,7 +455,30 @@ public class Main {
         Criteria criteria = new Criteria();
         Validate validate = new Validate();
 
-        //补充！！！
+        System.out.println("please enter the occupations you want to set, please split them with ','");
+        String[] occu = sc.nextLine().split(",");
+        criteria.setOccupations(occu);
+        System.out.println("you have set occupations: " + occu);
+        System.out.println("please set the number of employees you need with each kind of occupations");
+
+        //for (int i = 0;i <= occu.length){
+
+       // }
+        //System.out.println("how many " + occu[0] + " you need?");
+        //String n = sc.nextLine();
+        //while (validate.checkInt(minAge) == false){
+           // System.out.println("please enter valid integer number");
+            //System.out.println("please enter the min age");
+            //minAge = sc.nextLine();
+        //}
+       // while (validate.checkRange(Integer.parseInt(minAge),15,90) == false){
+           // System.out.println("Please enter valid range of number");
+           // System.out.println("please enter the min age that above 15");
+            //minAge = sc.nextLine();
+        //}
+       // int minAgeInt = Integer.parseInt(minAge);
+        //criteria.setMinimumAge(minAgeInt);
+
 
         System.out.println("Do you want to continue to set the computerSkills criteria? ");
         System.out.println("1.Yes\\t\\t2.No\\r\\n\" ");
@@ -479,7 +511,10 @@ public class Main {
         Criteria criteria = new Criteria();
         Validate validate = new Validate();
 
-        //补充！！！
+        System.out.println("please enter the computer skills you want to set, please split them with ','");
+        String[] comp = sc.nextLine().split(",");
+        criteria.setComputerSkills(comp);
+        System.out.println("you have set computerSkills: " + comp);
 
         System.out.println("Do you want to continue to set the languageSpoken criteria? ");
         System.out.println("1.Yes\\t\\t2.No\\r\\n\" ");
@@ -512,7 +547,10 @@ public class Main {
         Criteria criteria = new Criteria();
         Validate validate = new Validate();
 
-        //补充！！！
+        System.out.println("please enter the language spoken you want to set, please split them with ','");
+        String[] lang = sc.nextLine().split(",");
+        criteria.setLanguageSpoken(lang);
+        System.out.println("you have set language spoken: " + lang);
 
         System.out.println("You want to go back to criteria page or review the criteria created? ");
         System.out.println("1.criteria page\\t\\t2.review criteria\\r\\n\" ");

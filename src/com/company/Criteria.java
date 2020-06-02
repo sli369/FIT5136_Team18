@@ -1,15 +1,13 @@
 package com.company;
 
-import java.util.ArrayList;
-
 public class Criteria {
     private int minimumAge;
     private int maximumAge;
-    private ArrayList<String> qualification;
+    private String[] qualification;
     private int yearsOfWorkExperience;
-    private ArrayList<String> occupations;
-    private ArrayList<String> computerSkills;
-    private ArrayList<String> languageSpoken;
+    private String[] occupations;
+    private String[] computerSkills;
+    private String[] languageSpoken;
     private int numberOfEmployee;
     private byte requiredGender;
 
@@ -19,9 +17,9 @@ public class Criteria {
 
 
 
-    public Criteria(int minimumAge, int maximumAge, ArrayList<String> qualification,
-                    int yearsOfWorkExperience, ArrayList<String> occupations,
-                    ArrayList<String> computerSkills, ArrayList<String> languageSpoken,
+    public Criteria(int minimumAge, int maximumAge, String[] qualification,
+                    int yearsOfWorkExperience, String[] occupations,
+                    String[] computerSkills, String[] languageSpoken,
                     byte requiredGender,int numberOfEmployee)
     {
         this.minimumAge = minimumAge;
@@ -52,11 +50,11 @@ public class Criteria {
         this.maximumAge = maximumAge;
     }
 
-    public ArrayList<String> getQualification() {
+    public String[] getQualification() {
         return qualification;
     }
 
-    public void setQualification(ArrayList<String> qualification) {
+    public void setQualification(String[] qualification) {
         this.qualification = qualification;
     }
 
@@ -68,27 +66,27 @@ public class Criteria {
         this.yearsOfWorkExperience = yearsOfWorkExperience;
     }
 
-    public ArrayList<String> getOccupations() {
+    public String[] getOccupations() {
         return occupations;
     }
 
-    public void setOccupations(ArrayList<String> occupations) {
+    public void setOccupations(String[] occupations) {
         this.occupations = occupations;
     }
 
-    public ArrayList<String> getComputerSkills() {
+    public String[] getComputerSkills() {
         return computerSkills;
     }
 
-    public void setComputerSkills(ArrayList<String> computerSkills) {
+    public void setComputerSkills(String[] computerSkills) {
         this.computerSkills = computerSkills;
     }
 
-    public ArrayList<String> getLanguageSpoken() {
+    public String[] getLanguageSpoken() {
         return languageSpoken;
     }
 
-    public void setLanguageSpoken(ArrayList<String> languageSpoken) {
+    public void setLanguageSpoken(String[] languageSpoken) {
         this.languageSpoken = languageSpoken;
     }
 
