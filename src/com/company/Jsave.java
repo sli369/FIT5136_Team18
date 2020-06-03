@@ -143,7 +143,7 @@ public class Jsave {
         }
         int ynInt = Integer.parseInt(yn);
         if (ynInt == 1){
-            qualification();
+            qualification(criteria);
         }
         else{
             System.out.println("Back to create criteria page");
@@ -159,7 +159,7 @@ public class Jsave {
 
     private Criteria qualification(Criteria criteria){
         Scanner sc = new Scanner(System.in);
-        Criteria criteria = new Criteria();
+
         Validate validate = new Validate();
 
         System.out.println("please enter the qualifications you want to set, please split them with ','");
@@ -187,6 +187,7 @@ public class Jsave {
         else{
             System.out.println("Back to create criteria page");
             //不知道怎么回criteria page!!!!!!
+            createCriteria(criteria);
         }
 
         return criteria;
