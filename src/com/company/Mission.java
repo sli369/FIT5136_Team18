@@ -9,7 +9,7 @@ public class Mission {
     private String missionName;
     private String missionDescription;
     private String countryOfOrigin;
-    private boolean countriesAllowed;
+    private ArrayList<String> countriesAllowed;
     private Coordinator coordinator;
     private ArrayList<Job> job;
     private String employmentRequirement;
@@ -26,8 +26,8 @@ public class Mission {
     }
 
     public Mission(int missionId, String missionName, String missionDescription, String countryOfOrigin,
-                   boolean countriesAllowed, String employmentRequirement, Date launchDate, String locationDestination,
-                   int missionDuration, char missionStatus, ArrayList<Job> job, ArrayList<Cargo> cargo, ArrayList<Candidate> candidates, ArrayList<Shuttle> shuttles) {
+                   ArrayList<String> countriesAllowed, String employmentRequirement, Date launchDate, String locationDestination,
+                   int missionDuration, char missionStatus) {
         this.missionId = missionId;
         this.missionName = missionName;
         this.missionDescription = missionDescription;
@@ -40,8 +40,7 @@ public class Mission {
         this.missionStatus = missionStatus;
         this.job = job;
         this.cargo = cargo;
-        this.candidates = candidates;
-        this.shuttles = shuttles;
+//        this.candidates = candidates;
     }
 
     public int getMissionId() {
@@ -76,12 +75,20 @@ public class Mission {
         this.countryOfOrigin = countryOfOrigin;
     }
 
-    public boolean isCountriesAllowed() {
+    public ArrayList<String> getCountriesAllowed() {
         return countriesAllowed;
     }
 
-    public void setCountriesAllowed(boolean countriesAllowed) {
+    public void setCountriesAllowed(ArrayList<String> countriesAllowed) {
         this.countriesAllowed = countriesAllowed;
+    }
+
+    public Coordinator getCoordinator() {
+        return coordinator;
+    }
+
+    public void setCoordinator(Coordinator coordinator) {
+        this.coordinator = coordinator;
     }
 
     public String getEmploymentRequirement() {
@@ -139,7 +146,6 @@ public class Mission {
     public ArrayList<Cargo> addCargo() {
         return cargo;
     }
-
 
     public ArrayList<Job> getJob() {
         return job;

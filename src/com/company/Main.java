@@ -1,14 +1,22 @@
 package com.company;
 
 import java.io.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.InputMismatchException;
+import java.util.Iterator;
+import java.util.Scanner;
 
 
 public class Main {
     public static void main(String[] args) {
 
+        int flag = 0;
+        ArrayList<String> userList = readFile();
 
-        ArrayList<String> userList = readFile("users.txt");
+        // search username in users.txt
+        for (String i : userList) {
+            System.out.println(i.substring(0, i.indexOf(",")));
+        }
 
 
         while (true) {
@@ -39,27 +47,29 @@ public class Main {
     private static void login() {
         // read user input
         Scanner sc = new Scanner(System.in);
-        ArrayList<String> userList = readFile("users.txt");
-        System.out.println(userList);
+        ArrayList<String> userList = readFile();
+        //清屏
+        System.out.println('\u000C');
+
         System.out.println("Please enter your username:");
         String input_username = sc.next();
 
         // search username in users.txt
         String u1 = null;
         for (String i : userList) {
-            if (input_username.equals(i.substring(0,i.indexOf(",")))){
+            if (input_username.equals(i.substring(0, i.indexOf(",")))) {
                 u1 = i;
             }
         }
 
-        if (!userList.contains(u1)){
+        if (!userList.contains(u1)) {
             // if not exist
             System.out.print("Username doesn't exist, please try again!");
         } else {
             // if account exists
             while (true) {
                 String[] user_record = u1.split(",");
-                if (Integer.parseInt(user_record[2])>0) {
+                if (Integer.parseInt(user_record[2]) > 0) {
                     System.out.println("Please input your password: ");
                     String input_password = sc.next();
 
@@ -69,34 +79,8 @@ public class Main {
 
                         System.out.println("Hello!" + user_record[0]);
 
-                        System.out.println("Please select an option: ");
-                        System.out.println("1. Create a mission");
-                        System.out.println("2. View all missions");
-                        System.out.println("3. Select a space shuttle");
-                        System.out.println("4. Candidate information");
-                        try {
-                            int i = new Scanner(System.in).nextInt();
-                            switch (i) {
-                                case 1:
-                                    System.out.println("create mission");
-                                    break;
-                                case 2:
-                                    System.out.println("view missions");
-                                    break;
-                                case 3:
-                                    selectShuttle();
-                                case 4:
-                                    System.out.println("candidate information");
-                                case 5:
-                                    System.exit(0);
-                                    break;
-                                default:
-                                    System.out.println("Invalid input!");
-                            }
-                        } catch (InputMismatchException e) {
-                            System.out.println("Please try again!");
-                        }
-
+                        System.out.println("TO BE CONTINUED");
+                        String eee = sc.next();
 
 
                     }
@@ -105,7 +89,7 @@ public class Main {
                         // reduce attempts allowed
                         attemptPenalty(user_record[0]);
                         // re-read file to update attempt chances
-                        ArrayList<String> list1 = readFile("users.txt");
+                        ArrayList<String> list1 = readFile();
                         String u2 = null;
                         for (String j : list1) {
                             if (j.startsWith(input_username)) {
@@ -120,7 +104,7 @@ public class Main {
                             break;
                         }
                     }
-                }else {
+                } else {
                     System.out.println("Your account has been locked, please contact admin!");
                     return;
                 }
@@ -130,38 +114,43 @@ public class Main {
 
 
     private static void signup() {
-        ArrayList<String> list = readFile("users.txt");
+        ArrayList<String> list = readFile();
         Scanner sc = new Scanner(System.in);
         while (true) {
+            System.out.println("Choose an account type:" + "\n1.Administrator  2.Coordinator  3.Candidate");
+            if (sc.next().equals("3")) {
+                signupCandidate();
+            }
             System.out.println("Please input username: ");
             String input_username = sc.next();
 
             String u3 = null;
             for (String m : list) {
-                if (input_username.equals(m.substring(0,m.indexOf(",")))){
+                if (input_username.equals(m.substring(0, m.indexOf(",")))) {
                     u3 = m;
                 }
             }
 
-            if (list.contains(u3)){
+            if (list.contains(u3)) {
                 System.out.print("Username exists!");
-            }else {
+            } else {
                 System.out.println("Please input password: ");
                 String input_password = sc.next();
+                //这里要写加入user id
 
                 list.add(input_username + "," + input_password + ",3,3");
-                writeFile(list, "users.txt");
+                writeFile(list);
                 System.out.println("Registered successfully！");
                 break;
             }
         }
     }
 
-    private static ArrayList<String> readFile(String filename){
+    private static ArrayList<String> readFile() {
         ArrayList<String> list = new ArrayList<>();
-        try (BufferedReader in = new BufferedReader(new FileReader(filename))) {
+        try (BufferedReader in = new BufferedReader(new FileReader("users.txt"))) {
             String row = null;
-            while ((row = in.readLine()) != null){
+            while ((row = in.readLine()) != null) {
                 list.add(row);
             }
 
@@ -175,8 +164,8 @@ public class Main {
         return list;
     }
 
-    private static void writeFile(ArrayList<String> list, String filename){
-        try (BufferedWriter out = new BufferedWriter(new FileWriter(filename))) {
+    private static void writeFile(ArrayList<String> list) {
+        try (BufferedWriter out = new BufferedWriter(new FileWriter("users.txt"))) {
             for (String s : list) {
                 out.write(s);
                 out.newLine();
@@ -189,401 +178,453 @@ public class Main {
     }
 
 
-    private static void attemptPenalty(String n){
-        ArrayList<String> list = readFile("users.txt");
+    private static void attemptPenalty(String n) {
+        ArrayList<String> list = readFile();
 
         String s1 = null;
         for (String s : list) {
-            if (n.equals(s.substring(0,s.indexOf(",")))){
+            if (n.equals(s.substring(0, s.indexOf(",")))) {
                 s1 = s;
             }
         }
 
         String[] split = s1.split(",");
-        if (list.contains(s1)){
+        if (list.contains(s1)) {
             int i = Integer.parseInt(split[2]);
-            i = i-1;
+            i = i - 1;
             list.remove(s1);
-            list.add(split[0]+","+split[1]+","+i+","+split[3]);
-            writeFile(list, "users.txt");
+            list.add(split[0] + "," + split[1] + "," + i + "," + split[3]);
+            writeFile(list);
         }
     }
-// Simon's Code Starts Here ************************************************
-    public static void selectShuttle(){
 
+    private static void signupCandidate() {
+        System.out.println('\u000C');
+        Scanner sc = new Scanner(System.in);
+        StringBuffer stringBuffer = new StringBuffer();
+        StringBuffer bufferForChecking = new StringBuffer();
+        ArrayList<String> arrayListForChecking = new ArrayList<>();
+        //Iterator it = arrayListForChecking.iterator();
+        //Boolean entered = false;
 
-        ArrayList<String> shuttle_list = readFile("shuttles.txt");
+        //input name
+        System.out.println("The next information awating to be entered is DOB.");
+        System.out.println("Please input your full name:");
+        String fullName = forceinputString();
+        fullName = userCheckInput("Full name", fullName);
+        stringBuffer.append(fullName);
+        stringBuffer.append("~");
+        System.out.println('\u000C');
 
-        for(int i=0; i<shuttle_list.size(); i++){
-            System.out.println((i + ". " + shuttle_list.get(i).substring(0,shuttle_list.get(i).indexOf(","))));
+        //input dob
+        System.out.println("The next information awating to be entered is DOB.");
+        System.out.println("Please input the year your Date of birth:" + "\n(4 digits. e.g. 1980)");
+        String year = forceinputInt();
+        while (year.length() != 4) {
+            promptWrongEnter("year");
+            year = forceinputInt();
         }
+        bufferForChecking.append(year);
+        arrayListForChecking.add(year);
+        bufferForChecking.append("-");
 
-        while(true) {
-            System.out.println("Please choose one shuttle: ");
-            int i = new Scanner(System.in).nextInt();
-            if (i < shuttle_list.size()) {
-                List<String> shuttle_info = Arrays.asList(shuttle_list.get(i).split(","));
-                System.out.println("Name: " + shuttle_info.get(0));
-                System.out.println("Manufacture Year: " + shuttle_info.get(1));
-                System.out.println("Fuel Capacity (in litres): " + shuttle_info.get(2));
-                System.out.println("Passenger Capacity: " + shuttle_info.get(3));
-                System.out.println("Cargo Capacity (in kgs): " + shuttle_info.get(4));
-                System.out.println("Travel Speed (kms/hr)" + shuttle_info.get(5));
-                System.out.println("Origin Country: " + shuttle_info.get(6));
-                System.out.println("\n\nWould you like to assign this shuttle to a mission?");
-                System.out.println("1. Yes");
-                System.out.println("2. No");
-                int n = new Scanner(System.in).nextInt();
-                switch(n){
-                    case 1:
-                        System.out.println("Which mission would you like to assign to?");
-                        //show mission
-                        int m = new Scanner(System.in).nextInt();
+        System.out.println("Please input the month of your DOB:" + "\n(2 digits. e.g. 01)");
+        String month = forceinputInt();
+        while (year.length() != 2) {
+            promptWrongEnter("month");
+            month = forceinputInt();
+        }
+        bufferForChecking.append(month);
+        arrayListForChecking.add(month);
+        bufferForChecking.append("-");
 
+        System.out.println("Please input the day of your DOB:" + "\n(2 digits. e.g. 01)");
+        String day = forceinputInt();
+        while (year.length() != 2) {
+            promptWrongEnter("day");
+            day = forceinputInt();
+        }
+        bufferForChecking.append(day);
+        arrayListForChecking.add(day);
+
+        userCheckInput("address", bufferForChecking.toString(), arrayListForChecking);
+        stringBuffer.append(arrayListForChecking.get(0));
+        stringBuffer.append("-");
+        stringBuffer.append(arrayListForChecking.get(1));
+        stringBuffer.append("-");
+        stringBuffer.append(arrayListForChecking.get(2));
+
+        stringBuffer.append("~");
+        bufferForChecking.delete(0, bufferForChecking.length());
+        arrayListForChecking.clear();
+        System.out.println('\u000C');
+
+        //input address
+        System.out.println("The next information awating to be entered is address.");
+        System.out.println("Please enter the street number of your address:");
+        String streetNumber = forceinputInt();
+
+        System.out.println("Please enter the street name of your address:");
+        String streetName = forceinputString();
+
+        System.out.println("Please enter the suburb/city name of your address:");
+        String suburb = forceinputInt();
+
+        System.out.println("Please enter the postcode of your address:");
+        String postcode = forceinputInt();
+
+        System.out.println("Please enter the state of your address:");
+        String state = forceinputString();
+
+        System.out.println("Please enter the country of your address:");
+        String country = forceinputString();
+
+        System.out.println("Please enter other detials of your address:" + "\ne.g. Unit, Lot."
+                + "(If your address doesn't has extra details, please enter n/a");
+        String otherdetails = forceinputString();
+        if (otherdetails.equals("n/a"))
+            otherdetails = "";
+
+
+        bufferForChecking.append(otherdetails);
+        bufferForChecking.append(",");
+        bufferForChecking.append(streetNumber);
+        bufferForChecking.append(" ");
+        bufferForChecking.append(streetName);
+        bufferForChecking.append(",");
+        bufferForChecking.append(suburb);
+        bufferForChecking.append(" ");
+        bufferForChecking.append(postcode);
+        bufferForChecking.append(",");
+        bufferForChecking.append(state);
+        bufferForChecking.append(",");
+        bufferForChecking.append(country);
+
+
+        arrayListForChecking.add(otherdetails);
+        arrayListForChecking.add(streetNumber);
+        arrayListForChecking.add(streetName);
+        arrayListForChecking.add(suburb);
+        arrayListForChecking.add(postcode);
+        arrayListForChecking.add(state);
+        arrayListForChecking.add(country);
+        userCheckInput("address", bufferForChecking.toString(), arrayListForChecking);
+
+        stringBuffer.append(arrayListForChecking.get(0));
+        stringBuffer.append(",");
+        stringBuffer.append(arrayListForChecking.get(1));
+        stringBuffer.append(" ");
+        stringBuffer.append(arrayListForChecking.get(2));
+        stringBuffer.append(",");
+        stringBuffer.append(arrayListForChecking.get(3));
+        stringBuffer.append(" ");
+        stringBuffer.append(arrayListForChecking.get(4));
+        stringBuffer.append(",");
+        stringBuffer.append(arrayListForChecking.get(5));
+        stringBuffer.append(",");
+        stringBuffer.append(arrayListForChecking.get(6));
+        stringBuffer.append("~");
+        System.out.println('\u000C');
+
+
+        //input nationality
+        System.out.println("The next information awating to be entered is nationality.");
+        System.out.println("Please enter your nationality:");
+        String nationality = forceinputString();
+        stringBuffer.append(nationality);
+        stringBuffer.append("~");
+
+        //input identification number
+        System.out.println("The next information awating to be entered is identification number.");
+        System.out.println("Please enter your identification type:");
+        String identificationType = forceinputString().toUpperCase();
+        stringBuffer.append(identificationType);
+        stringBuffer.append(":");
+        System.out.println("Please enter your identification number:");
+        String identificationNumber = forceinputInt();
+        stringBuffer.append(identificationNumber);
+        stringBuffer.append("~");
+        System.out.println('\u000C');
+
+        //input gender
+        System.out.println("The next information awating to be entered is gender.");
+        System.out.println("Please enter your gender by choosing an option:"
+                + "\n1.Female 2.Male 3.Other" + "e.g. If you are female, enter 1.");
+        String gender = forceinputInt();
+        while (!(gender.equals("1")) || !(gender.equals("2")) || !(gender.equals("3"))) {
+            System.out.println("The option you choose is not correct.");
+            gender = forceinputInt();
+        }
+        switch (gender) {
+            case "1":
+                gender = "Female";
+                stringBuffer.append(gender);
+                stringBuffer.append("~");
+            case "2":
+                gender = "Male";
+                stringBuffer.append(gender);
+                stringBuffer.append("~");
+            case "3":
+                gender = "Other";
+                stringBuffer.append(gender);
+                stringBuffer.append("~");
+        }
+        System.out.println('\u000C');
+
+        //input allergies
+        System.out.println("The next information awating to be entered is Allergies.");
+        System.out.println("If you don't have any allergies, please enter n/a.");
+        System.out.println("Please enter ( one of ) your Allergies:");
+        String allergies = "";
+        allergies = forceinputString();
+        while (!(allergies.equals("n/a"))) {
+            stringBuffer.append(allergies);
+            stringBuffer.append(",");
+            System.out.println("Please enter your next Allergies:");
+            System.out.println("If you don't have more allergies, please enter n/a.");
+            allergies = forceinputString();
+        }
+        if (allergies.equals("n/a"))
+            allergies = "";
+        stringBuffer.append(allergies);
+        System.out.println('\u000C');
+
+        //input food preferences
+        System.out.println("The next information awating to be entered is food preferences.");
+        System.out.println("Please enter your food preferences by choosing an option:"
+                + "\n1.none 2.kosher 3.vegetarian 4.vegan 5.halal");
+        String foodPreferences = forceinputInt();
+        while (!(foodPreferences.equals("1") || foodPreferences.equals("2") || foodPreferences.equals("3")
+                || foodPreferences.equals("4") || foodPreferences.equals("5")))
+            foodPreferences = forceinputInt();
+        switch (foodPreferences) {
+            case "1":
+                foodPreferences = "none";
+                stringBuffer.append(gender);
+                stringBuffer.append("~");
+            case "2":
+                foodPreferences = "kosher";
+                stringBuffer.append(gender);
+                stringBuffer.append("~");
+            case "3":
+                foodPreferences = "vegetarian";
+                stringBuffer.append(gender);
+                stringBuffer.append("~");
+            case "4":
+                foodPreferences = "vegan";
+                stringBuffer.append(gender);
+                stringBuffer.append("~");
+            case "5":
+                foodPreferences = "halal";
+                stringBuffer.append(gender);
+                stringBuffer.append("~");
+        }
+        stringBuffer.append(foodPreferences);
+        System.out.println('\u000C');
+
+        //input qualification(s)
+        System.out.println("The next information awating to be entered is qualification(s).");
+        System.out.println("Please enter ( one of ) your qualification:");
+        System.out.println("(If you don't have any, please enter n/a.");
+        String qalification = forceinputString();
+        //
+        while (!(qalification.equalsIgnoreCase("n/a"))) {
+            stringBuffer.append(qalification);
+            stringBuffer.append(",");
+
+            //
+            System.out.println("Please enter your next qalification:");
+            System.out.println("If you don't have more qalification, please enter n/a.");
+            qalification = forceinputString();
+        }
+        stringBuffer.append("~");
+        System.out.println('\u000C');
+
+        //inout occupation(s)
+        System.out.println("The next information awating to be entered is occupation(s).");
+        System.out.println("Please enter ( one of ) your occupation(s):");
+        System.out.println("(If you don't have any, please enter n/a.");
+        String occupation = forceinputString();
+        ArrayList<String> occupationList = new ArrayList<>();
+        while (!(occupation.equalsIgnoreCase("n/a"))) {
+            stringBuffer.append(occupation);
+            stringBuffer.append(",");
+            String occupationAddtoList = occupation;
+            occupationList.add(occupationAddtoList);
+            //
+            System.out.println("Please enter your next occupation:");
+            System.out.println("If you don't have more occupation, please enter n/a.");
+            occupation = forceinputString();
+        }
+        stringBuffer.append("~");
+        System.out.println('\u000C');
+
+        //input work experience
+        System.out.println("The next information awating to be entered is work experience.");
+        System.out.println("(Please round the number. e.g. enter 5 if worked for 4.5yr or 5.4yr)");
+        Iterator<String> it = occupationList.iterator();
+        while (it.hasNext()) {
+            System.out.println("Please enter the number of year you worked as " + it.hasNext() + ".");
+            String workyr = forceinputInt();
+            stringBuffer.append(workyr);
+        }
+        stringBuffer.append("~");
+        System.out.println('\u000C');
+
+        //input computer skill
+        System.out.println("The next information awating to be entered is computerSkill(s).");
+        System.out.println("Please enter ( one of ) your computerSkill(s):");
+        System.out.println("(If you don't have any, please enter n/a.");
+        String computerSkill = forceinputString();
+
+        while (!(computerSkill.equalsIgnoreCase("n/a"))) {
+            stringBuffer.append(computerSkill);
+            stringBuffer.append(",");
+            //
+            System.out.println("Please enter your next computerSkill:");
+            System.out.println("If you don't have more computerSkill, please enter n/a.");
+            computerSkill = forceinputString();
+        }
+        stringBuffer.append("~");
+        System.out.println('\u000C');
+
+        //input language(s) spoken
+        //input computer skill
+        System.out.println("The next information awating to be entered is language(s) spoken.");
+        System.out.println("Please enter ( one of ) your language(s) spoken:");
+        System.out.println("(If you don't have any, please enter n/a.");
+        String language = forceinputString();
+        while (!(language.equalsIgnoreCase("n/a"))) {
+            stringBuffer.append(language);
+            stringBuffer.append(",");
+            //
+            System.out.println("Please enter your next computerSkill:");
+            System.out.println("If you don't have more computerSkill, please enter n/a.");
+            language = forceinputString();
+        }
+        stringBuffer.append("~");
+        System.out.println('\u000C');
+
+        System.out.println("You have entered all personal details that required." +
+                "\nYour personal details can be viewed and modified in \"View profile\" in the main page.");
+        //Do something to the string buffer.(Add it to the excel)
+
+    }
+
+
+    //https://stackoverflow.com/questions/237159/whats-the-best-way-to-check-if-a-string-represents-an-integer-in-java
+    public static boolean isInteger(String str) {
+        if (str == null) {
+            return false;
+        }
+        int length = str.length();
+        if (length == 0) {
+            return false;
+        }
+        int i = 0;
+        if (str.charAt(0) == '-') {
+            if (length == 1) {
+                return false;
             }
-            System.out.println("Please try again!");
+            i = 1;
         }
-
-
-
-
-        }
-
-    }
-
-// Simon's Code Ends Here ************************************************
-
-
-
-
-
-    ////////////////////////////////////////////////////////////////////////
-    // Joyce code start
-    ///////////////////////////////////////////////////////////////////////
-
-
-    //    private int numberOfEmployee;
-    //    private byte requiredGender;
-    public void createCriteria(String[] args) {
-
-        //ArrayList<String> candidateList = readFile("users.txt");
-        Validate validate = new Validate();
-        Scanner sc = new Scanner(System.in);
-
-        while (true) {
-            System.out.println("\n********** create the criteria to select employees **********\r\n");
-            System.out.println("\n****** please select the criteria that you want to set ******\r\n");
-            System.out.println("1.minimumAge & maximumAge\t\t2.qualification\t\t3.yearsOfWorkExperience\r\n");
-            System.out.println("4.occupations\t\t5.computerSkills\t\t6.languageSpoken\r\n");
-            System.out.println("*************************************************************");
-            System.out.println("Please input your selection: ");
-            try {
-                String c = sc.nextLine();
-                while (validate.checkInt(c) == false){
-                    System.out.println("please enter valid integer number");
-                    System.out.println("please input your selection: ");
-                    c = sc.nextLine();
-                }
-                while (validate.checkRange(Integer.parseInt(c),1,6) == false){
-                    System.out.println("Please enter valid range of number");
-                    System.out.println("Please input your selection: number between 1~6 ");
-                    c = sc.nextLine();
-                }
-                int ci = Integer.parseInt(c);
-
-                switch (ci) {
-                    case 1:
-                        ageRange();
-                        break;
-                    case 2:
-                        qualification();
-                        break;
-                    case 3:
-                        yearsOfWorkExperience();
-                    case 4:
-                        occupations();
-                    case 5:
-                        computerSkills();
-                    case 6:
-                        languageSpoken();
-
-                    default:
-                        System.out.println("Invalid input!");
-                }
-            } catch (InputMismatchException e) {
-                System.out.println("Please try again!");
+        for (; i < length; i++) {
+            char c = str.charAt(i);
+            if (c < '0' || c > '9') {
+                return false;
             }
         }
+        return true;
     }
 
+    private static boolean validation(String str) {
+        boolean correct = false;
+        if (!(str.trim().isEmpty()))
+            correct = true;
+        return correct;
+    }
 
-
-
-    //
-    private Criteria ageRange(){
+    private static String forceinputString() {
+        Boolean entered = false;
+        String nextinput = "";
         Scanner sc = new Scanner(System.in);
-        Criteria criteria = new Criteria();
-        Validate validate = new Validate();
-        System.out.println("please enter the min age");
-        String minAge = sc.nextLine();
-        while (validate.checkInt(minAge) == false){
-            System.out.println("please enter valid integer number");
-            System.out.println("please enter the min age");
-            minAge = sc.nextLine();
+        while (entered == false) {
+            System.out.println("The input is not correct, pleace enter again:");
+            nextinput = sc.nextLine();
+            if (validation(nextinput) == true) {
+                entered = true;
+                System.out.println('\u000C');
+            }
         }
-        while (validate.checkRange(Integer.parseInt(minAge),15,90) == false){
-            System.out.println("Please enter valid range of number");
-            System.out.println("please enter the min age that above 15");
-            minAge = sc.nextLine();
-        }
-        int minAgeInt = Integer.parseInt(minAge);
-        criteria.setMinimumAge(minAgeInt);
-        System.out.println("you have set the minimum age as " + minAgeInt + ". Now please enter the max age");
-        String maxAge = sc.nextLine();
-        while (validate.checkInt(maxAge) == false){
-            System.out.println("please enter valid integer number");
-            System.out.println("please enter the max age");
-            maxAge = sc.nextLine();
-        }
-        while (validate.checkRange(Integer.parseInt(maxAge),15,90) == false){
-            System.out.println("Please enter valid range of number");
-            System.out.println("please enter the max age that below 90");
-            maxAge = sc.nextLine();
-        }
-        int maxAgeInt = Integer.parseInt(maxAge);
-        criteria.setMaximumAge(maxAgeInt);
-        System.out.println("you have set the minimum age as " + minAgeInt + " and the max age " + maxAgeInt);
-        System.out.println("Do you want to continue to set the qualification criteria? ");
-        System.out.println("1.Yes\\t\\t2.No\\r\\n\" ");
-        String yn = sc.nextLine();
-        while (validate.checkInt(yn) == false){
-            System.out.println("please enter valid integer number");
-            System.out.println("please input your selection: ");
-            yn = sc.nextLine();
-        }
-        while (validate.checkRange(Integer.parseInt(yn),1,2) == false){
-            System.out.println("Please enter valid range of number");
-            System.out.println("Please input your selection: number between 1~2 ");
-            yn = sc.nextLine();
-        }
-        int ynInt = Integer.parseInt(yn);
-        if (ynInt == 1){
-            qualification();
-        }
-        else{
-            System.out.println("Back to create criteria page");
-            //不知道怎么回criteria page!!!!!!
-            ;
-        }
-
-        return criteria;
-
+        return nextinput;
     }
 
-    private Criteria qualification(){
+    private static String forceinputInt() {
+        Boolean inputInt = false;
         Scanner sc = new Scanner(System.in);
-        Criteria criteria = new Criteria();
-        Validate validate = new Validate();
-
-        System.out.println("please enter the qualifications you want to set, please split them with ','");
-        String[] quali = sc.nextLine().split(",");
-        criteria.setQualification(quali);
-        System.out.println("you have set qualifications: " + quali);
-
-        System.out.println("Do you want to continue to set the yearsOfWorkExperience criteria? ");
-        System.out.println("1.Yes\\t\\t2.No\\r\\n\" ");
-        String yn = sc.nextLine();
-        while (validate.checkInt(yn) == false){
-            System.out.println("please enter valid integer number");
-            System.out.println("please input your selection: ");
-            yn = sc.nextLine();
+        String year = sc.nextLine();
+        while ((inputInt == false)) {
+            if (isInteger(sc.nextLine()) == false) {
+                System.out.println("The information has not been entered correctly. Please enter the year your Date of birth again:");
+                year = sc.nextLine();
+            } else {
+                inputInt = true;
+            }
         }
-        while (validate.checkRange(Integer.parseInt(yn),1,2) == false){
-            System.out.println("Please enter valid range of number");
-            System.out.println("Please input your selection: number between 1~2 ");
-            yn = sc.nextLine();
-        }
-        int ynInt = Integer.parseInt(yn);
-        if (ynInt == 1){
-            yearsOfWorkExperience();
-        }
-        else{
-            System.out.println("Back to create criteria page");
-            //不知道怎么回criteria page!!!!!!
-        }
-
-        return criteria;
+        return year;
     }
 
-
-
-    private Criteria yearsOfWorkExperience(){
+    private static String userCheckInput(String title, String input) {
         Scanner sc = new Scanner(System.in);
-        Criteria criteria = new Criteria();
-        Validate validate = new Validate();
+        System.out.println(title + ": " + input);
+        System.out.println("Is that correct?");
+        System.out.println("1.Yes, it is correct. 2.I need to modify it.");
 
-        //补充！！！
-
-        System.out.println("Do you want to continue to set the occupations criteria? ");
-        System.out.println("1.Yes\\t\\t2.No\\r\\n\" ");
-        String yn = sc.nextLine();
-        while (validate.checkInt(yn) == false){
-            System.out.println("please enter valid integer number");
-            System.out.println("please input your selection: ");
-            yn = sc.nextLine();
-        }
-        while (validate.checkRange(Integer.parseInt(yn),1,2) == false){
-            System.out.println("Please enter valid range of number");
-            System.out.println("Please input your selection: number between 1~2 ");
-            yn = sc.nextLine();
-        }
-        int ynInt = Integer.parseInt(yn);
-        if (ynInt == 1){
-            occupations();
-        }
-        else{
-            System.out.println("Back to create criteria page");
-            //不知道怎么回criteria page!!!!!!
+        String choice = forceinputInt();
+        while (!(choice.equals("2"))) {
+            if (!(choice.equals("1"))) {
+                System.out.println("You have not enter an option number above. Please enter an option:");
+                choice = forceinputInt();
+            }
+            System.out.println("Please enter the correct " + title + ":");
+            input = sc.nextLine();
+            userCheckInput(title, input);
         }
 
-        return criteria;
-
+        return input;
     }
 
-    private Criteria occupations(){
+    private static ArrayList userCheckInput(String title, String input, ArrayList<String> arrayListForChecking) {
+        int index = 0;
         Scanner sc = new Scanner(System.in);
-        Criteria criteria = new Criteria();
-        Validate validate = new Validate();
-
-        System.out.println("please enter the occupations you want to set, please split them with ','");
-        String[] occu = sc.nextLine().split(",");
-        criteria.setOccupations(occu);
-        System.out.println("you have set occupations: " + occu);
-        System.out.println("please set the number of employees you need with each kind of occupations");
-
-        //for (int i = 0;i <= occu.length){
-
-       // }
-        //System.out.println("how many " + occu[0] + " you need?");
-        //String n = sc.nextLine();
-        //while (validate.checkInt(minAge) == false){
-           // System.out.println("please enter valid integer number");
-            //System.out.println("please enter the min age");
-            //minAge = sc.nextLine();
-        //}
-       // while (validate.checkRange(Integer.parseInt(minAge),15,90) == false){
-           // System.out.println("Please enter valid range of number");
-           // System.out.println("please enter the min age that above 15");
-            //minAge = sc.nextLine();
-        //}
-       // int minAgeInt = Integer.parseInt(minAge);
-        //criteria.setMinimumAge(minAgeInt);
-
-
-        System.out.println("Do you want to continue to set the computerSkills criteria? ");
-        System.out.println("1.Yes\\t\\t2.No\\r\\n\" ");
-        String yn = sc.nextLine();
-        while (validate.checkInt(yn) == false){
-            System.out.println("please enter valid integer number");
-            System.out.println("please input your selection: ");
-            yn = sc.nextLine();
+        StringBuffer displayBuffer = new StringBuffer();
+        System.out.println("Which part of information you want to modify?");
+        Iterator it = arrayListForChecking.iterator();
+        while (it.hasNext()) {
+            displayBuffer.append(index);
+            displayBuffer.append(it.next());
+            displayBuffer.append(" ");
+            index++;
         }
-        while (validate.checkRange(Integer.parseInt(yn),1,2) == false){
-            System.out.println("Please enter valid range of number");
-            System.out.println("Please input your selection: number between 1~2 ");
-            yn = sc.nextLine();
+        System.out.println("Choose an option above to modify:");
+        String choosemodify = forceinputInt();
+        while (Integer.parseInt(choosemodify) > index || Integer.parseInt(choosemodify) < 0) {
+            promptWrongEnter("option");
+            choosemodify = forceinputInt();
         }
-        int ynInt = Integer.parseInt(yn);
-        if (ynInt == 1){
-            computerSkills();
-        }
-        else{
-            System.out.println("Back to create criteria page");
-            //不知道怎么回criteria page!!!!!!
-        }
+        String modification = "";
+        if (isInteger(arrayListForChecking.get(Integer.parseInt(choosemodify))))
+            modification = forceinputInt();
+        else
+            modification = forceinputString();
 
-        return criteria;
-
+        arrayListForChecking.set(Integer.parseInt(choosemodify), modification);
+        userCheckInput(title, input, arrayListForChecking);
+        return arrayListForChecking;
     }
 
-    private Criteria computerSkills(){
-        Scanner sc = new Scanner(System.in);
-        Criteria criteria = new Criteria();
-        Validate validate = new Validate();
-
-        System.out.println("please enter the computer skills you want to set, please split them with ','");
-        String[] comp = sc.nextLine().split(",");
-        criteria.setComputerSkills(comp);
-        System.out.println("you have set computerSkills: " + comp);
-
-        System.out.println("Do you want to continue to set the languageSpoken criteria? ");
-        System.out.println("1.Yes\\t\\t2.No\\r\\n\" ");
-        String yn = sc.nextLine();
-        while (validate.checkInt(yn) == false){
-            System.out.println("please enter valid integer number");
-            System.out.println("please input your selection: ");
-            yn = sc.nextLine();
-        }
-        while (validate.checkRange(Integer.parseInt(yn),1,2) == false){
-            System.out.println("Please enter valid range of number");
-            System.out.println("Please input your selection: number between 1~2 ");
-            yn = sc.nextLine();
-        }
-        int ynInt = Integer.parseInt(yn);
-        if (ynInt == 1){
-            languageSpoken();
-        }
-        else{
-            System.out.println("Back to create criteria page");
-            //不知道怎么回criteria page!!!!!!
-        }
-
-        return criteria;
-
+    private static void promptWrongEnter(String str) {
+        System.out.println("You have not enter a correct " + str
+                + ". Please enter it again.");
     }
-
-    private Criteria languageSpoken(){
-        Scanner sc = new Scanner(System.in);
-        Criteria criteria = new Criteria();
-        Validate validate = new Validate();
-
-        System.out.println("please enter the language spoken you want to set, please split them with ','");
-        String[] lang = sc.nextLine().split(",");
-        criteria.setLanguageSpoken(lang);
-        System.out.println("you have set language spoken: " + lang);
-
-        System.out.println("You want to go back to criteria page or review the criteria created? ");
-        System.out.println("1.criteria page\\t\\t2.review criteria\\r\\n\" ");
-        String yn = sc.nextLine();
-        while (validate.checkInt(yn) == false){
-            System.out.println("please enter valid integer number");
-            System.out.println("please input your selection: ");
-            yn = sc.nextLine();
-        }
-        while (validate.checkRange(Integer.parseInt(yn),1,2) == false){
-            System.out.println("Please enter valid range of number");
-            System.out.println("Please input your selection: number between 1~2 ");
-            yn = sc.nextLine();
-        }
-        int ynInt = Integer.parseInt(yn);
-        if (ynInt == 2){
-            criteria.showCriteria();
-            System.out.println("Press space to go back to create criteria page");
-            sc.nextLine();
-            //不知道怎么回criteria page!!!!!!
-        }
-        else{
-            System.out.println("Back to create criteria page");
-            //不知道怎么回criteria page!!!!!!
-        }
-
-        return criteria;
-
-    }
-
-    ////////////////////////////////////////////////////////////////////////
-    // Joyce code end
-    ///////////////////////////////////////////////////////////////////////
-
-
 }
