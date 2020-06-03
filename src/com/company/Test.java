@@ -12,6 +12,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Scanner;
 
 public class Test {
 
@@ -27,14 +28,17 @@ public class Test {
         WritableWorkbook writebook = null;
         InputStream in = null;
         String UTF8_ENCODING = "UTF-8";
+        Scanner sc = new Scanner(System.in);
         try {
             WorkbookSettings setEncode = new WorkbookSettings();
             setEncode.setEncoding(UTF8_ENCODING);
-            in = new FileInputStream(new File("/Users/zoe/IdeaProjects/FIT5136_Team18/Candidate.xls"));
+            in = new FileInputStream(new File("Candidate.xls"));
             Workbook existingWorkbook = Workbook.getWorkbook(in);
-            WritableWorkbook workbookCopy = Workbook.createWorkbook(new java.io.File("/Users/zoe/IdeaProjects/FIT5136_Team18/Candidate.xls"), existingWorkbook);
+            WritableWorkbook workbookCopy = Workbook.createWorkbook(new java.io.File("Candidate.xls"), existingWorkbook);
             WritableSheet sheetToEdit = workbookCopy.getSheet(0);
-            sheetToEdit.addCell(new Label(4, 12, "test3"));
+            String value = sc.nextLine();
+            sheetToEdit.addCell(new Label(5, 12, value));
+            System.out.println("You add successfully");
             workbookCopy.write();
             workbookCopy.close();
             in.close();
