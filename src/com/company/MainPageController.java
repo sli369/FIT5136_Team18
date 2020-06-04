@@ -39,10 +39,13 @@ public class MainPageController {
         switch(userInput){
             case 1:
                 missionControl.createMission();
+                break;
             case 2:
                 mtm.showMissions();
+                break;
             case 3:
                 shuttleControl.shuttlePage();
+                break;
             case 4:
 
         }
