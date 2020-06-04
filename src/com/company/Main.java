@@ -18,6 +18,8 @@ public class Main {
             System.out.println(i.substring(0, i.indexOf(",")));
         }
 
+        MainPageController mainpage = new MainPageController();
+
 
         while (true) {
             System.out.println("\n***** Welcome to Mission to Mars *****\r\n");
@@ -29,6 +31,7 @@ public class Main {
                 switch (i) {
                     case 1:
                         login();
+                        mainpage.WelcomePage();
                         break;
                     case 2:
                         signup();
@@ -77,10 +80,8 @@ public class Main {
                     if (input_password.equals(user_record[1])) {
                         System.out.println("Login successful!");
 
-                        System.out.println("Hello!" + user_record[0]);
-
-                        System.out.println("TO BE CONTINUED");
-                        String eee = sc.next();
+                        System.out.println("\n Welcome " + user_record[0]);
+                        break;
 
 
                     }
@@ -627,4 +628,6 @@ public class Main {
         System.out.println("You have not enter a correct " + str
                 + ". Please enter it again.");
     }
+
+
 }
