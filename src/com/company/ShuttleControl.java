@@ -15,23 +15,126 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.Scanner;
 
 public class ShuttleControl {
 
     private static final String UTF8_ENCODING = "UTF-8";
     private ArrayList<Shuttle> shuttles;
+    MainPageController mp = new MainPageController();
 
-    public void checkShuttleInput(String shuttleid)
+    public void shuttlePage(){
+        Scanner sc = new Scanner(System.in);
+        int userInput = 0;
+        System.out.println("-- Please select an option: ");
+        System.out.println("1. View all shuttles ");
+        System.out.println("2. Search for a shuttle");
+        System.out.println("3. Change status of a shuttle");
+        System.out.println("4. Back");
+        System.out.println("-- Please enter the number of your selection:");
+        while(true) {
+            try {
+                userInput = sc.nextInt();
+                while(true){
+                    if(userInput>=1 && userInput<=4){
+                        break;
+                    }
+                    else{
+                        System.out.println("Wrong input! Please enter a valid option:");
+                        userInput = sc.nextInt();
+                    }
+                }
+                break;
+            }catch(Exception e) {
+                System.out.println("Wrong input! please enter an Integer: ");
+                sc.next();
+            }
+        }
+
+//        while(!rangeInDefined(userInput,1,3)){
+//            System.out.println("Please enter a valid option!");
+//            userInput = sc.nextInt();
+//        }
+        switch(userInput){
+            case 1:
+                showShuttles();
+                shuttlePage();
+            case 2:
+                int s1 = 0;
+                System.out.println("-- Please enter the shuttle ID:");
+                while(true) {
+                    try {
+                        s1 = sc.nextInt();
+                        while(true){
+                            if(inShuttleList(s1)){
+                                break;
+                            }
+                            else{
+                                System.out.println("Shuttle does not exist! Please try again:");
+                                s1 = sc.nextInt();
+                            }
+                        }
+                        break;
+                    }catch(Exception e) {
+                        System.out.println("Wrong input! please enter an Integer: ");
+                        sc.next();
+                    }
+                }
+                showShuttleDetails(s1);
+                shuttlePage();
+
+            case 3:
+                int s2 = 0;
+                System.out.println("-- Please enter the shuttle ID:");
+                while(true) {
+                    try {
+                        s2 = sc.nextInt();
+                        while(true){
+                            if(inShuttleList(s2)){
+                                break;
+                            }
+                            else{
+                                System.out.println("Shuttle does not exist! Please try again:");
+                                s2 = sc.nextInt();
+                            }
+                        }
+                        break;
+                    }catch(Exception e) {
+                        System.out.println("Wrong input! please enter an Integer: ");
+                        sc.next();
+                    }
+                }
+                changeShuttleStatus(s2);
+                shuttlePage();
+            case 4:
+                mp.WelcomePage();
+        }
+
+    }
+
+    public static boolean isNumeric(String str) {
+        for (int i = str.length(); --i >= 0;) {
+            if (!Character.isDigit(str.charAt(i))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static boolean rangeInDefined(int current, int min, int max)
     {
-        try
-        {
-            int i = Integer.parseInt(shuttleid);
+        return Math.max(min, current) == Math.min(current, max);
+    }
 
+    public  boolean inShuttleList(int shuttleid){
+        getShuttles();
+        boolean ret = false;
+        for(int i=0; i<shuttles.size(); i++){
+            if(shuttleid == shuttles.get(i).getShuttleId()){
+                ret = true;
+            }
         }
-        catch(Exception e)
-        {
-            System.out.println("Please input a correct shuttle ID!");
-        }
+        return ret;
     }
 
     public boolean checkShuttleID(int shuttleid) throws IOException, BiffException {
@@ -111,6 +214,7 @@ public class ShuttleControl {
                 System.out.println("If Available: " + shuttles.get(i).getStatus());
             }
         }
+        System.out.println("*******************************************");
     }
 
     public void changeShuttleStatus(int shuttleid) {
@@ -165,12 +269,7 @@ public class ShuttleControl {
                 String origin;
                 boolean status;
                 SimpleDateFormat format = new SimpleDateFormat("dd/mm/yyyy");
-
-                // 读取第1个mission内容
-//                if(j == 1){
                 Cell[] cells = sheet.getRow(j);
-//                    for(int i=0; i< columns_total; i++) {
-//                        System.out.println(cells[i].getContents());
                 shuttleId = Integer.parseInt(cells[0].getContents());
                 shuttleName = cells[1].getContents();
                 manuYear = format.parse(cells[2].getContents());
