@@ -467,6 +467,7 @@ public class Zoe {
         return anInt;
     }
 
+    //checked
     private String userCheckInput(String title, String input) {
         Scanner sc = new Scanner(System.in);
         System.out.println(title + ": " + input);
@@ -492,6 +493,7 @@ public class Zoe {
         return input;
     }
 
+    //not checked
     private static ArrayList userCheckInput(String title, String input, ArrayList<String> arrayListForChecking) {
         int index = 0;
         Scanner sc = new Scanner(System.in);
