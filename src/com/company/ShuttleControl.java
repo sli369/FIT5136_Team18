@@ -1,16 +1,16 @@
 package com.company;
 
-import jxl.Cell;
-import jxl.CellType;
-import jxl.Sheet;
-import jxl.Workbook;
+import jxl.*;
 import jxl.read.biff.BiffException;
 import jxl.write.Label;
 import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
+import jxl.write.WriteException;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,6 +18,7 @@ import java.util.Date;
 
 public class ShuttleControl {
 
+    private static final String UTF8_ENCODING = "UTF-8";
     private ArrayList<Shuttle> shuttles;
 
     public void checkShuttleInput(String shuttleid)
@@ -112,21 +113,35 @@ public class ShuttleControl {
         }
     }
 
-    public void changeShuttleStatus(int shuttleid){
+    public void changeShuttleStatus(int shuttleid) {
         shuttles = getShuttles();
-        for(int i=0; i<shuttles.size(); i++){
-            if(shuttles.get(i).getShuttleId() == shuttleid){
-                if(shuttles.get(i).getStatus()){
+        int target = 0;
+        for (int i = 0; i < shuttles.size(); i++) {
+            if (shuttles.get(i).getShuttleId() == shuttleid) {
+                target = i;
+                if (shuttles.get(i).getStatus()) {
                     shuttles.get(i).setStatus(false);
-                    System.out.println(shuttles.get(i).getStatus());
-                }
-                else{
+                } else {
                     shuttles.get(i).setStatus(true);
-                    System.out.println(shuttles.get(i).getStatus());
-
                 }
-
             }
+        }
+        InputStream in = null;
+        try {
+            WorkbookSettings setEncode = new WorkbookSettings();
+            setEncode.setEncoding(UTF8_ENCODING);
+            in = new FileInputStream(new File("shuttles.xls"));
+            Workbook existingWorkbook = Workbook.getWorkbook(in);
+            WritableWorkbook workbookCopy = Workbook.createWorkbook(new java.io.File("shuttles.xls"), existingWorkbook);
+            WritableSheet sheetToEdit = workbookCopy.getSheet(0);
+            String value = String.valueOf(shuttles.get(target).getStatus());
+            sheetToEdit.addCell(new Label(8, target + 1, value));
+            System.out.println("The Status of Shuttle " + shuttleid + " has been changed to " + shuttles.get(target).getStatus());
+            workbookCopy.write();
+            workbookCopy.close();
+            in.close();
+        } catch (IOException | WriteException | BiffException e) {
+            System.out.println(e.getMessage());
         }
     }
 
