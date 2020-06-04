@@ -46,6 +46,7 @@ public class Main {
     private static void login() {
         // read user input
         Scanner sc = new Scanner(System.in);
+        MainPageController mainpage = new MainPageController();
         ArrayList<String> userList = readFile();
         //清屏
         System.out.println('\u000C');
@@ -78,9 +79,7 @@ public class Main {
 
                         System.out.println("Hello!" + user_record[0]);
 
-                        System.out.println("TO BE CONTINUED");
-                        String eee = sc.next();
-
+                        mainpage.WelcomePage();
 
                     }
                     // login failed

@@ -3,9 +3,10 @@ package com.company;
 import java.util.Scanner;
 
 public class MainPageController {
+    private MtmSystem mtm = new MtmSystem();
     public void WelcomePage(){
         MissionControl missionControl = new MissionControl();
-        MtmSystem mtm = new MtmSystem();
+
         ShuttleControl shuttleControl = new ShuttleControl();
 
         Scanner sc = new Scanner(System.in);
