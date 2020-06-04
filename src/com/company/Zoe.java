@@ -18,6 +18,7 @@ import java.util.Scanner;
 import java.lang.StringBuffer;
 
 public class Zoe {
+    private  Boolean corrected;
     public Zoe() {
     }
 
@@ -34,6 +35,7 @@ public class Zoe {
         String dob = signupCandiateDob();
         candidateRecord.add(dob);
         String address = signupCandidateAddress();
+        candidateRecord.add(address);
         String identificationType = signupCandiateIdentificationType();
         String identificationNumber = signupCandiateIdentificationNumber();
         //check identification together
@@ -43,7 +45,33 @@ public class Zoe {
                 + identificationNumber, arrayListForChecking);
         identificationType = arrayListForChecking.get(0);
         identificationNumber = arrayListForChecking.get(1);
+        candidateRecord.add(identificationType);
+        candidateRecord.add(identificationNumber);
         arrayListForChecking.clear();
+        String nationality = signupCandiateNationality();
+        candidateRecord.add(nationality);
+        String gender = signupCandiateGender();
+        String allergies = signupCandiateAllergies();
+        String foodpreferences = signupCandiateFoodpreferences();
+        String qulification = signupCandiateQualification();
+        String[] OccupationAndWorkexperence = signupCandiateOccupation().split("~");
+        String occupation = OccupationAndWorkexperence[0];
+        String workexperence = OccupationAndWorkexperence[1];
+        String computerskill = signupCandiateComputerskill();
+        String language = signupCandiateLanguage();
+
+        candidateRecord.add(gender);
+        candidateRecord.add(allergies);
+        candidateRecord.add(foodpreferences);
+        candidateRecord.add(qulification);
+        candidateRecord.add(occupation);
+        candidateRecord.add(workexperence);
+        candidateRecord.add(computerskill);
+        candidateRecord.add(language);
+
+        System.out.println("You have entered all personal details that required." +
+                "\nYour personal details can be viewed and modified in \"View profile\" in the main page.");
+        //Do something to the string buffer.(Add it to the excel
 
     }
 
@@ -74,7 +102,7 @@ public class Zoe {
 
         System.out.println("Please input the month of your DOB:" + "\n(2 digits. e.g. 01)");
         String month = forceinputInt();
-        while (year.length() != 2) {
+        while (month.length() != 2) {
             promptWrongEnter("month");
             month = forceinputInt();
         }
@@ -84,7 +112,7 @@ public class Zoe {
 
         System.out.println("Please input the day of your DOB:" + "\n(2 digits. e.g. 01)");
         String day = forceinputInt();
-        while (year.length() != 2) {
+        while (day.length() != 2) {
             promptWrongEnter("day");
             day = forceinputInt();
         }
@@ -223,13 +251,15 @@ public class Zoe {
             System.out.println("If you don't have more allergies, please enter n/a.");
             allergies = forceinputString();
         }
-        if (allergies.equals("n/a"))
-            allergies = "";
-        arrayListForChecking = userCheckInput("Allergie(s)",stringBuffer.toString(),arrayListForChecking);
-        stringBuffer.delete(0,stringBuffer.length());
+        if (allergies.equals("n/a")) {
+            allergies = "n/a";
+            stringBuffer.append(allergies);
+            arrayListForChecking.add(allergies);
+        }
+        arrayListForChecking = userCheckInput("Allergie(s)", stringBuffer.toString(), arrayListForChecking);
+        stringBuffer.delete(0, stringBuffer.length());
         Iterator it = arrayListForChecking.iterator();
-        while (it.hasNext())
-        {
+        while (it.hasNext()) {
             stringBuffer.append(it.next());
             stringBuffer.append(",");
         }
@@ -237,128 +267,141 @@ public class Zoe {
         return stringBuffer.toString();
     }
 
-//    public String signupCandiateFoodpreferences() {
-//        //input food preferences
-//        System.out.println("The next information awating to be entered is food preferences.");
-//        System.out.println("Please enter your food preferences by choosing an option:"
-//                + "\n1.none 2.kosher 3.vegetarian 4.vegan 5.halal");
-//        String foodPreferences = forceinputInt();
-//        while (!(foodPreferences.equals("1") || foodPreferences.equals("2") || foodPreferences.equals("3")
-//                || foodPreferences.equals("4") || foodPreferences.equals("5")))
-//            foodPreferences = forceinputInt();
-//        switch (foodPreferences) {
-//            case "1":
-//                foodPreferences = "none";
-//                stringBuffer.append(gender);
-//                stringBuffer.append("~");
-//            case "2":
-//                foodPreferences = "kosher";
-//                stringBuffer.append(gender);
-//                stringBuffer.append("~");
-//            case "3":
-//                foodPreferences = "vegetarian";
-//                stringBuffer.append(gender);
-//                stringBuffer.append("~");
-//            case "4":
-//                foodPreferences = "vegan";
-//                stringBuffer.append(gender);
-//                stringBuffer.append("~");
-//            case "5":
-//                foodPreferences = "halal";
-//                stringBuffer.append(gender);
-//                stringBuffer.append("~");
-//        }
-//        stringBuffer.append(foodPreferences);
-//        System.out.println('\u000C');
-//
-//        //input qualification(s)
-//        System.out.println("The next information awating to be entered is qualification(s).");
-//        System.out.println("Please enter ( one of ) your qualification:");
-//        System.out.println("(If you don't have any, please enter n/a.");
-//        String qalification = forceinputString();
-//        //
-//        while (!(qalification.equalsIgnoreCase("n/a"))) {
-//            stringBuffer.append(qalification);
-//            stringBuffer.append(",");
-//
-//            //
-//            System.out.println("Please enter your next qalification:");
-//            System.out.println("If you don't have more qalification, please enter n/a.");
-//            qalification = forceinputString();
-//        }
-//        stringBuffer.append("~");
-//        System.out.println('\u000C');
-//
-//        //inout occupation(s)
-//        System.out.println("The next information awating to be entered is occupation(s).");
-//        System.out.println("Please enter ( one of ) your occupation(s):");
-//        System.out.println("(If you don't have any, please enter n/a.");
-//        String occupation = forceinputString();
-//        ArrayList<String> occupationList = new ArrayList<>();
-//        while (!(occupation.equalsIgnoreCase("n/a"))) {
-//            stringBuffer.append(occupation);
-//            stringBuffer.append(",");
-//            String occupationAddtoList = occupation;
-//            occupationList.add(occupationAddtoList);
-//            //
-//            System.out.println("Please enter your next occupation:");
-//            System.out.println("If you don't have more occupation, please enter n/a.");
-//            occupation = forceinputString();
-//        }
-//        stringBuffer.append("~");
-//        System.out.println('\u000C');
-//
-//        //input work experience
-//        System.out.println("The next information awating to be entered is work experience.");
-//        System.out.println("(Please round the number. e.g. enter 5 if worked for 4.5yr or 5.4yr)");
-//        Iterator<String> it = occupationList.iterator();
-//        while (it.hasNext()) {
-//            System.out.println("Please enter the number of year you worked as " + it.hasNext() + ".");
-//            String workyr = forceinputInt();
-//            stringBuffer.append(workyr);
-//        }
-//        stringBuffer.append("~");
-//        System.out.println('\u000C');
-//
-//        //input computer skill
-//        System.out.println("The next information awating to be entered is computerSkill(s).");
-//        System.out.println("Please enter ( one of ) your computerSkill(s):");
-//        System.out.println("(If you don't have any, please enter n/a.");
-//        String computerSkill = forceinputString();
-//
-//        while (!(computerSkill.equalsIgnoreCase("n/a"))) {
-//            stringBuffer.append(computerSkill);
-//            stringBuffer.append(",");
-//            //
-//            System.out.println("Please enter your next computerSkill:");
-//            System.out.println("If you don't have more computerSkill, please enter n/a.");
-//            computerSkill = forceinputString();
-//        }
-//        stringBuffer.append("~");
-//        System.out.println('\u000C');
-//
-//        //input language(s) spoken
-//        //input computer skill
-//        System.out.println("The next information awating to be entered is language(s) spoken.");
-//        System.out.println("Please enter ( one of ) your language(s) spoken:");
-//        System.out.println("(If you don't have any, please enter n/a.");
-//        String language = forceinputString();
-//        while (!(language.equalsIgnoreCase("n/a"))) {
-//            stringBuffer.append(language);
-//            stringBuffer.append(",");
-//            //
-//            System.out.println("Please enter your next computerSkill:");
-//            System.out.println("If you don't have more computerSkill, please enter n/a.");
-//            language = forceinputString();
-//        }
-//        stringBuffer.append("~");
-//        System.out.println('\u000C');
-//
-//        System.out.println("You have entered all personal details that required." +
-//                "\nYour personal details can be viewed and modified in \"View profile\" in the main page.");
-//        //Do something to the string buffer.(Add it to the excel
-//        return
-//    }
+    public String signupCandiateFoodpreferences() {
+        //input food preferences
+        System.out.println("The next information awating to be entered is food preferences.");
+        System.out.println("Please enter your food preferences by choosing an option:"
+                + "\n1.none 2.kosher 3.vegetarian 4.vegan 5.halal");
+        String foodPreferences = forceinputInt();
+        while (!(foodPreferences.equals("1") || foodPreferences.equals("2") || foodPreferences.equals("3")
+                || foodPreferences.equals("4") || foodPreferences.equals("5")))
+            foodPreferences = forceinputInt();
+        switch (foodPreferences) {
+            case "1":
+                foodPreferences = "none";
+                break;
+            case "2":
+                foodPreferences = "kosher";
+                break;
+            case "3":
+                foodPreferences = "vegetarian";
+                break;
+
+            case "4":
+                foodPreferences = "vegan";
+                break;
+            case "5":
+                foodPreferences = "halal";
+                break;
+        }
+        System.out.println('\u000C');
+        return foodPreferences;
+    }
+
+    public String signupCandiateQualification() {
+        StringBuffer stringBuffer = new StringBuffer();
+        //input qualification(s)
+        System.out.println("The next information awating to be entered is qualification(s).");
+        System.out.println("Please enter ( one of ) your qualification:");
+        System.out.println("(If you don't have any, please enter n/a.");
+        String qalification = forceinputString();
+        //
+        while (!(qalification.equalsIgnoreCase("n/a"))) {
+            stringBuffer.append(qalification);
+            stringBuffer.append(",");
+
+            //
+            System.out.println("Please enter your next qalification:");
+            System.out.println("If you don't have more qalification, please enter n/a.");
+            qalification = forceinputString();
+        }
+
+        System.out.println('\u000C');
+        return stringBuffer.toString();
+    }
+
+    public String signupCandiateOccupation() {
+        StringBuffer stringBuffer = new StringBuffer();
+        //inout occupation(s)
+        System.out.println("The next information awating to be entered is occupation(s).");
+        System.out.println("Please enter ( one of ) your occupation(s):");
+        System.out.println("(If you don't have any, please enter n/a.");
+        String occupation = forceinputString();
+        ArrayList<String> occupationList = new ArrayList<>();
+        while (!(occupation.equalsIgnoreCase("n/a"))) {
+            stringBuffer.append(occupation);
+            stringBuffer.append(",");
+            String occupationAddtoList = occupation;
+            occupationList.add(occupationAddtoList);
+            //
+            System.out.println("Please enter your next occupation:");
+            System.out.println("If you don't have more occupation, please enter n/a.");
+            occupation = forceinputString();
+        }
+        stringBuffer.append("~");
+        stringBuffer.append(signupCandiateWorkexperience(occupationList));
+        System.out.println('\u000C');
+        return stringBuffer.toString();
+    }
+
+    public String signupCandiateWorkexperience(ArrayList occupationList) {
+        StringBuffer stringBuffer = new StringBuffer();
+        //input work experience
+        System.out.println("The next information awating to be entered is work experience.");
+        System.out.println("(Please round the number. e.g. enter 5 if worked for 4.5yr or 5.4yr)");
+        Iterator<String> it = occupationList.iterator();
+        while (it.hasNext()) {
+            System.out.println("Please enter the number of year you worked as " + it.hasNext() + ".");
+            String workyr = forceinputInt();
+            stringBuffer.append(workyr);
+            stringBuffer.append(",");
+        }
+
+        System.out.println('\u000C');
+        return stringBuffer.toString();
+    }
+
+    public String signupCandiateComputerskill() {
+        StringBuffer stringBuffer = new StringBuffer();
+        //input computer skill
+        System.out.println("The next information awating to be entered is computerSkill(s).");
+        System.out.println("Please enter ( one of ) your computerSkill(s):");
+        System.out.println("(If you don't have any, please enter n/a.");
+        String computerSkill = forceinputString();
+
+        while (!(computerSkill.equalsIgnoreCase("n/a"))) {
+            stringBuffer.append(computerSkill);
+            stringBuffer.append(",");
+            //
+            System.out.println("Please enter your next computerSkill:");
+            System.out.println("If you don't have more computerSkill, please enter n/a.");
+            computerSkill = forceinputString();
+        }
+
+        System.out.println('\u000C');
+        return stringBuffer.toString();
+    }
+
+    public String signupCandiateLanguage() {
+        StringBuffer stringBuffer = new StringBuffer();
+        //input language(s) spoken
+        //input computer skill
+        System.out.println("The next information awating to be entered is language(s) spoken.");
+        System.out.println("Please enter ( one of ) your language(s) spoken:");
+        System.out.println("(If you don't have any, please enter n/a.");
+        String language = forceinputString();
+        while (!(language.equalsIgnoreCase("n/a"))) {
+            stringBuffer.append(language);
+            stringBuffer.append(",");
+            //
+            System.out.println("Please enter your next computerSkill:");
+            System.out.println("If you don't have more computerSkill, please enter n/a.");
+            language = forceinputString();
+        }
+        stringBuffer.append("~");
+        System.out.println('\u000C');
+        return stringBuffer.toString();
+    }
 
 
     //https://stackoverflow.com/questions/237159/whats-the-best-way-to-check-if-a-string-represents-an-integer-in-java
@@ -414,8 +457,8 @@ public class Zoe {
         Scanner sc = new Scanner(System.in);
         String anInt = sc.nextLine();
         while ((inputInt == false)) {
-            if (isInteger(sc.nextLine()) == false) {
-                System.out.println("The information has not been entered correctly. Please enter the year your Date of birth again:");
+            if (isInteger(anInt) == false) {
+                System.out.println("The information has not been entered correctly. Please enter again:");
                 anInt = sc.nextLine();
             } else {
                 inputInt = true;
@@ -424,18 +467,24 @@ public class Zoe {
         return anInt;
     }
 
-    private static String userCheckInput(String title, String input) {
+    //checked
+    private String userCheckInput(String title, String input) {
         Scanner sc = new Scanner(System.in);
         System.out.println(title + ": " + input);
         System.out.println("Is that correct?");
         System.out.println("1.Yes, it is correct. 2.I need to modify it.");
-
         String choice = forceinputInt();
-        while (!(choice.equals("1"))) {
-            if (!(choice.equals("2"))) {
-                System.out.println("You have not enter an option number above. Please enter an option:");
-                choice = forceinputInt();
-            }
+        while (!(choice.equals("1") || choice.equals("2"))) {
+            System.out.println("You have not enter an option number above. Please enter an option:");
+            choice = forceinputInt();
+        }
+        if(choice.equals("1")) {
+            corrected = true;
+        }
+        if(choice.equals("2")) {
+            corrected = false;
+        }
+        while (corrected == false) {
             System.out.println("Please enter the correct " + title + ":");
             input = sc.nextLine();
             userCheckInput(title, input);
@@ -444,6 +493,7 @@ public class Zoe {
         return input;
     }
 
+    //not checked
     private static ArrayList userCheckInput(String title, String input, ArrayList<String> arrayListForChecking) {
         int index = 0;
         Scanner sc = new Scanner(System.in);
