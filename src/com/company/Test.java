@@ -17,8 +17,8 @@ import java.util.Scanner;
 public class Test {
 
     public static void main(String args[]) throws WriteException, IOException, BiffException {
-        ShuttleControl mtm = new ShuttleControl();
-        mtm.changeShuttleStatus(765);
+        MissionControl mtm = new MissionControl();
+        mtm.createMission();
     }
 
     private static void WriteExcel() {
