@@ -102,9 +102,10 @@ public class Zoe {
 
         writeExcelWithArrayList(candidateRecord);
 
-        System.out.println("You have entered all personal details that required." + "\nYour record has been recorded by the system." +
+        System.out.println("You have entered all personal details that required." +
                 "\nYour personal details can be viewed and modified in \"View profile\" in the main page.");
-        //Do something to the string buffer.(Add it to the excel
+        System.out.println("System will request your criminal and health records by using your identification ["
+                + identificationType + "]: [" + identificationNumber +"] automaticlly.");
 
     }
 
@@ -851,7 +852,7 @@ public class Zoe {
                 for (int j = 0; j < record.size(); j++) {
                     sheetToEdit.addCell(new Label(j + 1, emptyRowNumber, record.get(j).toString()));
                 }
-                System.out.println("You add it successfully");
+                System.out.println("Your record has been recorded by the system.");
                 workbookCopy.write();
                 workbookCopy.close();
                 in.close();
