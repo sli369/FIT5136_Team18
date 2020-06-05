@@ -30,6 +30,7 @@ public class Zoe {
         ArrayList<String> arrayListForChecking = new ArrayList<>();
         //Iterator it = arrayListForChecking.iterator();
         //Boolean entered = false;
+
         String fullName = signupCandiateName();
         candidateRecord.add(fullName);
         String dob = signupCandiateDob();
@@ -41,9 +42,10 @@ public class Zoe {
         //check identification together
         arrayListForChecking.add(identificationType);
         arrayListForChecking.add(identificationNumber);
-        arrayListForChecking = userCheckInput("Identification", identificationType + ": "
-                + identificationNumber, arrayListForChecking);
-        identificationType = arrayListForChecking.get(0);
+        arrayListForChecking = userCheckInput("Identification", arrayListForChecking);
+        //arrayListForChecking = userCheckInput("Identification", identificationType + ": "
+        //        + identificationNumber, arrayListForChecking);
+        identificationType = arrayListForChecking.get(0).toUpperCase();
         identificationNumber = arrayListForChecking.get(1);
         candidateRecord.add(identificationType);
         candidateRecord.add(identificationNumber);
@@ -118,7 +120,8 @@ public class Zoe {
         }
         bufferForChecking.append(day);
         arrayListForChecking.add(day);
-        arrayListForChecking = userCheckInput("address", bufferForChecking.toString(), arrayListForChecking);
+        //arrayListForChecking = userCheckInput("your Date of Birth", bufferForChecking.toString(), arrayListForChecking);
+        arrayListForChecking = userCheckInput("your Date of Birth",arrayListForChecking);
         String dob = arrayListForChecking.get(0) + "/" + arrayListForChecking.get(1) + "/" + arrayListForChecking.get(2);
         System.out.println('\u000C');
         return dob;
@@ -136,7 +139,7 @@ public class Zoe {
         String streetName = forceinputString();
 
         System.out.println("Please enter the suburb/city name of your address:");
-        String suburb = forceinputInt();
+        String suburb = forceinputString();
 
         System.out.println("Please enter the postcode of your address:");
         String postcode = forceinputInt();
@@ -174,7 +177,8 @@ public class Zoe {
         arrayListForChecking.add(postcode);
         arrayListForChecking.add(state);
         arrayListForChecking.add(country);
-        arrayListForChecking = userCheckInput("address", bufferForChecking.toString(), arrayListForChecking);
+        //arrayListForChecking = userCheckInput("address", bufferForChecking.toString(), arrayListForChecking);
+        arrayListForChecking = userCheckInput("address", arrayListForChecking);
 
         String address = arrayListForChecking.get(0) + "," + arrayListForChecking.get(1) + " "
                 + arrayListForChecking.get(2) + "," + arrayListForChecking.get(3) + " "
@@ -212,7 +216,7 @@ public class Zoe {
         //input gender
         System.out.println("The next information awating to be entered is gender.");
         System.out.println("Please enter your gender by choosing an option:"
-                + "\n1.Female 2.Male 3.Other" + "e.g. If you are female, enter 1.");
+                + "\n1.Female 2.Male 3.Other" + "\ne.g. If you are female, enter 1.");
         String gender = forceinputInt();
         while (!(gender.equals("1")) || !(gender.equals("2")) || !(gender.equals("3"))) {
             System.out.println("The option you choose is not correct.");
@@ -256,7 +260,8 @@ public class Zoe {
             stringBuffer.append(allergies);
             arrayListForChecking.add(allergies);
         }
-        arrayListForChecking = userCheckInput("Allergie(s)", stringBuffer.toString(), arrayListForChecking);
+        arrayListForChecking = userCheckInput("Allergie(s)", arrayListForChecking);
+        //arrayListForChecking = userCheckInput("Allergie(s)", stringBuffer.toString(), arrayListForChecking);
         stringBuffer.delete(0, stringBuffer.length());
         Iterator it = arrayListForChecking.iterator();
         while (it.hasNext()) {
@@ -494,32 +499,57 @@ public class Zoe {
     }
 
     //not checked
-    private static ArrayList userCheckInput(String title, String input, ArrayList<String> arrayListForChecking) {
+    private static ArrayList userCheckInput(String title, ArrayList<String> arrayListForChecking) {
         int index = 0;
         Scanner sc = new Scanner(System.in);
         StringBuffer displayBuffer = new StringBuffer();
-        System.out.println("Which part of information you want to modify?");
+        //ArrayList<String> displayInput = new ArrayList<>();
+        //Iterator it2 = displayInput.iterator();
         Iterator it = arrayListForChecking.iterator();
-        while (it.hasNext()) {
-            displayBuffer.append(index);
-            displayBuffer.append(it.next());
-            displayBuffer.append(" ");
-            index++;
+        System.out.println("Is " + title + " correct?");
+        while (it.hasNext())
+        {
+            System.out.print(it.next());
+            System.out.print(" ");
+
+        }
+        System.out.println(" ");
+        System.out.println("1.Yes, it is correct. 2.I need to modify it.");
+        String choice = forceinputInt();
+        while (!(choice.equals("1") || choice.equals("2"))) {
+            System.out.println("You have not enter an option number above. Please enter an option:");
+            choice = forceinputInt();
+        }
+        if(choice.equals("1")) {
+            return arrayListForChecking;
         }
         System.out.println("Choose an option above to modify:");
+        it = arrayListForChecking.iterator();
+        while (it.hasNext()) {
+            displayBuffer.append(index+1);
+            displayBuffer.append(". ");
+            displayBuffer.append(it.next());
+            displayBuffer.append("  ");
+            index++;
+        }
+        System.out.println(displayBuffer.toString());
         String choosemodify = forceinputInt();
-        while (Integer.parseInt(choosemodify) > index || Integer.parseInt(choosemodify) < 0) {
+        while (Integer.parseInt(choosemodify) > index + 1 || Integer.parseInt(choosemodify) <= 0) {
             promptWrongEnter("option");
             choosemodify = forceinputInt();
         }
         String modification = "";
-        if (isInteger(arrayListForChecking.get(Integer.parseInt(choosemodify))))
+        System.out.println("The part you want to modify: " + choosemodify + ". " + arrayListForChecking.get(Integer.parseInt(choosemodify) - 1) );
+        System.out.println("Please enter the correct information for this part:");
+        if (isInteger(arrayListForChecking.get(Integer.parseInt(choosemodify) - 1)))
             modification = forceinputInt();
+
         else
             modification = forceinputString();
 
-        arrayListForChecking.set(Integer.parseInt(choosemodify), modification);
-        userCheckInput(title, input, arrayListForChecking);
+        arrayListForChecking.set(Integer.parseInt(choosemodify) - 1, modification);
+        userCheckInput(title, arrayListForChecking);
+        System.out.println('\u000C');
         return arrayListForChecking;
     }
 
