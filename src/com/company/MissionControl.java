@@ -32,6 +32,16 @@ public class MissionControl {
         return isTrue;
     }
 
+    public boolean isChar(String d){
+        boolean isTure;
+            if(d.charAt(0)== 'a' && d.charAt(0) == 'b' && d.charAt(0) == 'c' && d.charAt(0) == 'd' && d.charAt(0) == 'e' && d.charAt(0) == 'f'){
+                isTure = true;
+            }else {
+                isTure = false;
+            }
+            return isTure;
+    }
+
     private String userCheckInput(String input) {
         Scanner sc = new Scanner(System.in);
         System.out.println("Is that correct?");
@@ -111,7 +121,7 @@ public class MissionControl {
         clearScreen();
 
         // set coordinator
-        System.out.println("4.Please enter the Coordinator information");
+        System.out.println("5.Please enter the Coordinator information");
         System.out.println("    (1) Please enter the name");
         String corName = sc.nextLine();
         while (isBlank(corName))
@@ -119,6 +129,7 @@ public class MissionControl {
             System.out.println("the input cannot be null, try to enter again");
             corName = sc.nextLine();
         }
+        userCheckInput(corName);
         System.out.println("    (2) Please enter the contact");
         String corContact = sc.nextLine();
         while (isBlank(corContact))
@@ -126,6 +137,99 @@ public class MissionControl {
             System.out.println("the input cannot be null, try to enter again");
             corContact = sc.nextLine();
         }
+        userCheckInput(corContact);
         System.out.println("coordinator name is " + corName + " contact is " + corContact);
+        clearScreen();
+
+        // fill Job information
+        System.out.println("6.Please enter the Job information");
+        System.out.println("    (1) Please enter the job name");
+        String jobName = sc.nextLine();
+        while (isBlank(jobName))
+        {
+            System.out.println("the input cannot be null, try to enter again");
+            jobName = sc.nextLine();
+        }
+        userCheckInput(jobName);
+        System.out.println("    (2) Please enter the job Description");
+        String jobDes = sc.nextLine();
+        while (isBlank(jobDes))
+        {
+            System.out.println("the input cannot be null, try to enter again");
+            jobDes = sc.nextLine();
+        }
+        userCheckInput(jobDes);
+        System.out.println("Job name is " + jobName + " description is " + jobDes);
+        clearScreen();
+
+        // set employee requirements
+        System.out.println("7.Please enter the employee requirements");
+        System.out.println("    (1) Please enter the requirements job name");
+        String emRequire = sc.nextLine();
+        while (isBlank(emRequire))
+        {
+            System.out.println("the input cannot be null, try to enter again");
+            emRequire = sc.nextLine();
+        }
+        userCheckInput(emRequire);
+        System.out.println("    (2) Please enter the number of requirements");
+        int no = sc.nextInt();
+
+
+        // set launch time
+        System.out.println("9.Please set the launch date");
+        System.out.println(" hint ('dd/mm/yyyy')");
+        String launch_time = sc.nextLine();
+        while (isBlank(launch_time))
+        {
+            System.out.println("the input cannot be null, try to enter again");
+            launch_time = sc.nextLine();
+        }
+        //check to_date
+        System.out.println(launch_time +" is your launch date");
+        userCheckInput(launch_time);
+        clearScreen();
+
+        // set location
+        System.out.println("10.Please set the destination location");
+        String location = sc.nextLine();
+        while (isBlank(location))
+        {
+            System.out.println("the input cannot be null, try to enter again");
+            location = sc.nextLine();
+        }
+        System.out.println(location + " is your destination location");
+        userCheckInput(location);
+        clearScreen();
+
+        // set duration of the mission
+        System.out.println("11.Please set the mission duration");
+        System.out.println("    hint(the unit is month)");
+        String duration = sc.nextLine();
+        System.out.println(duration + " is the duration month.");
+        userCheckInput(duration);
+        // check int
+
+        int du = Integer.parseInt(duration);
+        clearScreen();
+
+        // set status
+        System.out.println("12.Please select the mission status");
+        System.out.println("    a. Planning phase");
+        System.out.println("    b. Departed Earth ");
+        System.out.println("    c. Landed on Mars ");
+        System.out.println("    d. Mission in progress ");
+        System.out.println("    e. Returned to Earth");
+        System.out.println("    f. Mission completed ");
+        System.out.print("Please select the option: ");
+        String status = sc.nextLine();
+        // check char
+        while(isChar(status)){
+            System.out.println("Please enter the correct option (lower case like: a)");
+            status = sc.nextLine();
+        }
+        System.out.println("Your option is " + status);
+        char noStatus = status.charAt(0);
+        
     }
 }
