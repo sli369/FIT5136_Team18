@@ -53,8 +53,12 @@ public class MissionControl {
                 for(int j = 0; j<missions.get(i).getJob().size(); j++) {
                     missions.get(i).getJob().get(j).showJob();
                 }
-                System.out.println("7.Employment requirements" + missions.get(i).getEmploymentRequirement());
-                System.out.println("");
+                System.out.println("7.Employment requirements: " + missions.get(i).getEmploymentRequirement());
+                System.out.println("    7.1 Age range is from: " + missions.get(i).getCriteria().getMinage() + " - " + missions.get(i).getCriteria().getMaxage());
+                System.out.println("    7.2 computer skill require: " + missions.get(i).getCriteria().getComputerSkill());
+                System.out.println("    7.3 experience requirements: " + missions.get(i).getCriteria().getExpYear() + "years");
+                System.out.println("    7.4 qualification requiremnts: " + missions.get(i).getCriteria().getQualification());
+                System.out.println("    7.5 language requirements: " + missions.get(i).getCriteria().getLanguage());
                 System.out.println("8.Cargo requirements");
                 System.out.println("     8.1 Cargo for: " + missions.get(i).getCargo().get(0).getCargoFor());
                 System.out.println("     8.2 Cargo requirements: " + missions.get(i).getCargo().get(0).getRequirement());
@@ -157,12 +161,14 @@ public class MissionControl {
                 String[] age = ageRange.split("-");
                 int minAge = Integer.parseInt(age[0]);
                 int maxAge = Integer.parseInt(age[1]);
-                String languages = firLanguage + "," + secLanguage;
+                String language = firLanguage + ", " + secLanguage;
+//                String[] languages = language.split(",");
+                MissionCriteria mc = new MissionCriteria(minAge, maxAge,skillRequire,minExp,qualification,language);
 
 
-
+                // add those value in mission arraylist
                 Mission mission = new Mission(missionId, missionName, missionDescription, missionOrign, countriesAllowed,
-                        employeeRequire, missionLauchDate, destination, missionDuration, missionStatus, co, missionJobs, cargosPerMission);
+                        employeeRequire, missionLauchDate, destination, missionDuration, missionStatus, co, missionJobs, cargosPerMission,mc);
 
                 missions.add(mission);
 

@@ -19,7 +19,7 @@ public class Mission {
     private int missionDuration;
     private char missionStatus;
     private ArrayList<Candidate> candidates;
-    private Criteria criteria;
+    private MissionCriteria criteria;
     private ArrayList<Shuttle> shuttles;
 
     public Mission(int missionId){
@@ -28,7 +28,7 @@ public class Mission {
 
     public Mission(int missionId, String missionName, String missionDescription, String countryOfOrigin,
                    ArrayList<String> countriesAllowed, String employmentRequirement, Date launchDate, String locationDestination,
-                   int missionDuration, char missionStatus, Coordinator coordinator, ArrayList<Job> jobs, ArrayList<Cargo> cargos) {
+                   int missionDuration, char missionStatus, Coordinator coordinator, ArrayList<Job> jobs, ArrayList<Cargo> cargos, MissionCriteria criteria) {
         this.missionId = missionId;
         this.missionName = missionName;
         this.missionDescription = missionDescription;
@@ -174,11 +174,11 @@ public class Mission {
         this.candidates = candidates;
     }
 
-    public Criteria getCriteria() {
+    public MissionCriteria getCriteria() {
         return criteria;
     }
 
-    public void setCriteria(Criteria criteria) {
+    public void setCriteria(MissionCriteria criteria) {
         this.criteria = criteria;
     }
 
