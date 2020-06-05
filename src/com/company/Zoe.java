@@ -37,7 +37,19 @@ public class Zoe {
         String dob = signupCandiateDob();
         candidateRecord.add(dob);
         String address = signupCandidateAddress();
-        candidateRecord.add(address);
+        String[] addressArray = address.split("~");
+        String street = addressArray[0];
+        String city = addressArray[1];
+        String postal = addressArray[2];
+        String state = addressArray[3];
+        String country = addressArray[4];
+        String phone = signupCandidatePhone();
+        candidateRecord.add(street);
+        candidateRecord.add(city);
+        candidateRecord.add(state);
+        candidateRecord.add(postal);
+        candidateRecord.add(country);
+        candidateRecord.add(phone);
         String identificationType = signupCandiateIdentificationType();
         String identificationNumber = signupCandiateIdentificationNumber();
         //￥check identification together
@@ -51,39 +63,37 @@ public class Zoe {
         candidateRecord.add(identificationType);
         candidateRecord.add(identificationNumber);
         arrayListForChecking.clear();
-        String nationality = signupCandiateNationality();
-        candidateRecord.add(nationality);
+        //input gender and allowed modify gender selection
         corrected = false;
         String gender = signupCandiateGender(true);
         candidateRecord.add(gender);
-
+        //allergies
         String allergies = signupCandiateAllergies();
         candidateRecord.add(allergies);
+//food preference
         corrected = false;
         String foodpreferences = signupCandiateFoodpreferences(true);
-
         candidateRecord.add(foodpreferences);
-
-        String qulification = signupCandiateQualification();
-        //System.out.println(qulification);
-        candidateRecord.add(qulification);
-
-
+//qalification
+        String qalification = signupCandiateQualification();
+        candidateRecord.add(qalification);
+        //years of work and occupation
         String[] OccupationAndWorkexperence = signupCandiateOccupation().split("~");
-
         String occupation = OccupationAndWorkexperence[0];
         String workexperence = OccupationAndWorkexperence[1];
-
-        candidateRecord.add(occupation);
         candidateRecord.add(workexperence);
-
+        candidateRecord.add(occupation);
+        //computer skill
         String computerskill = signupCandiateComputerskill();
-        //System.out.println(computerskill);
-
-        String language = signupCandiateLanguage();
-        //System.out.println(language);
         candidateRecord.add(computerskill);
+        //language known
+        String language = signupCandiateLanguage();
         candidateRecord.add(language);
+
+        String nationality = signupCandiateNationality();
+        candidateRecord.add(nationality);
+
+
 //FOR TESTING
         Iterator it = candidateRecord.iterator();
         while (it.hasNext()) {
@@ -153,9 +163,20 @@ public class Zoe {
             arrayListForChecking = userCheckInput("your Date of Birth", arrayListForChecking);
         }
 
-        String dob = arrayListForChecking.get(0) + "/" + arrayListForChecking.get(1) + "/" + arrayListForChecking.get(2);
+        String dob = arrayListForChecking.get(2) + "/" + arrayListForChecking.get(1) + "/" + arrayListForChecking.get(0);
         System.out.println('\u000C');
         return dob;
+    }
+
+    public String signupCandidatePhone() {
+        Scanner sc = new Scanner(System.in);
+        //input phone
+        System.out.println("The next information awating to be entered is [Phone Number].");
+        System.out.println("Please enter your phone number:");
+        String phone = forceinputInt();
+        phone = userCheckInput("Phone", phone);
+        System.out.println(phone);
+        return phone;
     }
 
     public String signupCandidateAddress() {
@@ -216,19 +237,28 @@ public class Zoe {
         //arrayListForChecking = userCheckInput("address", bufferForChecking.toString(), arrayListForChecking);
         arrayListForChecking = userCheckInput("address", arrayListForChecking);
         String address = "Information input not Successfully, please modify it in the main page after successfully registered and loged in.";
+        String street = "";
+        String city = "";
+        String postal = "";
         if (arrayListForChecking.size() == 7) {
-            address = arrayListForChecking.get(0) + "," + arrayListForChecking.get(1) + " "
-                    + arrayListForChecking.get(2) + "," + arrayListForChecking.get(3) + " "
-                    + arrayListForChecking.get(4) + "," + arrayListForChecking.get(5) + ","
-                    + arrayListForChecking.get(6);
+            street = arrayListForChecking.get(0) + "," + arrayListForChecking.get(1) + " "
+                    + arrayListForChecking.get(2);
+            city = arrayListForChecking.get(3);
+            postal = arrayListForChecking.get(4);
+            state = arrayListForChecking.get(5);
+            country = arrayListForChecking.get(6);
+
         }
         //if there is no otherdetails in the address
         else if (arrayListForChecking.size() == 6) {
-            address = arrayListForChecking.get(0) + " " + arrayListForChecking.get(1) + ","
-                    + arrayListForChecking.get(2) + " " + arrayListForChecking.get(3) + ","
-                    + arrayListForChecking.get(4) + "," + arrayListForChecking.get(5);
+            street = arrayListForChecking.get(0) + " " + arrayListForChecking.get(1);
+            city = arrayListForChecking.get(2);
+            postal = arrayListForChecking.get(3);
+            state = arrayListForChecking.get(4);
+            country = arrayListForChecking.get(5);
 
         }
+        address = street + "~" + city + "~" + postal + "~" + state + "~" + country;
         System.out.println('\u000C');
         return address;
     }
@@ -485,8 +515,8 @@ public class Zoe {
         String language = forceinputString();
         while (!(language.equalsIgnoreCase("n/a"))) {
             arrayListForChecking.add(language);
-            System.out.println("Please enter your next computerSkill:");
-            System.out.println("If you don't have more computerSkill, please enter n/a.");
+            System.out.println("Please enter your next language(s) spoken:");
+            System.out.println("If you don't have more language(s) spoken, please enter n/a.");
             language = forceinputString();
         }
         if (language.equalsIgnoreCase("n/a") && arrayListForChecking.size() == 0) {
