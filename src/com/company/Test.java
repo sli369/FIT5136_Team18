@@ -17,8 +17,8 @@ import java.util.Scanner;
 public class Test {
 
     public static void main(String args[]) throws WriteException, IOException, BiffException {
-        MissionControl mtm = new MissionControl();
-        mtm.createMission();
+        Zoe zoe = new Zoe();
+        zoe.signupCandidate();
     }
 
     private static void WriteExcel() {
