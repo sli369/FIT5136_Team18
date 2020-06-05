@@ -16,9 +16,13 @@ import java.util.Scanner;
 
 public class Test {
 
-    public static void main(String args[]) throws WriteException, IOException, BiffException {
-        Zoe zoe = new Zoe();
-        zoe.signupCandidate();
+    public static void main(String args[]){
+        MissionControl mc = new MissionControl();
+        Scanner sc = new Scanner(System.in);
+        int i = sc.nextInt();
+        mc.showOneMission(i);
+
+
     }
 
     private static void WriteExcel() {

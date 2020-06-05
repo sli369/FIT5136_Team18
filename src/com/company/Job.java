@@ -2,11 +2,11 @@ package com.company;
 
 public class Job {
     private String jobName;
-    private String jobDes;
+    private int number;
 
-    public Job(String jobName, String jobDes) {
+    public Job(String jobName, int number) {
         this.jobName = jobName;
-        this.jobDes = jobDes;
+        this.number = number;
     }
 
     public String getJobName() {
@@ -17,11 +17,15 @@ public class Job {
         this.jobName = jobName;
     }
 
-    public String getJobDes() {
-        return jobDes;
+    public int getNumber() {
+        return number;
     }
 
-    public void setJobDes(String jobDes) {
-        this.jobDes = jobDes;
+    public void setNumber(int number) {
+        this.number = number;
+    }
+
+    public void showJob(){
+        System.out.println("   " + number + " " + jobName + "s");
     }
 }

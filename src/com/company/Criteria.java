@@ -1,5 +1,7 @@
 package com.company;
 
+import javax.swing.*;
+
 public class Criteria {
     private int minimumAge;
     private int maximumAge;
@@ -15,12 +17,19 @@ public class Criteria {
         numberOfEmployee = 0;
     }
 
-
+    public Criteria(int minimumAge, int maximumAge, String qualification, int yearsOfWorkExperience, String computerSkills, String[] languageSpoken) {
+        this.minimumAge = minimumAge;
+        this.maximumAge = maximumAge;
+        this.qualification[0] = qualification;
+        this.yearsOfWorkExperience = yearsOfWorkExperience;
+        this.computerSkills[0] = computerSkills;
+        this.languageSpoken = languageSpoken;
+    }
 
     public Criteria(int minimumAge, int maximumAge, String[] qualification,
                     int yearsOfWorkExperience, String[] occupations,
                     String[] computerSkills, String[] languageSpoken,
-                    byte requiredGender,int numberOfEmployee)
+                    byte requiredGender, int numberOfEmployee)
     {
         this.minimumAge = minimumAge;
         this.maximumAge = maximumAge;

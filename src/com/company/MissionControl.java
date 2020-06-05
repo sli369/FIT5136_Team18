@@ -31,19 +31,42 @@ public class MissionControl {
         }
     }
 
-    public void showOneMission(int missionId){
-        Scanner sc = new Scanner(System.in);
 
+
+    public void showOneMission(int missionId){
         missions = getMissions();
+        Scanner sc = new Scanner(System.in);
+//        missionId = sc.nextInt();
+        boolean findId;
+
         for(int i=0; i<missions.size(); i++){
             if(missionId == missions.get(i).getMissionId()){
-                System.out.println("mission id: " + missions.get(i).getMissionId() + "  mission name: "+ missions.get(i).getMissionName());
+                findId = true;
+                System.out.println("1.Mission Name:    " + missions.get(i).getMissionName());
+                System.out.println("2.Mission description:    " + missions.get(i).getMissionDescription());
+                System.out.println("3.Country of origin:    " + missions.get(i).getCountryOfOrigin());
+                System.out.println("4.countries allowed:    " + missions.get(i).getCountriesAllowed());
+                System.out.println("5.Coordinator information: " );
+                System.out.println("    a.name: " + missions.get(i).getCoordinator().getName());
+                System.out.println("    b.contact: " + missions.get(i).getCoordinator().getEmail() );
+                System.out.println("6.Job information");
+                for(int j = 0; j<missions.get(i).getJob().size(); j++) {
+                    missions.get(i).getJob().get(j).showJob();
+                }
+                System.out.println("7.Employment requirements" + missions.get(i).getEmploymentRequirement());
+                System.out.println("");
+                System.out.println("8.Cargo requirements");
+                System.out.println("     8.1 Cargo for: " + missions.get(i).getCargo().get(0).getCargoFor());
+                System.out.println("     8.2 Cargo requirements: " + missions.get(i).getCargo().get(0).getRequirement());
+                System.out.println("     8.2 Cargo quantity: " + missions.get(i).getCargo().get(0).getQuantity());
+                System.out.println("9.Launch date: " + missions.get(i).getLaunchDate());
+                System.out.println("10.Location: " + missions.get(i).getLocationDestination());
+                System.out.println("11.Duration of the mission: " + missions.get(i).getMissionDuration());
+                System.out.println("12.Status of the mission " + "(" + missions.get(i).getMissionStatus() +")");
             }
-            else{
-                System.out.println("Mission Id is not found, please re-enter again");
-                missionId = sc.nextInt();
-            }
+                findId = false;
         }
+
     }
 
     private void addMission(){
@@ -59,18 +82,18 @@ public class MissionControl {
 
                 int missionId;
                 Date missionLauchDate;
-                SimpleDateFormat format = new SimpleDateFormat("dd/mm/yyyy");
+                SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
                 String missionOrign;
                 int missionDuration;
-                String missionType;
+                int jobNumber;
                 String missionDescription;
                 String employeeRequire;
                 String ageRange;
-                String minExp;
+                int minExp;
                 String qualification;
                 String occupation;
                 String skillRequire;
-                String language;
+                String firLanguage;
                 String secLanguage;
                 String cargoFor;
                 String cargoRequire;
@@ -79,20 +102,22 @@ public class MissionControl {
                 String destination;
                 ArrayList<String> countriesAllowed;
                 char missionStatus;
+                String corName;
+                String corContact;
                 Cell[] cells = sheet.getRow(j);
                 missionId = Integer.parseInt(cells[0].getContents());
                 missionLauchDate = format.parse(cells[1].getContents());
                 missionOrign = cells[2].getContents();
                 missionDuration = Integer.parseInt(cells[3].getContents());
-                missionType = cells[4].getContents();
+                jobNumber = Integer.parseInt(cells[4].getContents());
                 missionDescription = cells[5].getContents();
                 employeeRequire = cells[6].getContents();
                 ageRange = cells[7].getContents();
-                minExp = cells[8].getContents();
+                minExp = Integer.parseInt(cells[8].getContents());
                 qualification = cells[9].getContents();
                 occupation = cells[10].getContents();
                 skillRequire = cells[11].getContents();
-                language = cells[12].getContents();
+                firLanguage = cells[12].getContents();
                 secLanguage = cells[13].getContents();
                 cargoFor = cells[14].getContents();
                 cargoRequire = cells[15].getContents();
@@ -101,6 +126,9 @@ public class MissionControl {
                 String countrAll = cells[18].getContents();
                 destination = cells[19].getContents();
                 missionStatus = cells[20].getContents().charAt(0);
+                corName = cells[21].getContents();
+                corContact = cells[22].getContents();
+
 
                 //set countries into arraylist
                 if (countrAll.contains(",")) {
@@ -118,23 +146,23 @@ public class MissionControl {
                 cargosPerMission.add(cargo);
 
                 // set job
-                Job job = new Job(occupation, qualification);
+                Job job = new Job(occupation, jobNumber);
                 ArrayList<Job> missionJobs = new ArrayList<Job>();
                 missionJobs.add(job);
 
-//                    System.out.println("Mission ID: " + missionId);
-//                    System.out.println("Launch Date: " + missionLauchDate);
-//                    System.out.println("Mission Duration: " + missionDuration);
-//                    System.out.println("Mission Type: " + missionType);
-//                    System.out.println("mission Description: " + missionDescription);
-//                    System.out.println("Employee Requirement" + employeeRequire);
-//                    System.out.println("Skill Requirement " + skillRequire);
-//                    System.out.println("Cargo For ?: " + cargoFor);
-//                    System.out.println("Cargo Requirement: " + cargoRequire);
-//                    System.out.println("Cargo quality: " + cargoQuality);
+                // set Cordinator
+                Coordinator co = new Coordinator(corName, corContact);
+
+                // set Criteria
+                String[] age = ageRange.split("-");
+                int minAge = Integer.parseInt(age[0]);
+                int maxAge = Integer.parseInt(age[1]);
+                String languages = firLanguage + "," + secLanguage;
+
+
 
                 Mission mission = new Mission(missionId, missionName, missionDescription, missionOrign, countriesAllowed,
-                        employeeRequire, missionLauchDate, destination, missionDuration, missionStatus);
+                        employeeRequire, missionLauchDate, destination, missionDuration, missionStatus, co, missionJobs, cargosPerMission);
 
                 missions.add(mission);
 
