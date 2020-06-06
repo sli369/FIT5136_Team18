@@ -44,6 +44,7 @@ public class Jsave {
                 int id = sc.nextInt();
                 sc.nextLine();
                 mission.showOneMission(id);
+                System.out.println("please press enter to continue creating criteria");
             }
 
             //
@@ -336,7 +337,7 @@ public class Jsave {
                 System.out.println("please enter the number again that how many" + occu[i] + " you need");
                 n = sc.nextLine();
             }
-            while (validate.checkRange(Integer.parseInt(n),0,occu.length) == false){
+            while (validate.checkRange(Integer.parseInt(n),0,100) == false){
                 System.out.println("Please enter valid range of number");
                 n = sc.nextLine();
             }
