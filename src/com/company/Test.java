@@ -17,9 +17,41 @@ import java.util.Scanner;
 public class Test {
 
     public static void main(String args[]){
-        MissionControl mc = new MissionControl();
+       Jsave cri = new Jsave();
+       cri.startCreateCriteria();
 
-        mc.modifyMissions(7066);
+
 
     }
+
+    private static void WriteExcel() {
+        String existingxlsPathName = "/Users/zoe/IdeaProjects/FIT5136_Team18/Candidate.xls";
+        //WorkbookSettings wbSettings = new WorkbookSettings();
+        //wbSettings.setLocale(new Locale("en", "EN"));
+        WritableWorkbook writebook = null;
+        InputStream in = null;
+        String UTF8_ENCODING = "UTF-8";
+        Scanner sc = new Scanner(System.in);
+        try {
+            WorkbookSettings setEncode = new WorkbookSettings();
+            setEncode.setEncoding(UTF8_ENCODING);
+            in = new FileInputStream(new File("Candidate.xls"));
+            Workbook existingWorkbook = Workbook.getWorkbook(in);
+            WritableWorkbook workbookCopy = Workbook.createWorkbook(new java.io.File("Candidate.xls"), existingWorkbook);
+            WritableSheet sheetToEdit = workbookCopy.getSheet(0);
+            String value = sc.nextLine();
+            sheetToEdit.addCell(new Label(5, 12, value));
+            System.out.println("You add successfully");
+            workbookCopy.write();
+            workbookCopy.close();
+            in.close();
+        } catch (IOException | WriteException | BiffException e) {
+            System.out.println(e.getMessage());
+        }
+
+
+    }
+
+
+
 }
