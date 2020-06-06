@@ -18,9 +18,7 @@ public class Test {
 
     public static void main(String args[]){
         MissionControl mc = new MissionControl();
-        Scanner sc = new Scanner(System.in);
-        int i = sc.nextInt();
-        mc.showOneMission(i);
+        mc.createMission();
 
 
     }

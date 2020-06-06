@@ -350,7 +350,7 @@ public class MissionControl {
         System.out.println("    (1) Please enter the age requirement: ");
         System.out.print("  min age: ");
         int minage = sc.nextInt();
-        System.out.print("  min age: ");
+        System.out.print("  max age: ");
         int maxage = sc.nextInt();
         System.out.println(" Age range is from: " + minage + " - " + maxage);
 
@@ -371,7 +371,7 @@ public class MissionControl {
             System.out.println("the input cannot be null, try to enter again");
             minExp = sc.nextLine();
         }
-        System.out.println("    computer requirement is: " + minExp);
+        System.out.println("    Minimum working experience is: " + minExp);
         userCheckInput(minExp);
 
         System.out.println("    (4) Please enter the qualification requirements: ");
@@ -415,7 +415,7 @@ public class MissionControl {
         // set launch time
         System.out.println("9.Please set the launch date");
         System.out.println(" hint ('dd/mm/yyyy')");
-        String launch_time = sc.nextLine();
+        String launch_time = sc.next();
         while (isBlank(launch_time))
         {
             System.out.println("the input cannot be null, try to enter again");
@@ -466,6 +466,43 @@ public class MissionControl {
         }
         System.out.println("Your option is " + status);
         char noStatus = status.charAt(0);
+        clearScreen();
+        int i = missions.size();
+        int missionId = missions.get(i).getMissionId() + 2;
+        System.out.println("You Mission has been created with MissionID " + missionId);
+        System.out.println("    press [1] to save, press [2] to re-modify");
+        int save = 0;
+        while (true) {
+            try {
+                save = sc.nextInt();
+                while (true) {
+                    if (save >= 1 && save <= 2) {
+                        break;
+                    } else {
+                        System.out.println("Wrong input! Please enter a valid option:");
+                        save = sc.nextInt();
+                    }
+                }
+                break;
+            } catch (Exception e) {
+                System.out.println("Wrong input! please enter an Integer: ");
+                sc.next();
+            }
+        }
+
+        switch (save) {
+            case 1:
+                //write back to excel
+                
+                System.out.println("You mission information has been saved, you can search id " + missionId + "to check it in the View Mission Page");
+                sc.nextLine();
+                viewMissionPage();
+                break;
+            case 2:
+                modifyMissions(missionId);
+                break;
+        }
+
 
     }
 
@@ -478,6 +515,7 @@ public class MissionControl {
         Scanner sc = new Scanner(System.in);
         MtmSystem mtm = new MtmSystem();
         int userInput = 0;
+        missions = getMissions();
         mtm.showMissions();
         System.out.println("-- Please select an option: ");
         System.out.println("1. Select Mission with Mission ID to see details");
@@ -514,15 +552,19 @@ public class MissionControl {
 
     public void changeMissionDetailed(){
         Scanner sc = new Scanner(System.in);
+        clearScreen();
+        System.out.println("**********Change Mission Details************* ");
         System.out.println("Please enter the Mission Id ");
         String missionId = sc.nextLine();
-        while (isInt(missionId)){
+        while (!isInt(missionId)){
             System.out.println("Please enter the correct Mission ID");
             missionId = sc.next();
         }
         int id = Integer.parseInt(missionId);
         showOneMission(id);
-        System.out.println("-- Please select an option: ");
+        System.out.println("");
+        System.out.println("");
+        System.out.println("----- Please select an option: -------");
         System.out.println("    1. I wanna modify it.");
         System.out.println("    2. I wanna select the space shuttle for this mission.");
         System.out.println("    3. All good. Back to the last page");
