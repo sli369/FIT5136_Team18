@@ -24,9 +24,6 @@ public class Jsave {
     //    private byte requiredGender;
     public void createCriteria(Criteria criteria) {
 
-        //based on the employment requirement
-        //ArrayList<String> employmentRequirement = readFile("users.txt");
-
         Validate validate = new Validate();
         Scanner sc = new Scanner(System.in);
         MissionControl mission = new MissionControl();
@@ -36,13 +33,20 @@ public class Jsave {
             System.out.println("\n****** please select the criteria that you want to set ******\r\n");
             System.out.println("1.minimumAge & maximumAge\t\t2.qualification\t\t3.yearsOfWorkExperience\r\n");
             System.out.println("4.occupations\t\t5.computerSkills\t\t6.languageSpoken\r\n");
-            //
             System.out.println("*************************************************************");
-            //System.out.println("You can enter 'm' to check the mission");
-            //
-            //
-
+            System.out.println("You can enter 'm' to check the mission");
+            System.out.println("");
             System.out.println("You can enter 'a' to finish/exit creating a criteria or press enter to continue. ");
+
+            //
+            if (sc.nextLine().equals("m")){
+                System.out.println("please enter the ID of the mission that you want to check");
+                int id = sc.nextInt();
+                sc.nextLine();
+                mission.showOneMission(id);
+            }
+
+            //
             if (sc.nextLine().equals("a")) {
                 if (criteria.getNumberOfEmployee()!=0) {
                     System.out.println("enter number 1 to review the criteria created, enter number 2 to exit ");
