@@ -4,13 +4,24 @@ package com.company;
 import jxl.Cell;
 import jxl.Sheet;
 import jxl.Workbook;
+import jxl.WorkbookSettings;
+import jxl.read.biff.BiffException;
+import jxl.write.Label;
+import jxl.write.WritableSheet;
+import jxl.write.WritableWorkbook;
+import jxl.write.WriteException;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.Scanner;
+
 
 public class MissionControl {
     private ArrayList<Mission> missions;
@@ -86,7 +97,7 @@ public class MissionControl {
 
                 int missionId;
                 Date missionLauchDate;
-                SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+                SimpleDateFormat format = new SimpleDateFormat("dd/MM/YYYY");
                 String missionOrign;
                 int missionDuration;
                 int jobNumber;
@@ -242,7 +253,7 @@ public class MissionControl {
         System.out.println("****************************");
     }
 
-    public void createMission(){
+    public void createMission() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Now you are going to create a mission");
         System.out.println("****************************");
@@ -294,6 +305,15 @@ public class MissionControl {
         }
         System.out.println(countriesAllow + " is your country of origin");
         userCheckInput(countriesAllow);
+        ArrayList<String> countriesAllowed;
+        if (countriesAllow.contains(",")) {
+            String[] a = countriesAllow.split(",");
+            countriesAllowed = new ArrayList<>(Arrays.asList(a));
+        }else {
+            // only one country
+            countriesAllowed = new ArrayList<String>();
+            countriesAllowed.add(countriesAllow);
+        }
         clearScreen();
 
         // set coordinator
@@ -314,6 +334,7 @@ public class MissionControl {
             corContact = sc.nextLine();
         }
         userCheckInput(corContact);
+        Coordinator co = new Coordinator(corName, corContact);
         System.out.println("coordinator name is " + corName + " contact is " + corContact);
         clearScreen();
 
@@ -327,15 +348,14 @@ public class MissionControl {
             jobName = sc.nextLine();
         }
         userCheckInput(jobName);
-        System.out.println("    (2) Please enter the job Description");
-        String jobDes = sc.nextLine();
-        while (isBlank(jobDes))
-        {
-            System.out.println("the input cannot be null, try to enter again");
-            jobDes = sc.nextLine();
-        }
-        userCheckInput(jobDes);
-        System.out.println("Job name is " + jobName + " description is " + jobDes);
+        System.out.println("    (2) Please enter the job number");
+        int jobNo = sc.nextInt();
+
+        System.out.println("Job name is " + jobName + " number: " + jobNo);
+
+        Job job = new Job(jobName, jobNo);
+        ArrayList<Job> missionJobs = new ArrayList<Job>();
+        missionJobs.add(job);
         clearScreen();
 
         // set employee requirements
@@ -388,6 +408,8 @@ public class MissionControl {
         System.out.println("        hint: please add common between languages if you enter many ");
         String languages = sc.nextLine();
         userCheckInput(languages);
+
+        MissionCriteria mc = new MissionCriteria(minage, maxage,computerSkill,Integer.parseInt(minExp),qualification,languages);
         clearScreen();
 
         //8 please set cargo requirements
@@ -408,6 +430,9 @@ public class MissionControl {
         }
         System.out.println("    8.3 Please enter the cargo quantity: ");
         int cargoQuantity = sc.nextInt();
+        Cargo cg = new Cargo(cargoFor, cargo, cargoQuantity);
+        ArrayList<Cargo> cargosPerMission = new ArrayList<Cargo>();
+        cargosPerMission.add(cg);
 
         System.out.println("Here's you cargo information");
         System.out.println("cargo for " + cargoFor + " cargos: " + cargo + " quantity " + cargoQuantity);
@@ -415,15 +440,27 @@ public class MissionControl {
         // set launch time
         System.out.println("9.Please set the launch date");
         System.out.println(" hint ('dd/mm/yyyy')");
-        String launch_time = sc.next();
-        while (isBlank(launch_time))
+        String launchTime = sc.nextLine();
+        while (isBlank(launchTime))
         {
             System.out.println("the input cannot be null, try to enter again");
-            launch_time = sc.nextLine();
+            launchTime = sc.nextLine();
         }
         //check to_date
-        System.out.println(launch_time +" is your launch date");
-        userCheckInput(launch_time);
+        System.out.println(launchTime +" is your launch date");
+        while (!checkDate(launchTime)){
+            System.out.println("wrong date format, please follow the correct format with 'dd/MM/yyyy'");
+            launchTime = sc.nextLine();
+        }
+        Date missionLauchDate = new Date();
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/YYYY");
+        try {
+            missionLauchDate = format.parse(launchTime);
+        }
+        catch (ParseException ex) {
+            ex.printStackTrace();
+        }
+
         clearScreen();
 
         // set location
@@ -467,8 +504,15 @@ public class MissionControl {
         System.out.println("Your option is " + status);
         char noStatus = status.charAt(0);
         clearScreen();
+        missions = getMissions();
         int i = missions.size();
-        int missionId = missions.get(i).getMissionId() + 2;
+        int missionId = missions.get(i-1).getMissionId() + 2;
+
+        Mission mission = new Mission(missionId, missionName, missionDes, countryOrigin, countriesAllowed,
+                emRequire, missionLauchDate, location, Integer.parseInt(duration), status.charAt(0), co, missionJobs, cargosPerMission,mc);
+
+
+
         System.out.println("You Mission has been created with MissionID " + missionId);
         System.out.println("    press [1] to save, press [2] to re-modify");
         int save = 0;
@@ -493,9 +537,9 @@ public class MissionControl {
         switch (save) {
             case 1:
                 //write back to excel
-                
-                System.out.println("You mission information has been saved, you can search id " + missionId + "to check it in the View Mission Page");
-                sc.nextLine();
+                saveMission(mission);
+                System.out.println("You mission information has been saved, you can search id " + missionId + " to check it in the View Mission Page");
+                sc.next();
                 viewMissionPage();
                 break;
             case 2:
@@ -506,8 +550,85 @@ public class MissionControl {
 
     }
 
+    public void saveMission(Mission mission){
+        WritableWorkbook writebook = null;
+        InputStream in = null;
+        String UTF8_ENCODING = "UTF-8";
+        Scanner sc = new Scanner(System.in);
+        try {
+            WorkbookSettings setEncode = new WorkbookSettings();
+            setEncode.setEncoding(UTF8_ENCODING);
+            in = new FileInputStream(new File("mission.xls"));
+            Workbook existingWorkbook = Workbook.getWorkbook(in);
+            WritableWorkbook missionSave = Workbook.createWorkbook(new File("mission.xls"), existingWorkbook);
+            WritableSheet sheet = missionSave.getSheet(0);
+            int nextRow = sheet.getRows();
+//            String value = sc.nextLine();
+            String missionId = String.valueOf(mission.getMissionId());
+            SimpleDateFormat sf = new SimpleDateFormat("dd/MM/yyyy");
+            String missionLaunchDate = sf.format(mission.getLaunchDate());
+            String originCountry = mission.getCountryOfOrigin();
+            String duration = String.valueOf(mission.getMissionDuration());
+            String numberJob = String.valueOf(mission.getJob().get(0).getNumber());
+            String missionDes = mission.getMissionDescription();
+            String employeeRquire = mission.getEmploymentRequirement();
+            String ageRange = String.valueOf(mission.getCriteria().getMinage()) + " - " + String.valueOf(mission.getCriteria().getMaxage());
+            String minExp = String.valueOf(mission.getCriteria().getExpYear());
+            String qualification = mission.getCriteria().getQualification();
+            String job = mission.getJob().get(0).getJobName();
+            String computerSkill = mission.getCriteria().getComputerSkill();
+            String[] language = mission.getCriteria().getLanguage().split(",");
+            String fLanguage = language[0];
+            String secLanguage = mission.getCriteria().getLanguage().substring(1, mission.getCriteria().getLanguage().length());
+            String cargoFor = mission.getCargo().get(0).getCargoFor();
+            String cargoRequire = mission.getCargo().get(0).getRequirement();
+            String cargoQuantity = String.valueOf(mission.getCargo().get(0).getQuantity());
+            String missionName = mission.getMissionName();
+            String countriesAllow = mission.getCountriesAllowed().toString();
+            String destination = mission.getLocationDestination();
+            char status = mission.getMissionStatus();
+            String coorName = mission.getCoordinator().getName();
+            String coorContact = mission.getCoordinator().getEmail();
+
+            sheet.addCell(new Label(0, nextRow, missionId));
+            sheet.addCell(new Label(1, nextRow, missionLaunchDate));
+            sheet.addCell(new Label(2, nextRow, originCountry));
+            sheet.addCell(new Label(3, nextRow, duration));
+            sheet.addCell(new Label(4, nextRow, numberJob));
+            sheet.addCell(new Label(5, nextRow, missionDes));
+            sheet.addCell(new Label(6, nextRow, employeeRquire));
+            sheet.addCell(new Label(7, nextRow, ageRange));
+            sheet.addCell(new Label(8, nextRow, minExp));
+            sheet.addCell(new Label(9, nextRow, qualification));
+            sheet.addCell(new Label(10, nextRow, job));
+            sheet.addCell(new Label(11, nextRow, computerSkill));
+            sheet.addCell(new Label(12, nextRow,fLanguage));
+            sheet.addCell(new Label(13, nextRow, secLanguage));
+            sheet.addCell(new Label(14, nextRow, cargoFor));
+            sheet.addCell(new Label(15, nextRow, cargoRequire));
+            sheet.addCell(new Label(16, nextRow, cargoQuantity));
+            sheet.addCell(new Label(17, nextRow, missionName));
+            sheet.addCell(new Label(18, nextRow, countriesAllow));
+            sheet.addCell(new Label(19, nextRow, destination));
+            sheet.addCell(new Label(20, nextRow, String.valueOf(status)));
+            sheet.addCell(new Label(21, nextRow, coorName));
+            sheet.addCell(new Label(22, nextRow, coorContact));
+
+            System.out.println("You add successfully");
+            missionSave.write();
+            missionSave.close();
+            in.close();
+        } catch (IOException | WriteException | BiffException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
 
     public void  modifyMissions(int id){
+        showOneMission(id);
+        System.out.println("------- Please select an option to modify the mission: ");
+        Scanner sc = new Scanner(System.in);
+        int no = 0;
 
     }
 
@@ -600,4 +721,37 @@ public class MissionControl {
                 viewMissionPage();
         }
     }
+
+    //check date
+
+    public boolean checkDate(String value){
+        Boolean isTrue;
+        Date date = null;
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            date = sdf.parse(value);
+            if (!value.equals(sdf.format(date))) {
+                date = null;
+            }
+        } catch (ParseException ex) {
+            ex.printStackTrace();
+        }
+        if (date == null) {
+            isTrue = false;
+        } else {
+            // Valid date format
+            isTrue = true;
+        }
+        return isTrue;
+    }
+
+
+
+    //check countries
+
+    //check ,
+
+    //check contact
+
+    //check cargo for
 }
