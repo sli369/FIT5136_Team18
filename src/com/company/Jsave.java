@@ -44,8 +44,7 @@ public class Jsave {
 
             System.out.println("You can enter 'a' to finish/exit creating a criteria or press enter to continue. ");
             if (sc.nextLine().equals("a")) {
-                if (criteria.getComputerSkills().length != 0 || criteria.getLanguageSpoken().length != 0 || criteria.getOccupations().length != 0 || criteria.getQualification().length != 0 || criteria.getNumberOfEmployee() != 0 || criteria.getMinimumAge() != 0 || criteria.getMaximumAge() != 0 || criteria.getYearsOfWorkExperience() != 0) {
-                    //criterias.add(criteria);
+                if (criteria.getNumberOfEmployee()!=0) {
                     System.out.println("enter number 1 to review the criteria created, enter number 2 to exit ");
                     System.out.println("1.review criteria\t\t2.exit\r\n");
                     String yn = sc.nextLine();
@@ -70,6 +69,19 @@ public class Jsave {
                         return;
                     }
 
+                }
+                else {
+                    System.out.println("No criteria added, return to the create criteria page");
+                    System.out.println("");
+                    System.out.println("");
+                    System.out.println("");
+                    System.out.println("");
+                    System.out.println("");
+                    System.out.println("\n***************** create the criteria to select employees *****************\r\n");
+                    System.out.println("\n****** please select the criteria that you want to set ******\r\n");
+                    System.out.println("1.minimumAge & maximumAge\t\t2.qualification\t\t3.yearsOfWorkExperience\r\n");
+                    System.out.println("4.occupations\t\t5.computerSkills\t\t6.languageSpoken\r\n");
+                    System.out.println("*************************************************************");
                 }
             }
 
@@ -266,6 +278,7 @@ public class Jsave {
         System.out.println("you have set occupations: " + Arrays.toString(occu));
         int index = occu.length-1;
         System.out.println("please set the number of employees you need with each kind of occupations");
+        ArrayList<Integer> numbers = new ArrayList<Integer>();
         for (int i = 0;i <= occu.length-1;i++){
             System.out.println("please enter the number that how many " + occu[i] + " you need");
             String n = sc.nextLine();
@@ -279,13 +292,11 @@ public class Jsave {
                 n = sc.nextLine();
             }
             int nInt = Integer.parseInt(n);
-            ArrayList<Integer> numbers = new ArrayList<Integer>();
+            criteria.setNumberOfEmployee(nInt);
             numbers.add(nInt);
-            criteria.setEmployeeOccupation(numbers);
-
          }
-        ArrayList<Integer> totalNumber = criteria.getEmployeeOccupation();
-        criteria.setNumberOfEmployee(totalNumber);
+
+        criteria.setEmployeeOccupation(numbers);
         int totalNumberOfEmployee = criteria.getNumberOfEmployee();
         System.out.println("The total number of employee required in this mission is: " + totalNumberOfEmployee);
         System.out.println("Do you want to continue to set the computerSkills criteria? ");

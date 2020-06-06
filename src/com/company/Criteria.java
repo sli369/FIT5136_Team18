@@ -93,11 +93,8 @@ public class Criteria {
         return numberOfEmployee;
     }
 
-    public void setNumberOfEmployee(ArrayList<Integer> employeeOccupation) {
-        for (int i = 0; i <= employeeOccupation.size()-1; i++){
-            int add = employeeOccupation.get(i);
-            numberOfEmployee = numberOfEmployee + add;
-        }
+    public void setNumberOfEmployee(int number) {
+        numberOfEmployee = numberOfEmployee + number;
 
     }
 
@@ -124,7 +121,7 @@ public class Criteria {
         System.out.println("4.Years of work experience:    " + yearsOfWorkExperience);
         System.out.println("5.Occupations and the number of employee required:  ");//+ Arrays.toString(occupations) );
         for (int i = 0; i <= occupations.length-1; i++){
-            System.out.println(occupations[i] + "  " + employeeOccupation.get(i));
+            System.out.println("            "+occupations[i] + "  " + employeeOccupation.get(i));
         }
         System.out.println("6.Computer skills:    " + Arrays.toString(computerSkills));
         System.out.println("7.Language spoken:    " + Arrays.toString(languageSpoken));
