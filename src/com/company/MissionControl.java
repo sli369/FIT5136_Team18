@@ -45,13 +45,13 @@ public class MissionControl {
 
     public int getMissionsIndex(int id) {
         missions = getMissions();
-        int i;
-        for (i = 0; i < missions.size(); i++) {
+        int index = 0;
+        for (int i = 0; i < missions.size(); i++) {
             if (id == missions.get(i).getMissionId()) {
-                i = i;
+                index = i;
             }
         }
-        return i;
+        return index;
     }
 
 
@@ -60,11 +60,8 @@ public class MissionControl {
         missions = getMissions();
         Scanner sc = new Scanner(System.in);
 //        missionId = sc.nextInt();
-        boolean findId;
+        int i = getMissionsIndex(missionId);
 
-        for(int i=0; i<missions.size(); i++){
-            if(missionId == missions.get(i).getMissionId()){
-                findId = true;
                 System.out.println("1.Mission Name:    " + missions.get(i).getMissionName());
                 System.out.println("2.Mission description:    " + missions.get(i).getMissionDescription());
                 System.out.println("3.Country of origin:    " + missions.get(i).getCountryOfOrigin());
@@ -90,9 +87,6 @@ public class MissionControl {
                 System.out.println("10.Location: " + missions.get(i).getLocationDestination());
                 System.out.println("11.Duration of the mission: " + missions.get(i).getMissionDuration());
                 System.out.println("12.Status of the mission " + "(" + missions.get(i).getMissionStatus() +")");
-            }
-                findId = false;
-        }
 
     }
 
@@ -745,7 +739,7 @@ public class MissionControl {
         missions = getMissions();
         while (isDone) {
             showOneMission(id);
-            int i = missions.indexOf(id);
+            int i = getMissionsIndex(id);
             System.out.println("\n\n");
             System.out.println("------- Please select an option to modify the mission: ");
             Scanner sc = new Scanner(System.in);
@@ -788,6 +782,7 @@ public class MissionControl {
                 case 1:
                     missionName = createMissionName();
                     missions.get(i).setMissionName(missionName);
+                    System.out.println("new mission name is " + missions.get(i).getMissionName());
                     isDone = isModifyDone();
                     break;
                 case 2:
