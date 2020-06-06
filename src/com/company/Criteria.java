@@ -1,6 +1,6 @@
 package com.company;
 
-import javax.swing.*;
+import java.util.Arrays;
 
 public class Criteria {
     private int minimumAge;
@@ -118,12 +118,12 @@ public class Criteria {
     public void showCriteria(){
         System.out.println("1.Minimum age:    " + minimumAge);
         System.out.println("2.Maximum age:    " + maximumAge);
-        System.out.println("3.Qualifications:    " + qualification);
+        System.out.println("3.Qualifications:    " + Arrays.toString(qualification));
         System.out.println("4.Years of work experience:    " + yearsOfWorkExperience);
-        System.out.println("5.Occupations: " + occupations );
-        System.out.println("6.Computer skills" + computerSkills);
-        System.out.println("7.Language spoken" + languageSpoken);
-        System.out.println("8.Number of employees required" + numberOfEmployee);
+        System.out.println("5.Occupations:    " + Arrays.toString(occupations) );
+        System.out.println("6.Computer skills:    " + Arrays.toString(computerSkills));
+        System.out.println("7.Language spoken:    " + Arrays.toString(languageSpoken));
+        System.out.println("8.Number of employees required:    " + numberOfEmployee);
 
     }
 

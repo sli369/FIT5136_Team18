@@ -17,8 +17,9 @@ import java.util.Scanner;
 public class Test {
 
     public static void main(String args[]){
-        MissionControl mc = new MissionControl();
-        mc.createMission();
+       Jsave cri = new Jsave();
+       cri.startCreateCriteria();
+
 
 
     }
