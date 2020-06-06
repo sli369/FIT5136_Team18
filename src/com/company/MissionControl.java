@@ -340,7 +340,6 @@ public class MissionControl {
 
         // set employee requirements
         System.out.println("7.Please enter the employee requirements");
-        System.out.println("    (1) Please enter the requirements job name");
         String emRequire = sc.nextLine();
         while (isBlank(emRequire))
         {
@@ -348,9 +347,70 @@ public class MissionControl {
             emRequire = sc.nextLine();
         }
         userCheckInput(emRequire);
-        System.out.println("    (2) Please enter the number of requirements");
-        int no = sc.nextInt();
+        System.out.println("    (1) Please enter the age requirement: ");
+        System.out.print("  min age: ");
+        int minage = sc.nextInt();
+        System.out.print("  min age: ");
+        int maxage = sc.nextInt();
+        System.out.println(" Age range is from: " + minage + " - " + maxage);
 
+        System.out.println("    (2)Please Set the computer Skill ");
+        String computerSkill = sc.nextLine();
+        while (isBlank(computerSkill))
+        {
+            System.out.println("the input cannot be null, try to enter again");
+            computerSkill = sc.nextLine();
+        }
+        System.out.println("    computer requirement is: " + computerSkill);
+        userCheckInput(computerSkill);
+
+        System.out.println("    (3)Please Set the minimum working experience ");
+        String minExp = sc.nextLine();
+        while (isBlank(minExp))
+        {
+            System.out.println("the input cannot be null, try to enter again");
+            minExp = sc.nextLine();
+        }
+        System.out.println("    computer requirement is: " + minExp);
+        userCheckInput(minExp);
+
+        System.out.println("    (4) Please enter the qualification requirements: ");
+        String qualification = sc.nextLine();
+        while (isBlank(qualification))
+        {
+            System.out.println("the input cannot be null, try to enter again");
+            qualification = sc.nextLine();
+        }
+        System.out.println("    qualification requirement is " + qualification);
+        userCheckInput(qualification);
+
+        System.out.println( "   (5) Please enter the language requirement");
+        System.out.println("        hint: please add common between languages if you enter many ");
+        String languages = sc.nextLine();
+        userCheckInput(languages);
+        clearScreen();
+
+        //8 please set cargo requirements
+        System.out.println("8.Please set the cargo information");
+        System.out.println("    8.1 Please set the cargo for (mission or journey)");
+        String cargoFor = sc.nextLine();
+        while (isBlank(cargoFor))
+        {
+            System.out.println("the input cannot be null, try to enter again");
+            cargoFor = sc.nextLine();
+        }
+        System.out.println("    8.2 Please enter the cargo ");
+        String cargo = sc.nextLine();
+        while (isBlank(cargo))
+        {
+            System.out.println("the input cannot be null, try to enter again");
+            cargo = sc.nextLine();
+        }
+        System.out.println("    8.3 Please enter the cargo quantity: ");
+        int cargoQuantity = sc.nextInt();
+
+        System.out.println("Here's you cargo information");
+        System.out.println("cargo for " + cargoFor + " cargos: " + cargo + " quantity " + cargoQuantity);
 
         // set launch time
         System.out.println("9.Please set the launch date");
