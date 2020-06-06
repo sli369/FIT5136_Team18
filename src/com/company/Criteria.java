@@ -1,5 +1,6 @@
 package com.company;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Criteria {
@@ -10,6 +11,7 @@ public class Criteria {
     private String[] occupations;
     private String[] computerSkills;
     private String[] languageSpoken;
+    private ArrayList<Integer> employeeOccupation;
     private int numberOfEmployee;
     private byte requiredGender;
 
@@ -17,20 +19,8 @@ public class Criteria {
         numberOfEmployee = 0;
     }
 
-    public Criteria(int minimumAge, int maximumAge, String qualification, int yearsOfWorkExperience, String computerSkills, String[] languageSpoken) {
-        this.minimumAge = minimumAge;
-        this.maximumAge = maximumAge;
-        this.qualification[0] = qualification;
-        this.yearsOfWorkExperience = yearsOfWorkExperience;
-        this.computerSkills[0] = computerSkills;
-        this.languageSpoken = languageSpoken;
-    }
 
-    public Criteria(int minimumAge, int maximumAge, String[] qualification,
-                    int yearsOfWorkExperience, String[] occupations,
-                    String[] computerSkills, String[] languageSpoken,
-                    byte requiredGender, int numberOfEmployee)
-    {
+    public Criteria(int minimumAge, int maximumAge, String[] qualification, int yearsOfWorkExperience, String[] occupations, String[] computerSkills, String[] languageSpoken, ArrayList<Integer> employeeOccupation, int numberOfEmployee, byte requiredGender) {
         this.minimumAge = minimumAge;
         this.maximumAge = maximumAge;
         this.qualification = qualification;
@@ -38,9 +28,9 @@ public class Criteria {
         this.occupations = occupations;
         this.computerSkills = computerSkills;
         this.languageSpoken = languageSpoken;
-        this.requiredGender = requiredGender;
+        this.employeeOccupation = employeeOccupation;
         this.numberOfEmployee = numberOfEmployee;
-
+        this.requiredGender = requiredGender;
     }
 
     public int getMinimumAge() {
@@ -103,8 +93,20 @@ public class Criteria {
         return numberOfEmployee;
     }
 
-    public void setNumberOfEmployee(int newNumberOfEmployee) {
-        numberOfEmployee = numberOfEmployee + newNumberOfEmployee;
+    public void setNumberOfEmployee(ArrayList<Integer> employeeOccupation) {
+        for (int i = 0; i <= employeeOccupation.size()-1; i++){
+            int add = employeeOccupation.get(i);
+            numberOfEmployee = numberOfEmployee + add;
+        }
+
+    }
+
+    public ArrayList<Integer> getEmployeeOccupation() {
+        return employeeOccupation;
+    }
+
+    public void setEmployeeOccupation(ArrayList<Integer> employeeOccupation) {
+        this.employeeOccupation = employeeOccupation;
     }
 
     public byte isRequiredGender() {
@@ -120,7 +122,10 @@ public class Criteria {
         System.out.println("2.Maximum age:    " + maximumAge);
         System.out.println("3.Qualifications:    " + Arrays.toString(qualification));
         System.out.println("4.Years of work experience:    " + yearsOfWorkExperience);
-        System.out.println("5.Occupations:    " + Arrays.toString(occupations) );
+        System.out.println("5.Occupations and the number of employee required:  ");//+ Arrays.toString(occupations) );
+        for (int i = 0; i <= occupations.length-1; i++){
+            System.out.println(occupations[i] + "  " + employeeOccupation.get(i));
+        }
         System.out.println("6.Computer skills:    " + Arrays.toString(computerSkills));
         System.out.println("7.Language spoken:    " + Arrays.toString(languageSpoken));
         System.out.println("8.Number of employees required:    " + numberOfEmployee);

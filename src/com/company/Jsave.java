@@ -38,39 +38,40 @@ public class Jsave {
             System.out.println("4.occupations\t\t5.computerSkills\t\t6.languageSpoken\r\n");
             //
             System.out.println("*************************************************************");
-            System.out.println("You can enter 'm' to check the mission");
+            //System.out.println("You can enter 'm' to check the mission");
+            //
+            //
 
-//            System.out.println("Or you can enter 'a' to finish/exit creating a criteria. ");
-//            if (sc.nextLine().equals("a") && criteria.getComputerSkills().length != 0 || criteria.getLanguageSpoken().length != 0 || criteria.getOccupations().length != 0
-//                    || criteria.getQualification().length != 0 || criteria.getNumberOfEmployee() != 0 || criteria.getMinimumAge() != 0 ||
-//                    criteria.getMaximumAge() != 0 || criteria.getYearsOfWorkExperience() != 0)
-//                {
-//                    criterias.add(criteria);
-//                    System.out.println("enter number 1 to review the criteria created, enter number 2 to exit ");
-//                    System.out.println("1.review criteria\t\t2.exit\r\n");
-//                    String yn = sc.nextLine();
-//                    while (validate.checkInt(yn) == false){
-//                        System.out.println("please enter valid integer number");
-//                        System.out.println("please input your selection: ");
-//                        yn = sc.nextLine();
-//                    }
-//                    while (validate.checkRange(Integer.parseInt(yn),1,2) == false){
-//                        System.out.println("Please enter valid range of number");
-//                        System.out.println("Please input your selection: number between 1~2 ");
-//                        yn = sc.nextLine();
-//                    }
-//                    int ynInt = Integer.parseInt(yn);
-//                    if (ynInt == 1){
-//                        criteria.showCriteria();
-//                        System.out.println("Press space to exit");
-//                        sc.nextLine();
-//                    return;
-//                }
-//                    else {
-//                        return;
-//                    }
-//
-//            }
+            System.out.println("You can enter 'a' to finish/exit creating a criteria or press enter to continue. ");
+            if (sc.nextLine().equals("a")) {
+                if (criteria.getComputerSkills().length != 0 || criteria.getLanguageSpoken().length != 0 || criteria.getOccupations().length != 0 || criteria.getQualification().length != 0 || criteria.getNumberOfEmployee() != 0 || criteria.getMinimumAge() != 0 || criteria.getMaximumAge() != 0 || criteria.getYearsOfWorkExperience() != 0) {
+                    //criterias.add(criteria);
+                    System.out.println("enter number 1 to review the criteria created, enter number 2 to exit ");
+                    System.out.println("1.review criteria\t\t2.exit\r\n");
+                    String yn = sc.nextLine();
+                    while (validate.checkInt(yn) == false) {
+                        System.out.println("please enter valid integer number");
+                        System.out.println("please input your selection: ");
+                        yn = sc.nextLine();
+                    }
+                    while (validate.checkRange(Integer.parseInt(yn), 1, 2) == false) {
+                        System.out.println("Please enter valid range of number");
+                        System.out.println("Please input your selection: number between 1~2 ");
+                        yn = sc.nextLine();
+                    }
+                    int ynInt = Integer.parseInt(yn);
+                    if (ynInt == 1){
+                        criteria.showCriteria();
+                        System.out.println("Press enter to exit");
+                        sc.nextLine();
+                    return;
+                    }
+                    else {
+                        return;
+                    }
+
+                }
+            }
 
                 System.out.println("Please input your selection: ");
             try {
@@ -263,9 +264,9 @@ public class Jsave {
         String[] occu = sc.nextLine().split(",");
         criteria.setOccupations(occu);
         System.out.println("you have set occupations: " + Arrays.toString(occu));
+        int index = occu.length-1;
         System.out.println("please set the number of employees you need with each kind of occupations");
-
-        for (int i = 0;i <= occu.length;i++){
+        for (int i = 0;i <= occu.length-1;i++){
             System.out.println("please enter the number that how many " + occu[i] + " you need");
             String n = sc.nextLine();
             while (validate.checkInt(n) == false){
@@ -278,9 +279,15 @@ public class Jsave {
                 n = sc.nextLine();
             }
             int nInt = Integer.parseInt(n);
-            criteria.setNumberOfEmployee(nInt);
-         }
+            ArrayList<Integer> numbers = new ArrayList<Integer>();
+            numbers.add(nInt);
+            criteria.setEmployeeOccupation(numbers);
 
+         }
+        ArrayList<Integer> totalNumber = criteria.getEmployeeOccupation();
+        criteria.setNumberOfEmployee(totalNumber);
+        int totalNumberOfEmployee = criteria.getNumberOfEmployee();
+        System.out.println("The total number of employee required in this mission is: " + totalNumberOfEmployee);
         System.out.println("Do you want to continue to set the computerSkills criteria? ");
         System.out.println("1.Yes\t\t2.No\r\n ");
         String yn = sc.nextLine();
@@ -365,7 +372,7 @@ public class Jsave {
         int ynInt = Integer.parseInt(yn);
         if (ynInt == 2){
             criteria.showCriteria();
-            System.out.println("Press space to go back to create criteria page");
+            System.out.println("Press enter to go back to create criteria page");
             sc.nextLine();
             createCriteria(criteria);
         }
