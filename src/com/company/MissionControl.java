@@ -1111,7 +1111,7 @@ public class MissionControl {
                 clearScreen();
                 break;
             case 3:
-                Jsave criteria = new Jsave();
+                EmployFast criteria = new EmployFast();
                 criteria.startCreateCriteria();
                 clearScreen();
                 break;
