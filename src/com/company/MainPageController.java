@@ -46,7 +46,7 @@ public class MainPageController {
                     missionControl.createMission();
                     break;
                 case 2:
-                    mtm.showMissions();
+                    missionControl.showMissions();
                     break;
                 case 3:
                     shuttleControl.shuttlePage();
