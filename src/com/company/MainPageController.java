@@ -1,17 +1,11 @@
 package com.company;
 
-import jxl.Cell;
-import jxl.Sheet;
-import jxl.Workbook;
-
-import java.io.File;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Scanner;
 
 public class MainPageController {
     private MtmSystem mtm = new MtmSystem();
+    private Jsave cri = new Jsave();
     public void WelcomePage(String user_name, int role){
         MissionControl missionControl = new MissionControl();
 
@@ -26,13 +20,14 @@ public class MainPageController {
             System.out.println("2. View all Missions");
             System.out.println("3. Select a Shuttle");
             System.out.println("4. Candidate Information");
+            System.out.println("5. Create Criteria");
             System.out.println("-- Please enter the number of your selection:");
 
             while (true) {
                 try {
                     userInput = sc.nextInt();
                     while (true) {
-                        if (userInput >= 1 && userInput <= 4) {
+                        if (userInput >= 1 && userInput <= 5) {
                             break;
                         } else {
                             System.out.println("Wrong input! Please enter a valid option:");
@@ -57,6 +52,11 @@ public class MainPageController {
                     shuttleControl.shuttlePage();
                     break;
                 case 4:
+                    //
+                    break;
+                case 5:
+                    cri.startCreateCriteria();
+                    break;
 
             }
         }
