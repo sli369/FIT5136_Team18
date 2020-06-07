@@ -80,9 +80,9 @@ public class Main {
 
 
 
-                        System.out.println("Hello!" + user_record[0] + "\n");
+                        System.out.println("Hello!" + user_record[4] + "\n");
 
-                        mainpage.WelcomePage(user_record[4], Integer.parseInt(user_record[3]));
+                        mainpage.WelcomePage(user_record[4], Integer.parseInt(user_record[2]));
 
                     }
                     // login failed
