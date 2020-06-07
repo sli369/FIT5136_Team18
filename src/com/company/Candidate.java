@@ -27,6 +27,7 @@ public class Candidate{
     private String computerSkill;
     private String language;
     private String nationality;
+    private String mission;
 
     public Candidate(String id, String name, String dateOfBirth, String street, String city, String state, String postal, String country, String phone, String idtype, String gender, String allergies, String foodPreference, String qualifications, String workExperience, String occupation, String computerSkill, String language, String nationality) {
         this.id = id;

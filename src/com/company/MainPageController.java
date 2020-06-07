@@ -109,6 +109,7 @@ public class MainPageController {
             ArrayList<Candidate> candidateList = candidatelist.getCandidate();
             Scanner sc = new Scanner(System.in);
             int userInput = 0;
+            String option;
             System.out.println("-- Please select an option: ");
             System.out.println("1. View my details");
             System.out.println("2. View my missions");
@@ -153,7 +154,78 @@ public class MainPageController {
                             System.out.println("Nationality: " + candidate.getNationality());
                         }
                     }
-                    break;
+                    System.out.println("Would you like to update your details?");
+                    System.out.println("1.Yes,  2.No");
+                    while (true) {
+                        try {
+                            userInput = sc.nextInt();
+                            while (true) {
+                                if (userInput >= 1 && userInput <= 2) {
+                                    break;
+                                } else {
+                                    System.out.println("Wrong input! Please enter a valid option:");
+                                    userInput = sc.nextInt();
+                                }
+                            }
+                            break;
+                        } catch (Exception e) {
+                            System.out.println("Wrong input! please enter an Integer: ");
+                            sc.next();
+                        }
+                    }
+                    switch (userInput){
+                        case 1:
+                            System.out.println("Please enter the title you want to update (e.g Address): ");
+                            System.out.println("NOTE: ID, Name, Gender, DOB, Nationality cannot be changed!");
+                            while (true) {
+                                try {
+                                    option = sc.next();
+                                    while (true) {
+                                        if (option.equals("Address") || option.equals("Phone") || option.equals("ID Type") || option.equals("Allergies") || option.equals("Food Preferences") || option.equals("Qualifications") || option.equals("Work Exp.") || option.equals("Occupation") || option.equals("Computer Skills") || option.equals("Languages")) {
+                                            break;
+                                        } else {
+                                            System.out.println("Wrong input! Please re-enter");
+                                            option = sc.next();
+                                        }
+                                    }
+                                    break;
+                                } catch (Exception e) {
+                                    System.out.println("Wrong input! please enter a Title (e.g Address): ");
+                                    sc.next();
+                                }
+                            }
+                            if(option.equals("Address")){
+
+                            }
+                            else if(option.equals("Phone")){
+
+                            }
+                            else if(option.equals("ID Type")){
+
+                            }
+                            else if(option.equals("Allergies")){
+
+                            }
+                            else if(option.equals("Food Preferences")){
+
+                            }
+                            else if(option.equals("Qualifications")){
+
+                            }
+                            else if(option.equals("Work Exp.")){
+
+                            }
+                            else if(option.equals("Occupation")){
+
+                            }
+                            else if(option.equals("Computer Skills")){
+
+                            }
+                            else if(option.equals("Languages")){
+
+                            }
+
+                    }
                 case 2:
                     mtm.showMissions();
                     break;

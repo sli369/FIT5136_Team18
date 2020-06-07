@@ -86,4 +86,6 @@ public class CandidateControl {
             System.out.println("Shuttle id: " + candidates.get(i).getCity());
         }
     }
+
+
 }
