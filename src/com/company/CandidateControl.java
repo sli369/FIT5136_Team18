@@ -91,13 +91,13 @@ public class CandidateControl {
         return candidates;
     }
 
-//    public void showCandidates(){
-//        candidates = getCandidate();
-//        System.out.println("Show all shuttle Id");
-//        for(int i=0; i<candidates.size(); i++){
-//            System.out.println("Shuttle id: " + candidates.get(i).getCity());
-//        }
-//    }
+    public void showCandidates(){
+        candidates = getCandidate();
+        System.out.println("************** All Candidates **************");
+        for(int i=0; i<candidates.size(); i++){
+            System.out.println("Candidate ID: " + candidates.get(i).getId() + "   Candidate Name: " + candidates.get(i).getName());
+        }
+    }
 
     public Candidate changeCandidateInfo(Candidate candidate){
         String option;
