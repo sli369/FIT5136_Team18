@@ -188,9 +188,9 @@ public class EmployFast {
             System.out.println("please enter the min age");
             minAge = sc.nextLine();
         }
-        while (validate.checkRange(Integer.parseInt(minAge),15,90) == false){
+        while (validate.checkRange(Integer.parseInt(minAge),18,55) == false){
             System.out.println("Please enter valid range of number");
-            System.out.println("please enter the min age that above 15");
+            System.out.println("please enter the min age that not below 18");
             minAge = sc.nextLine();
         }
         int minAgeInt = Integer.parseInt(minAge);
@@ -202,9 +202,9 @@ public class EmployFast {
             System.out.println("please enter the max age");
             maxAge = sc.nextLine();
         }
-        while (validate.checkRange(Integer.parseInt(maxAge),15,90) == false){
+        while (validate.checkRange(Integer.parseInt(maxAge),18,55) == false){
             System.out.println("Please enter valid range of number");
-            System.out.println("please enter the max age that below 90");
+            System.out.println("please enter the max age that not over 55");
             maxAge = sc.nextLine();
         }
         int maxAgeInt = Integer.parseInt(maxAge);
