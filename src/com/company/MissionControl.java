@@ -1111,6 +1111,7 @@ public class MissionControl {
             case 3:
                 Jsave criteria = new Jsave();
                 criteria.startCreateCriteria();
+                clearScreen();
                 break;
             case 4:
                 viewMissionPage(corName);
