@@ -94,7 +94,7 @@ public class MainPageController {
                     missionControl.createMission();
                     break;
                 case 2:
-                    mtm.showMissions();
+                    missionControl.viewMissionPage(user_name);
                     break;
                 case 3:
                     shuttleControl.shuttlePage();

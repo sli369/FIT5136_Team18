@@ -44,30 +44,30 @@ public class MtmSystem {
     /////////////////////////////////////////////////////////////////
     //joyce start
     /////////////////////////////////////////////////////////////////
-//    public void showMissionCriteria(int missionId){
-//        missions = getMissions();
-//        Scanner sc = new Scanner(System.in);
-////        missionId = sc.nextInt();
-//        boolean findId;
-//
-//        for(int i=0; i<missions.size(); i++){
-//            if(missionId == missions.get(i).getMissionId()){
-//                findId = true;
-//                System.out.println("1.occupation required");
-//                for(int j = 0; j<missions.get(i).getJob().size(); j++) {
-//                    missions.get(i).getJob().get(j).showJob();
-//                }
-//                System.out.println("2.Employment requirements: " + missions.get(i).getEmploymentRequirement());
-//                System.out.println("3.Age range is from: " + missions.get(i).getCriteria().getMinage() + " - " + missions.get(i).getCriteria().getMaxage());
-//                System.out.println("4.computer skill require: " + missions.get(i).getCriteria().getComputerSkill());
-//                System.out.println("5.experience requirements: " + missions.get(i).getCriteria().getExpYear() + "years");
-//                System.out.println("6.qualification requiremnts: " + missions.get(i).getCriteria().getQualification());
-//                System.out.println("7.language requirements: " + missions.get(i).getCriteria().getLanguage());
-//            }
-//            findId = false;
-//        }
-//
-//    }
+    public void showMissionCriteria(int missionId){
+        missions = getMissions();
+        Scanner sc = new Scanner(System.in);
+//        missionId = sc.nextInt();
+        boolean findId;
+
+        for(int i=0; i<missions.size(); i++){
+            if(missionId == missions.get(i).getMissionId()){
+                findId = true;
+                System.out.println("1.occupation required");
+                for(int j = 0; j<missions.get(i).getJob().size(); j++) {
+                    missions.get(i).getJob().get(j).showJob();
+                }
+                System.out.println("2.Employment requirements: " + missions.get(i).getEmploymentRequirement());
+                System.out.println("3.Age range is from: " + missions.get(i).getCriteria().getMinage() + " - " + missions.get(i).getCriteria().getMaxage());
+                System.out.println("4.computer skill require: " + missions.get(i).getCriteria().getComputerSkill());
+                System.out.println("5.experience requirements: " + missions.get(i).getCriteria().getExpYear() + "years");
+                System.out.println("6.qualification requiremnts: " + missions.get(i).getCriteria().getQualification());
+                System.out.println("7.language requirements: " + missions.get(i).getCriteria().getLanguage());
+            }
+            findId = false;
+        }
+
+    }
 
     /////////////////////////////////////////////////////////////////
     //joyce end

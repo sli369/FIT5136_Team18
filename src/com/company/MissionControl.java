@@ -26,6 +26,8 @@ import java.util.Scanner;
 public class MissionControl {
     private ArrayList<Mission> missions;
     MainPageController mpc = new MainPageController();
+    Main main = new Main();
+
 
 
 
@@ -55,6 +57,39 @@ public class MissionControl {
         return index;
     }
 
+    public void showCorMission(String corName){
+        for(Mission mission : missions){
+            if (mission.getCoordinator().getName().equals(corName)){
+                System.out.println("1.Mission Name:    " + mission.getMissionName());
+                System.out.println("2.Mission description:    " + mission.getMissionDescription());
+                System.out.println("3.Country of origin:    " + mission.getCountryOfOrigin());
+                System.out.println("4.countries allowed:    " + mission.getCountriesAllowed());
+                System.out.println("5.Coordinator information: " );
+                System.out.println("    a.name: " + mission.getCoordinator().getName());
+                System.out.println("    b.contact: " +mission.getCoordinator().getEmail() );
+                System.out.println("6.Job information");
+                for(int j = 0; j< mission.getJob().size(); j++) {
+                    mission.getJob().get(j).showJob();
+                }
+                System.out.println("7.Employment requirements: " + mission.getEmploymentRequirement());
+                System.out.println("    7.1 Age range is from: " + mission.getCriteria().getMinage() + " - " + mission.getCriteria().getMaxage());
+                System.out.println("    7.2 computer skill require: " + mission.getCriteria().getComputerSkill());
+                System.out.println("    7.3 experience requirements: " + mission.getCriteria().getExpYear() + "years");
+                System.out.println("    7.4 qualification requiremnts: " + mission.getCriteria().getQualification());
+                System.out.println("    7.5 language requirements: " + mission.getCriteria().getLanguage());
+                System.out.println("8.Cargo requirements");
+                System.out.println("     8.1 Cargo for: " + mission.getCargo().get(0).getCargoFor());
+                System.out.println("     8.2 Cargo requirements: " + mission.getCargo().get(0).getRequirement());
+                System.out.println("     8.2 Cargo quantity: " + mission.getCargo().get(0).getQuantity());
+                System.out.println("9.Launch date: " + mission.getLaunchDate());
+                System.out.println("10.Location: " + mission.getLocationDestination());
+                System.out.println("11.Duration of the mission: " + mission.getMissionDuration());
+                System.out.println("12.Status of the mission " + "(" + mission.getMissionStatus() +")");
+                System.out.println("\n\n\n");
+
+            }
+        }
+    }
 
 
     public void showOneMission(int missionId){
@@ -88,6 +123,31 @@ public class MissionControl {
                 System.out.println("10.Location: " + missions.get(i).getLocationDestination());
                 System.out.println("11.Duration of the mission: " + missions.get(i).getMissionDuration());
                 System.out.println("12.Status of the mission " + "(" + missions.get(i).getMissionStatus() +")");
+
+    }
+
+    public void showMissionCriteria(int missionId){
+        missions = getMissions();
+        Scanner sc = new Scanner(System.in);
+//        missionId = sc.nextInt();
+        boolean findId;
+
+        for(int i=0; i<missions.size(); i++){
+            if(missionId == missions.get(i).getMissionId()){
+                findId = true;
+                System.out.println("1.occupation required");
+                for(int j = 0; j<missions.get(i).getJob().size(); j++) {
+                    missions.get(i).getJob().get(j).showJob();
+                }
+                System.out.println("2.Employment requirements: " + missions.get(i).getEmploymentRequirement());
+                System.out.println("3.Age range is from: " + missions.get(i).getCriteria().getMinage() + " - " + missions.get(i).getCriteria().getMaxage());
+                System.out.println("4.computer skill require: " + missions.get(i).getCriteria().getComputerSkill());
+                System.out.println("5.experience requirements: " + missions.get(i).getCriteria().getExpYear() + "years");
+                System.out.println("6.qualification requiremnts: " + missions.get(i).getCriteria().getQualification());
+                System.out.println("7.language requirements: " + missions.get(i).getCriteria().getLanguage());
+            }
+            findId = false;
+        }
 
     }
 
@@ -240,7 +300,12 @@ public class MissionControl {
         Scanner sc = new Scanner(System.in);
         System.out.println("Is that correct?");
         System.out.println("1.Yes, it is correct. 2.I need to modify again.");
-        int number = sc.nextInt();
+        String str = sc.nextLine();
+        while (!isInt(str)){
+            System.out.println(" ----Please enter the number 1 or 2!!");
+            str = sc.nextLine();
+        }
+        int number = Integer.parseInt(str);
         while (number != 1 && number != 2) {
 
             System.out.println("You have not enter an option number above. Please enter an option:");
@@ -331,16 +396,12 @@ public class MissionControl {
         return corName;
     }
 
-    private String createCordinatorContact(){
+    public String createCordinatorContact(){
         Scanner sc = new Scanner(System.in);
         System.out.println("    (2) Please enter the contact");
         String corContact = sc.nextLine();
-        while (isBlank(corContact))
-        {
-            System.out.println("the input cannot be null, try to enter again");
-            corContact = sc.nextLine();
-        }
-        userCheckInput(corContact);
+        corContact = checkNumber(corContact);
+
         return corContact;
     }
 
@@ -393,17 +454,55 @@ public class MissionControl {
         System.out.println(" Age range is from: " + minage + " - " + maxage);
 
         System.out.println("    (2)Please Set the computer Skill ");
-        String computerSkill = sc.nextLine();
-        while (isBlank(computerSkill))
-        {
-            System.out.println("the input cannot be null, try to enter again");
-            computerSkill = sc.nextLine();
+        System.out.println("Please choose your computerSkill(s):");
+        System.out.println("1.novice  2.intermediate  3.advanced  4.expert  5.n/a");
+        String computerSkill = "";
+        int userInput = 0;
+        while(true) {
+            try {
+                userInput = sc.nextInt();
+                while(true){
+                    if(userInput>=1 && userInput<=5){
+                        break;
+                    }
+                    else{
+                        System.out.println("Wrong input! Please enter a valid option:");
+                        userInput = sc.nextInt();
+                    }
+                }
+                break;
+            }catch(Exception e) {
+                System.out.println("Wrong input! please enter an Integer: ");
+                sc.next();
+            }
+
         }
+
+
+        switch (userInput) {
+            case 1:
+                computerSkill = "Novice";
+                break;
+            case 2:
+                computerSkill = "Intermediate";
+                break;
+            case 3:
+                computerSkill = "Advanced";
+                break;
+
+            case 4:
+                computerSkill = "Expert";
+                break;
+            case 5:
+                computerSkill = "n/a";
+                break;
+        }
+
         System.out.println("    computer requirement is: " + computerSkill);
         userCheckInput(computerSkill);
 
         System.out.println("    (3)Please Set the minimum working experience ");
-        String minExp = sc.nextLine();
+        String minExp = sc.next();
         while (isBlank(minExp))
         {
             System.out.println("the input cannot be null, try to enter again");
@@ -436,18 +535,43 @@ public class MissionControl {
     private Cargo createCargo(){
         Scanner sc = new Scanner(System.in);
         System.out.println("8.Please set the cargo information");
-        System.out.println("    8.1 Please set the cargo for (mission or journey)");
-        String cargoFor = sc.nextLine();
-        while (isBlank(cargoFor))
-        {
-            System.out.println("the input cannot be null, try to enter again");
-            cargoFor = sc.nextLine();
+        System.out.println("    8.1 Please select the cargo for (mission or journey)");
+        String cargoFor = null;
+        System.out.println("    ---1.mission  --2.journey");
+        int userInput = 0;
+        while(true) {
+            try {
+                userInput = sc.nextInt();
+                while(true){
+                    if(userInput>=1 && userInput<=2){
+                        break;
+                    }
+                    else{
+                        System.out.println("Wrong input! Please enter a valid option:");
+                        userInput = sc.nextInt();
+                    }
+                }
+                break;
+            }catch(Exception e) {
+                System.out.println("Wrong input! please enter an Integer: ");
+                sc.next();
+            }
+
+        }
+        switch (userInput) {
+            case 1:
+                cargoFor = "mission";
+                break;
+            case 2:
+                cargoFor = "journey";
+                break;
+
         }
         //check cargo for
         System.out.println("    cargo for " + cargoFor);
-        userCheckInput(cargoFor);
+        System.out.println("\n");
         System.out.println("    8.2 Please enter cargos ");
-        String cargo = sc.nextLine();
+        String cargo = sc.next();
         while (isBlank(cargo))
         {
             System.out.println("the input cannot be null, try to enter again");
@@ -621,7 +745,7 @@ public class MissionControl {
         Mission mission = new Mission(missionId, missionName, missionDes, countryOrigin, countriesAllowed,
                 emRequire, missionLauchDate, location, duration, noStatus, co, missionJobs, cargosPerMission,mc);
 
-
+        missions.add(mission);
 
         System.out.println("You Mission has been created with MissionID " + missionId);
         System.out.println("    press [1] to save, press [2] to re-modify");
@@ -649,8 +773,9 @@ public class MissionControl {
                 //write back to excel
                 saveMission(mission);
                 System.out.println("You mission information has been saved, you can search id " + missionId + " to check it in the View Mission Page");
+                System.out.println("  Press [enter] back to view this mission. ");
                 sc.next();
-                viewMissionPage();
+                viewMissionPage(co.getName());
                 break;
             case 2:
                 missions.add(mission);
@@ -690,7 +815,7 @@ public class MissionControl {
             String computerSkill = mission.getCriteria().getComputerSkill();
             String[] language = mission.getCriteria().getLanguage().split(",");
             String fLanguage = language[0];
-            String secLanguage = mission.getCriteria().getLanguage().substring(1, mission.getCriteria().getLanguage().length()-1);
+            String secLanguage = mission.getCriteria().getLanguage().substring(2, mission.getCriteria().getLanguage().length()-1);
             String cargoFor = mission.getCargo().get(0).getCargoFor();
             String cargoRequire = mission.getCargo().get(0).getRequirement();
             String cargoQuantity = String.valueOf(mission.getCargo().get(0).getQuantity());
@@ -735,11 +860,13 @@ public class MissionControl {
     }
 
 
-    public void  modifyMissions(int id){
+    public void modifyMissions(int id){
         boolean isDone = true;
+        int i = getMissionsIndex(id);
+        String coName = missions.get(i).getCoordinatorName();
         while (isDone) {
             showOneMission(id);
-            int i = getMissionsIndex(id);
+
             System.out.println("\n\n");
             System.out.println("------- Please select an option to modify the mission: ");
             Scanner sc = new Scanner(System.in);
@@ -748,7 +875,7 @@ public class MissionControl {
             String des;
             String countryOri;
             String countriesAllowed;
-            String coName;
+
             String coContact;
             String jobName;
             int jobNo;
@@ -810,10 +937,7 @@ public class MissionControl {
                     isDone = isModifyDone();
                     break;
                 case 5:
-                    coName = createCorrodinatorName();
-                    coContact = createCordinatorContact();
-                    Coordinator co = new Coordinator(coName, coContact);
-                    missions.get(i).setCoordinator(co);
+                    System.out.println("----You are not allowed to modify the coordinator information");
                     isDone = isModifyDone();
                     break;
                 case 6:
@@ -863,7 +987,8 @@ public class MissionControl {
             }
         }
             System.out.println("Now back to the main page");
-            mpc.WelcomePage();
+            clearScreen();
+            mpc.WelcomePage(coName,2);
 
 
     }
@@ -898,12 +1023,11 @@ public class MissionControl {
         return isTrue;
     }
 
-    public void viewMissionPage() {
+    public void viewMissionPage(String corName) {
         Scanner sc = new Scanner(System.in);
         MtmSystem mtm = new MtmSystem();
         int userInput = 0;
-        missions = getMissions();
-        mtm.showMissions();
+        showCorMission(corName);
         System.out.println("-- Please select an option: ");
         System.out.println("1. Select Mission with Mission ID to see details");
         System.out.println("2. Back to the Main Page");
@@ -929,16 +1053,16 @@ public class MissionControl {
 
         switch (userInput) {
             case 1:
-                changeMissionDetailed();
+                changeMissionDetailed(corName);
                 break;
             case 2:
 
-                mpc.WelcomePage();
+                mpc.WelcomePage(corName,2);
                 break;
         }
     }
 
-    public void changeMissionDetailed(){
+    public void changeMissionDetailed(String corName){
         Scanner sc = new Scanner(System.in);
         clearScreen();
         System.out.println("**********Change Mission Details************* ");
@@ -979,13 +1103,16 @@ public class MissionControl {
         switch (userInput) {
             case 1:
                 modifyMissions(id);
+                clearScreen();
                 break;
             case 2:
                 ShuttleControl shuttleControl = new ShuttleControl();
                 shuttleControl.shuttlePage();
+                clearScreen();
                 break;
             case 3:
-                viewMissionPage();
+                viewMissionPage(corName);
+                clearScreen();
         }
     }
 
@@ -1017,9 +1144,21 @@ public class MissionControl {
     //check countries
 
     //check ,
-    String i = "afas,asf";
-    boolean a = i.contains(",");
+
     //check contact
+    private String checkNumber(String str){
+        Scanner sc = new Scanner(System.in);
+        while (!isInt(str)){
+            System.out.println("---Please enter only numbers---");
+            str = sc.nextLine();
+        }
+        while (str.length()!= 7){
+            System.out.println("--Please enter the phone number with 7 number, try again: ");
+            str = sc.nextLine();
+        }
+
+        return str;
+    }
 
     //check cargo for
 }
