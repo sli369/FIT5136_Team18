@@ -8,7 +8,7 @@ public class MainPageController {
     private EmployFast criteria = new EmployFast();
     public void WelcomePage(String user_name, int role){
         MissionControl missionControl = new MissionControl();
-
+        CandidateControl cd = new CandidateControl();
         ShuttleControl shuttleControl = new ShuttleControl();
 
         if(role == 3) {
@@ -42,10 +42,11 @@ public class MainPageController {
 
             switch (userInput) {
                 case 1:
-                    missionControl.viewMissionPage(user_name);
+                    missionControl.showMissions();
                     WelcomePage(user_name, 3);
+                    break;
                 case 2:
-                    System.out.println("candidate list");
+                    cd.showCandidates();
                     WelcomePage(user_name, 3);
                 case 3:
                     criteria.startCreateCriteria();
