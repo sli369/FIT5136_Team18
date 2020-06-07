@@ -654,10 +654,7 @@ public class MissionControl {
         System.out.print("Please select the option: ");
         String status = sc.nextLine();
         // check char
-        while(isChar(status)){
-            System.out.println("Please enter the correct option (lower case like: a)");
-            status = sc.nextLine();
-        }
+        status = checkChar(status);
         System.out.println("Your option is " + status);
         char noStatus = status.charAt(0);
         return noStatus;
@@ -1141,9 +1138,23 @@ public class MissionControl {
 
 
 
-    //check countries
+    //check char
+    private String checkChar(String str){
+        Scanner sc = new Scanner(System.in);
+        int len = str.length();
+        while (len != 1){
+            System.out.println("    Please enter only one letter");
+            str = sc.nextLine();
+        }
+        while(str.charAt(0)!='a' || str.charAt(0)!='b' ||str.charAt(0)!= 'c' ||str.charAt(0)!= 'd' ||str.charAt(0)!= 'e' ||str.charAt(0)!= 'f'){
+            System.out.println("    Please enter the given letter (from a-f) ");
+            str = sc.nextLine();
+        }
+        userCheckInput(str);
+        return str;
 
-    //check ,
+    }
+
 
     //check contact
     private String checkNumber(String str){

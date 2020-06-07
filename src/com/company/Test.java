@@ -18,7 +18,7 @@ public class Test {
 
     public static void main(String args[]){
         MissionControl mission  = new MissionControl();
-        mission.createMission();
+        mission.viewMissionPage("Bob");
 
     }
 
