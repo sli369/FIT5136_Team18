@@ -99,11 +99,12 @@ public class CandidateControl {
 //        }
 //    }
 
-    public void changeCandidateInfo(Candidate candidate){
+    public Candidate changeCandidateInfo(Candidate candidate){
         String option;
         Scanner sc = new Scanner(System.in);
         System.out.println("Please enter the title you want to update (e.g Street): ");
         System.out.println("NOTE: ID, Name, Gender, DOB, Nationality cannot be changed!");
+
         while (true) {
             try {
                 option = sc.next();
@@ -228,15 +229,17 @@ public class CandidateControl {
             String newLanguages = sc.next();
             candidate.setLanguage(newLanguages);
         }
+
+        return candidate;
     }
 
 
 
-    public void saveCandidateInfo(String user_name, Candidate candidate){
+    public void saveCandidateInfo(Candidate candidate){
         candidates = getCandidate();
         int target = 0;
         for (int i = 0; i < candidates.size(); i++) {
-            if (candidates.get(i).getName().equals(user_name)) {
+            if (candidates.get(i).getName().equals(candidate.getName())) {
                 target = i;
             }
         }
@@ -278,6 +281,7 @@ public class CandidateControl {
             sheetToEdit.addCell(new Label(15, target + 1, newOccupation));
             sheetToEdit.addCell(new Label(16, target + 1, newCS));
             sheetToEdit.addCell(new Label(17, target + 1, newLanguages));
+
 
             workbookCopy.write();
             workbookCopy.close();

@@ -43,7 +43,8 @@ public class MainPageController {
 
             switch (userInput) {
                 case 1:
-                    missionControl.createMission(user_name);
+                    missionControl.createMission();
+                    WelcomePage(user_name, 2);
                     break;
                 case 2:
                     missionControl.showMissions();
@@ -67,7 +68,7 @@ public class MainPageController {
             System.out.println("-- Please select an option: ");
             System.out.println("1. Create a Mission");
             System.out.println("2. View my Missions");
-            System.out.println("2. Logout");
+            System.out.println("3. Logout");
             System.out.println("-- Please enter the number of your selection:");
 
             while (true) {
@@ -90,11 +91,11 @@ public class MainPageController {
 
             switch (userInput) {
                 case 1:
-                    missionControl.createMission(user_name);
-                    break;
+                    missionControl.createMission();
+                    WelcomePage(user_name, 2);
                 case 2:
                     missionControl.viewMissionPage(user_name);
-                    break;
+                    WelcomePage(user_name, 2);
                 case 3:
                     System.exit(0);
 
@@ -104,23 +105,23 @@ public class MainPageController {
             // candidate page
             CandidateControl candidatelist = new CandidateControl();
             ArrayList<Candidate> candidateList = candidatelist.getCandidate();
-            Candidate target_candidate = null;
             Scanner sc = new Scanner(System.in);
             int userInput = 0;
             String option;
-            int target_row = 0;
-
+            Candidate target_candidate = null;
+            
             for (Candidate candidate : candidateList) {
-                target_row += 1;
+                
                 if (candidate.getName().equals(user_name)) {
-                    target_candidate = new Candidate(candidate.getId(), candidate.getName(), candidate.getGender(), candidate.getDateOfBirth(), candidate.getStreet(), candidate.getCity(), candidate.getPostal(), candidate.getState(), candidate.getCountry(), candidate.getPhone(), candidate.getIdtype(), candidate.getAllergies(), candidate.getFoodPreference(), candidate.getQualifications(), candidate.getWorkExperience(), candidate.getOccupation(), candidate.getComputerSkill(), candidate.getLanguage(), candidate.getNationality(), candidate.getMissionid());
+                    target_candidate = new Candidate(candidate.getId(), candidate.getName(), candidate.getDateOfBirth(), candidate.getStreet(), candidate.getCity(), candidate.getState(), candidate.getPostal(), candidate.getCountry(), candidate.getPhone(), candidate.getIdtype(), candidate.getGender(), candidate.getAllergies(), candidate.getFoodPreference(), candidate.getQualifications(), candidate.getWorkExperience(), candidate.getOccupation(), candidate.getComputerSkill(), candidate.getLanguage(), candidate.getNationality(), candidate.getMissionid());
                 }
-                break;
             }
+          
             System.out.println("-- Please select an option: ");
             System.out.println("1. View my details");
             System.out.println("2. View my missions");
             System.out.println("3. Logout");
+//            System.out.println(user_name);
 
             while (true) {
                 try {
@@ -184,8 +185,8 @@ public class MainPageController {
                     }
                     switch (userInput) {
                         case 1:
-                            candidatelist.changeCandidateInfo(target_candidate);
-                            candidatelist.saveCandidateInfo(user_name, target_candidate);
+                            target_candidate = candidatelist.changeCandidateInfo(target_candidate);
+                            candidatelist.saveCandidateInfo(target_candidate);
                             System.out.println("Your information has been updated!");
                             WelcomePage(user_name, 1);
 
