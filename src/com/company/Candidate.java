@@ -27,9 +27,9 @@ public class Candidate{
     private String computerSkill;
     private String language;
     private String nationality;
-    private String mission;
+    private String missionid;
 
-    public Candidate(String id, String name, String dateOfBirth, String street, String city, String state, String postal, String country, String phone, String idtype, String gender, String allergies, String foodPreference, String qualifications, String workExperience, String occupation, String computerSkill, String language, String nationality) {
+    public Candidate(String id, String name, String dateOfBirth, String street, String city, String state, String postal, String country, String phone, String idtype, String gender, String allergies, String foodPreference, String qualifications, String workExperience, String occupation, String computerSkill, String language, String nationality, String missionid) {
         this.id = id;
         this.name = name;
         this.dateOfBirth = dateOfBirth;
@@ -49,6 +49,15 @@ public class Candidate{
         this.computerSkill = computerSkill;
         this.language = language;
         this.nationality = nationality;
+        this.missionid = missionid;
+    }
+
+    public void setMissionid(String missionid) {
+        this.missionid = missionid;
+    }
+
+    public String getMissionid() {
+        return missionid;
     }
 
     public String getGender() {
