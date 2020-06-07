@@ -43,7 +43,7 @@ public class MainPageController {
 
             switch (userInput) {
                 case 1:
-                    missionControl.createMission();
+                    missionControl.createMission(user_name);
                     break;
                 case 2:
                     mtm.showMissions();
@@ -90,7 +90,7 @@ public class MainPageController {
 
             switch (userInput) {
                 case 1:
-                    missionControl.createMission();
+                    missionControl.createMission(user_name);
                     break;
                 case 2:
                     missionControl.viewMissionPage(user_name);

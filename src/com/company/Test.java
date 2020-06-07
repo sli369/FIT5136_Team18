@@ -3,8 +3,10 @@ package com.company;
 public class Test {
 
     public static void main(String args[]){
-        Jsave j= new Jsave();
-        j.startCreateCriteria();
+        MissionControl missionControl = new MissionControl();
+        missionControl.createMission("coordinator001");
+        Zoe zoe = new Zoe();
+        zoe.readExcelToArrayList();
 
     }
 

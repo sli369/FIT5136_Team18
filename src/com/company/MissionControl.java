@@ -660,7 +660,8 @@ public class MissionControl {
         return noStatus;
     }
 
-    public void createMission() {
+    public void createMission(String fullname) {
+
         Scanner sc = new Scanner(System.in);
         System.out.println("Now you are going to create a mission");
         System.out.println("****************************");
@@ -741,7 +742,7 @@ public class MissionControl {
 
         Mission mission = new Mission(missionId, missionName, missionDes, countryOrigin, countriesAllowed,
                 emRequire, missionLauchDate, location, duration, noStatus, co, missionJobs, cargosPerMission,mc);
-
+        //mission.setCoordinator(fullname);
         missions.add(mission);
 
         System.out.println("You Mission has been created with MissionID " + missionId);

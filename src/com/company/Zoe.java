@@ -528,7 +528,6 @@ public class Zoe {
         }
         System.out.println('\u000C');
         computerSkills = userCheckInput("Computer Skills", computerSkills);
-        System.out.println("Finally computerSkills is" + computerSkills);
         return computerSkills;
 
     }
@@ -860,10 +859,6 @@ public class Zoe {
 
     //
     public void writeExcelWithArrayList(ArrayList record) {
-        //String existingxlsPathName = "/Users/zoe/IdeaProjects/FIT5136_Team18/Candidate.xls";
-        //WorkbookSettings wbSettings = new WorkbookSettings();
-        //wbSettings.setLocale(new Locale("en", "EN"));
-        //WritableWorkbook writebook = null;
         InputStream in = null;
         String UTF8_ENCODING = "UTF-8";
         Scanner sc = new Scanner(System.in);
@@ -886,6 +881,39 @@ public class Zoe {
                     sheetToEdit.addCell(new Label(j + 1, emptyRowNumber, record.get(j).toString()));
                 }
                 System.out.println("Your record has been recorded by the system.");
+                workbookCopy.write();
+                workbookCopy.close();
+                in.close();
+            } catch (IOException | WriteException | BiffException e) {
+                System.out.println(e.getMessage());
+            } finally {
+                in.close();
+            }
+        } catch (IOException a) {
+            System.out.println("IOException happened in your finally block QAQ.");
+        }
+    }
+
+    public void readExcelToArray() {
+        InputStream in = null;
+        String UTF8_ENCODING = "UTF-8";
+        Scanner sc = new Scanner(System.in);
+        try {
+            try {
+                WorkbookSettings setEncode = new WorkbookSettings();
+                setEncode.setEncoding(UTF8_ENCODING);
+                in = new FileInputStream(new File("mission.xls"));
+                Workbook existingWorkbook = Workbook.getWorkbook(in);
+                WritableWorkbook workbookCopy = Workbook.createWorkbook(new java.io.File("mission.xls"), existingWorkbook);
+                WritableSheet sheetToEdit = workbookCopy.getSheet(0);
+                int lastRowNumber = 0;
+                Cell[] cells = sheetToEdit.getColumn(0);
+                lastRowNumber = cells.length -1;
+                Cell[] lastMissionRecord = sheetToEdit.getRow((lastRowNumber));
+                for (int j = 0; j < lastMissionRecord.length; j++) {
+                    System.out.println(lastMissionRecord[j].getContents());
+                }
+                System.out.println("Your record has been extracted.");
                 workbookCopy.write();
                 workbookCopy.close();
                 in.close();
