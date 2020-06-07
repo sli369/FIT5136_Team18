@@ -124,9 +124,6 @@ public class Main {
                 EmployFast employFast = new EmployFast();
                 employFast.signupCandidate();
             }
-            System.out.println("Please enter your FULL name: ");
-            String fullname = sc.next();
-
             System.out.println("Please input username: ");
             String input_username = sc.next();
 
@@ -143,6 +140,9 @@ public class Main {
                 System.out.println("Please input password: ");
                 String input_password = sc.next();
                 //这里要写加入user id
+                System.out.println("Please enter your FULL name: ");
+                String fullname = sc.next();
+
 
                 list.add(input_username + "," + input_password + ",3,1," + fullname);
                 writeFile(list);
