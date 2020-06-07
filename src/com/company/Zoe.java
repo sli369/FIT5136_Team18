@@ -84,7 +84,7 @@ public class Zoe {
         candidateRecord.add(workexperence);
         candidateRecord.add(occupation);
         //computer skill
-        String computerskill = signupCandiateComputerskill();
+        String computerskill = signupCandiateComputerskill(true);
         candidateRecord.add(computerskill);
         //language known
         String language = signupCandiateLanguage();
@@ -476,13 +476,14 @@ public class Zoe {
         return stringBuffer.toString();
     }
 
-    public String signupCandiateComputerskill() {
+    public String signupCandiateComputerskill(Boolean firstGetin) {
         ArrayList<String> arrayListForChecking = new ArrayList<>();
         StringBuffer stringBuffer = new StringBuffer();
         //input computer skill
         String computerSkills = null;
         int userInput = 0;
         Scanner sc = new Scanner(System.in);
+        if(firstGetin == true)
         System.out.println("The next information awating to be entered is computerSkill(s).");
         System.out.println("Please choose your computerSkill(s):");
         System.out.println("1.novice  2.intermediate  3.advanced  4.expert  5.n/a");
@@ -503,44 +504,23 @@ public class Zoe {
                 System.out.println("Wrong input! please enter an Integer: ");
                 sc.next();
             }
+
         }
-//        String computerSkill = forceinputString();
-//
-//        while (!(computerSkill.equalsIgnoreCase("n/a"))) {
-//            arrayListForChecking.add(computerSkill);
-//            //
-//            System.out.println();
-//            System.out.println("Please enter your next computerSkill:");
-//            System.out.println("If you don't have more computerSkill, please enter n/a.");
-//            computerSkill = forceinputString();
-//        }
-//        if (computerSkill.equalsIgnoreCase("n/a") && arrayListForChecking.size() == 0) {
-//            computerSkill = "n/a";
-//            arrayListForChecking.add(computerSkill);
-//        }
-//        arrayListForChecking = userCheckInput("Computer Skill", arrayListForChecking);
-//        Iterator it = arrayListForChecking.iterator();
-//        while (it.hasNext()) {
-//            stringBuffer.append(it.next());
-//            stringBuffer.append((","));
-//        }
-//        stringBuffer.delete(stringBuffer.length() - 1, stringBuffer.length());
-//        System.out.println('\u000C');
-//        return stringBuffer.toString();
+
         
         switch (userInput) {
             case 1:
-                computerSkills = "novice";
+                computerSkills = "Novice";
                 break;
             case 2:
-                computerSkills = "intermediate";
+                computerSkills = "Intermediate";
                 break;
             case 3:
-                computerSkills = "advanced";
+                computerSkills = "Advanced";
                 break;
 
             case 4:
-                computerSkills = "expert";
+                computerSkills = "Expert";
                 break;
             case 5:
                 computerSkills = "n/a";
@@ -548,6 +528,7 @@ public class Zoe {
         }
         System.out.println('\u000C');
         computerSkills = userCheckInput("Computer Skills", computerSkills);
+        System.out.println("Finally computerSkills is" + computerSkills);
         return computerSkills;
 
     }
@@ -686,7 +667,7 @@ public class Zoe {
             choice = forceinputInt();
         }
         //handle "user want to correct gender" case
-        if (title.equals("Gender") || title.equals("Food Preference")) {
+        if (title.equals("Gender") || title.equals("Food Preference") || title.equals("Computer Skills")) {
             if ((choice.equals("1")))
                 return input;
             if ((choice.equals("2"))) {
@@ -696,6 +677,10 @@ public class Zoe {
                 }
                 if (title.equals("Food Preference")) {
                     input = signupCandiateFoodpreferences(false);
+                    return convert(removeExtraSpaces(input));
+                }
+                if (title.equals("Computer Skills")) {
+                    input = signupCandiateComputerskill(false);
                     return convert(removeExtraSpaces(input));
                 }
             }
