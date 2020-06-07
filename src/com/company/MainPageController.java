@@ -5,10 +5,10 @@ import java.util.Scanner;
 
 public class MainPageController {
     private MtmSystem mtm = new MtmSystem();
-    private Jsave cri = new Jsave();
+    private EmployFast criteria = new EmployFast();
     public void WelcomePage(String user_name, int role){
         MissionControl missionControl = new MissionControl();
-
+        CandidateControl cd = new CandidateControl();
         ShuttleControl shuttleControl = new ShuttleControl();
 
         if(role == 3) {
@@ -16,11 +16,10 @@ public class MainPageController {
             Scanner sc = new Scanner(System.in);
             int userInput = 0;
             System.out.println("-- Please select an option: ");
-            System.out.println("1. Create a Mission");
-            System.out.println("2. View all Missions");
-            System.out.println("3. Select a Shuttle");
-            System.out.println("4. Candidate Information");
-            System.out.println("5. Create Criteria");
+            System.out.println("1. View all Missions");
+            System.out.println("2. View candidates");
+            System.out.println("3. Create Criteria");
+            System.out.println("4. Logout");
             System.out.println("-- Please enter the number of your selection:");
 
             while (true) {
@@ -43,22 +42,17 @@ public class MainPageController {
 
             switch (userInput) {
                 case 1:
-                    missionControl.createMission();
-                    WelcomePage(user_name, 2);
+                    missionControl.showMissions();
+                    WelcomePage(user_name, 3);
                     break;
                 case 2:
-                    missionControl.showMissions();
-                    break;
+                    cd.showCandidates();
+                    WelcomePage(user_name, 3);
                 case 3:
-                    shuttleControl.shuttlePage();
-                    break;
+                    criteria.startCreateCriteria();
+                    WelcomePage(user_name, 3);
                 case 4:
-                    //
-                    break;
-                case 5:
-                    cri.startCreateCriteria();
-                    break;
-
+                    System.exit(0);
             }
         }
         else if(role == 2) {

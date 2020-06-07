@@ -22,8 +22,9 @@ public class ShuttleControl {
     private static final String UTF8_ENCODING = "UTF-8";
     private ArrayList<Shuttle> shuttles;
     MainPageController mp = new MainPageController();
+    MissionControl mc = new MissionControl();
 
-    public void shuttlePage(){
+    public void shuttlePage(String corName){
         Scanner sc = new Scanner(System.in);
         int userInput = 0;
         System.out.println("-- Please select an option: ");
@@ -58,7 +59,7 @@ public class ShuttleControl {
         switch(userInput){
             case 1:
                 showShuttles();
-                shuttlePage();
+                shuttlePage(corName);
             case 2:
                 int s1 = 0;
                 System.out.println("-- Please enter the shuttle ID:");
@@ -81,7 +82,7 @@ public class ShuttleControl {
                     }
                 }
                 showShuttleDetails(s1);
-                shuttlePage();
+                shuttlePage(corName);
 
             case 3:
                 int s2 = 0;
@@ -105,9 +106,9 @@ public class ShuttleControl {
                     }
                 }
                 changeShuttleStatus(s2);
-                shuttlePage();
+                shuttlePage(corName);
             case 4:
-//                mp.WelcomePage();
+                mc.viewMissionPage(corName);
         }
 
     }
