@@ -52,6 +52,7 @@ public class MainPageController {
                     criteria.startCreateCriteria();
                     WelcomePage(user_name, 3);
                 case 4:
+                    System.out.println("Thank you for using Mission to Mars!");
                     System.exit(0);
             }
         }

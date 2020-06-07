@@ -33,6 +33,7 @@ public class Main {
                         signup();
                         break;
                     case 3:
+                        System.out.println("Thank you for using Mission to Mars!");
                         System.exit(0);
                     default:
                         System.out.println("Invalid input!");
@@ -57,7 +58,7 @@ public class Main {
         // search username in users.txt
         String u1 = null;
         for (String i : userList) {
-            if (input_username.equals(i.substring(0, i.indexOf(",")))) {
+            if (input_username.equalsIgnoreCase(i.substring(0, i.indexOf(",")))) {
                 u1 = i;
             }
         }
@@ -125,8 +126,12 @@ public class Main {
                 EmployFast employFast = new EmployFast();
                 employFast.signupCandidate();
             }
+            System.out.println("Please enter your FULL name: ");
+            EmployFast employFast = new EmployFast();
+            String fullname = employFast.forceinputString();
+
             System.out.println("Please input username: ");
-            String input_username = sc.next();
+            String input_username = employFast.forceinputString();
 
             String u3 = null;
             for (String m : list) {
@@ -139,13 +144,10 @@ public class Main {
                 System.out.print("Username exists!");
             } else {
                 System.out.println("Please input password: ");
-                String input_password = sc.next();
+                String input_password = employFast.removeExtraSpaces(sc.next());
                 //这里要写加入user id
-                System.out.println("Please enter your FULL name: ");
-                String fullname = sc.next();
 
-
-                list.add(input_username + "," + input_password + ",3," + user_option + "," + fullname);
+                list.add(input_username + "," + input_password + "," + user_option + ",3," + fullname);
                 writeFile(list);
                 System.out.println("Registered successfully！");
                 break;

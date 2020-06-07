@@ -5,4 +5,7 @@ lsx,123,3,3,Anika Frost
 joe,123,2,3,Joe
 bob,123,2,3,Bob
 aliy,123,2,3,Aliy
-
+Smith,trump@monash.edu,3,1,Trump
+Trump@monash.edu,222,3,1,Trump Donade
+Jack@monash.edu,111,3,2,Jack Donade
+Harry@monash.edu,111,2,3,Harry Sun

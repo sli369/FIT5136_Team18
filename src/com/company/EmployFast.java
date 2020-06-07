@@ -1279,7 +1279,7 @@ public class EmployFast {
         return correct;
     }
 
-    private String forceinputString() {
+    String forceinputString() {
         Boolean entered = false;
         String nextinput = "";
         Scanner sc = new Scanner(System.in);
