@@ -25,6 +25,7 @@ import java.util.Scanner;
 
 public class MissionControl {
     private ArrayList<Mission> missions;
+    MainPageController mpc = new MainPageController();
 
 
 
@@ -736,7 +737,6 @@ public class MissionControl {
 
     public void  modifyMissions(int id){
         boolean isDone = true;
-        missions = getMissions();
         while (isDone) {
             showOneMission(id);
             int i = getMissionsIndex(id);
@@ -863,6 +863,7 @@ public class MissionControl {
             }
         }
             System.out.println("Now back to the main page");
+            mpc.WelcomePage();
 
 
     }
@@ -931,7 +932,8 @@ public class MissionControl {
                 changeMissionDetailed();
                 break;
             case 2:
-                showMissions();
+
+                mpc.WelcomePage();
                 break;
         }
     }
@@ -1015,7 +1017,8 @@ public class MissionControl {
     //check countries
 
     //check ,
-
+    String i = "afas,asf";
+    boolean a = i.contains(",");
     //check contact
 
     //check cargo for
