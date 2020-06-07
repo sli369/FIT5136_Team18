@@ -744,6 +744,7 @@ public class MissionControl {
                 emRequire, missionLauchDate, location, duration, noStatus, co, missionJobs, cargosPerMission,mc);
         //mission.setCoordinator(fullname);
         missions.add(mission);
+        saveMission(mission);
 
         System.out.println("You Mission has been created with MissionID " + missionId);
         System.out.println("    press [1] to save, press [2] to re-modify");
@@ -769,14 +770,13 @@ public class MissionControl {
         switch (save) {
             case 1:
                 //write back to excel
-                saveMission(mission);
+
                 System.out.println("You mission information has been saved, you can search id " + missionId + " to check it in the View Mission Page");
-                System.out.println("  Press [enter] back to view this mission. ");
-                sc.next();
-                viewMissionPage(co.getName());
+                System.out.println("  Press [enter] back to view your missions. ");
+                sc.nextLine();
+                showCorMission(corName);
                 break;
             case 2:
-                missions.add(mission);
                 modifyMissions(missionId);
                 break;
         }
@@ -1153,7 +1153,7 @@ public class MissionControl {
             System.out.println("    Please enter only one letter");
             str = sc.nextLine();
         }
-        while(str.charAt(0)!='a' || str.charAt(0)!='b' ||str.charAt(0)!= 'c' ||str.charAt(0)!= 'd' ||str.charAt(0)!= 'e' ||str.charAt(0)!= 'f'){
+        while(!str.equals("a") && !str.equals("b") && !str.equals("c") && !str.equals("d") && !str.equals("e") && !str.equals("f")){
             System.out.println("    Please enter the given letter (from a-f) ");
             str = sc.nextLine();
         }
