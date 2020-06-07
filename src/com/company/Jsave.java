@@ -22,6 +22,14 @@ public class Jsave {
 
     //    private int numberOfEmployee;
     //    private byte requiredGender;
+
+    private void clearScreen(){
+        //System.out.println("\f");
+        System.out.println("\033[H\033[2J");
+        System.out.flush();
+    }
+
+
     public void createCriteria(Criteria criteria) {
 
         Validate validate = new Validate();
@@ -47,6 +55,7 @@ public class Jsave {
                 mission.showOneMission(id);
                 System.out.println("please press enter to continue creating criteria");
                 sc.nextLine();
+                clearScreen();
             }
 
             //
@@ -68,7 +77,7 @@ public class Jsave {
                     int ynInt = Integer.parseInt(yn);
                     if (ynInt == 1){
                         criteria.showCriteria();
-                        System.out.println("Press enter to exit");
+                        System.out.println("Press enter to return");
                         sc.nextLine();
                     return;
                     }
@@ -109,21 +118,27 @@ public class Jsave {
                 switch (ci) {
                     case 1:
                         ageRange(criteria);
+                        clearScreen();
                         break;
                     case 2:
                         qualification(criteria);
+                        clearScreen();
                         break;
                     case 3:
                         yearsOfWorkExperience(criteria);
+                        clearScreen();
                         break;
                     case 4:
                         occupations(criteria);
+                        clearScreen();
                         break;
                     case 5:
                         computerSkills(criteria);
+                        clearScreen();
                         break;
                     case 6:
                         languageSpoken(criteria);
+                        clearScreen();
                         break;
 
                     default:

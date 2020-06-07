@@ -1074,16 +1074,17 @@ public class MissionControl {
         System.out.println("");
         System.out.println("");
         System.out.println("----- Please select an option: -------");
-        System.out.println("    1. I wanna modify it.");
-        System.out.println("    2. I wanna select the space shuttle for this mission.");
-        System.out.println("    3. All good. Back to the last page");
+        System.out.println("    1. I want to modify it.");
+        System.out.println("    2. I want to select the space shuttle for this mission.");
+        System.out.println("    3. I want to create criteria for this mission");
+        System.out.println("    4. All good. Back to the last page");
         int userInput = 0;
 
         while (true) {
             try {
                 userInput = sc.nextInt();
                 while (true) {
-                    if (userInput >= 1 && userInput <= 3) {
+                    if (userInput >= 1 && userInput <= 4) {
                         break;
                     } else {
                         System.out.println("Wrong input! Please enter a valid option:");
@@ -1108,6 +1109,11 @@ public class MissionControl {
                 clearScreen();
                 break;
             case 3:
+                Jsave criteria = new Jsave();
+                criteria.startCreateCriteria();
+                clearScreen();
+                break;
+            case 4:
                 viewMissionPage(corName);
                 clearScreen();
         }
