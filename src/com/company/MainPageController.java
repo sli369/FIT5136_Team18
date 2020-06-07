@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class MainPageController {
     private MtmSystem mtm = new MtmSystem();
-    private Jsave cri = new Jsave();
+    private EmployFast criteria = new EmployFast();
     public void WelcomePage(String user_name, int role){
         MissionControl missionControl = new MissionControl();
 
@@ -56,7 +56,7 @@ public class MainPageController {
                     //
                     break;
                 case 5:
-                    cri.startCreateCriteria();
+                    criteria.startCreateCriteria();
                     break;
 
             }

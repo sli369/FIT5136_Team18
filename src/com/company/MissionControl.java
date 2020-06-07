@@ -662,6 +662,7 @@ public class MissionControl {
     }
 
     public void createMission() {
+
         Scanner sc = new Scanner(System.in);
         System.out.println("Now you are going to create a mission");
         System.out.println("****************************");
@@ -742,7 +743,7 @@ public class MissionControl {
 
         Mission mission = new Mission(missionId, missionName, missionDes, countryOrigin, countriesAllowed,
                 emRequire, missionLauchDate, location, duration, noStatus, co, missionJobs, cargosPerMission,mc);
-
+        //mission.setCoordinator(fullname);
         missions.add(mission);
         saveMission(mission);
 
@@ -1110,7 +1111,7 @@ public class MissionControl {
                 clearScreen();
                 break;
             case 3:
-                Jsave criteria = new Jsave();
+                EmployFast criteria = new EmployFast();
                 criteria.startCreateCriteria();
                 clearScreen();
                 break;
