@@ -60,7 +60,7 @@ public class MissionControl {
     public void showCorMission(String corName){
         missions = getMissions();
         for(Mission mission : missions){
-//            if (mission.getCoordinator().getName().equals(corName)){
+            if (mission.getCoordinator().getName().equals(corName)){
                 System.out.println("1.Mission Name:    " + mission.getMissionName());
                 System.out.println("2.Mission description:    " + mission.getMissionDescription());
                 System.out.println("3.Country of origin:    " + mission.getCountryOfOrigin());
@@ -88,7 +88,7 @@ public class MissionControl {
                 System.out.println("12.Status of the mission " + "(" + mission.getMissionStatus() +")");
                 System.out.println("\n\n\n");
 
-//            }
+            }
         }
     }
 
