@@ -54,7 +54,7 @@ public class MissionControl {
                 index = i;
             }
         }
-        return index;
+        return index - 1;
     }
 
     public void showCorMission(String corName){
