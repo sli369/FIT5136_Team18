@@ -121,8 +121,8 @@ public class Main {
             System.out.println("Choose an account type:" + "\n1.Administrator  2.Coordinator  3.Candidate");
             if (sc.next().equals("3")) {
                 System.out.println('\u000C');
-                Zoe zoe = new Zoe();
-                zoe.signupCandidate();
+                EmployFast employFast = new EmployFast();
+                employFast.signupCandidate();
             }
             System.out.println("Please enter your FULL name: ");
             String fullname = sc.next();
