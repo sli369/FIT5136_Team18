@@ -894,7 +894,7 @@ public class Zoe {
         }
     }
 
-    public void readExcelToArray() {
+    public void readLastExcelRecordToArray() {
         InputStream in = null;
         String UTF8_ENCODING = "UTF-8";
         Scanner sc = new Scanner(System.in);
@@ -912,6 +912,38 @@ public class Zoe {
                 Cell[] lastMissionRecord = sheetToEdit.getRow((lastRowNumber));
                 for (int j = 0; j < lastMissionRecord.length; j++) {
                     System.out.println(lastMissionRecord[j].getContents());
+                }
+                System.out.println("Your record has been extracted.");
+                workbookCopy.write();
+                workbookCopy.close();
+                in.close();
+            } catch (IOException | WriteException | BiffException e) {
+                System.out.println(e.getMessage());
+            } finally {
+                in.close();
+            }
+        } catch (IOException a) {
+            System.out.println("IOException happened in your finally block QAQ.");
+        }
+    }
+
+    public void readExcelAllMission() {
+        InputStream in = null;
+        String UTF8_ENCODING = "UTF-8";
+        Scanner sc = new Scanner(System.in);
+        try {
+            try {
+                WorkbookSettings setEncode = new WorkbookSettings();
+                setEncode.setEncoding(UTF8_ENCODING);
+                in = new FileInputStream(new File("mission.xls"));
+                Workbook existingWorkbook = Workbook.getWorkbook(in);
+                WritableWorkbook workbookCopy = Workbook.createWorkbook(new java.io.File("mission.xls"), existingWorkbook);
+                WritableSheet sheetToEdit = workbookCopy.getSheet(0);
+                int lastRowNumber = 0;
+                Cell[] cells = sheetToEdit.getColumn(0);
+                Cell[] missionNameCells = sheetToEdit.getColumn(17);
+                for (int j = 0; j < cells.length; j++) {
+                    System.out.println("mission id:" + cells[j].getContents()+ "  mission name: " + missionNameCells[j].getContents());
                 }
                 System.out.println("Your record has been extracted.");
                 workbookCopy.write();

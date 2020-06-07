@@ -4,9 +4,9 @@ public class Test {
 
     public static void main(String args[]){
         MissionControl missionControl = new MissionControl();
-        missionControl.createMission("coordinator001");
+        //missionControl.createMission("coordinator001");
         Zoe zoe = new Zoe();
-        zoe.readExcelToArrayList();
+        zoe.readExcelAllMission();
 
     }
 
