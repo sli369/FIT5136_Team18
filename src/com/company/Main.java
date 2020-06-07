@@ -119,7 +119,8 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         while (true) {
             System.out.println("Choose an account type:" + "\n1.Administrator  2.Coordinator  3.Candidate");
-            if (sc.next().equals("3")) {
+            String user_option = sc.next();
+            if (user_option.equals("3")) {
                 System.out.println('\u000C');
                 EmployFast employFast = new EmployFast();
                 employFast.signupCandidate();
@@ -144,7 +145,7 @@ public class Main {
                 String fullname = sc.next();
 
 
-                list.add(input_username + "," + input_password + ",3,1," + fullname);
+                list.add(input_username + "," + input_password + ",3," + user_option + "," + fullname);
                 writeFile(list);
                 System.out.println("Registered successfully！");
                 break;
