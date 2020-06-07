@@ -661,7 +661,7 @@ public class MissionControl {
         return noStatus;
     }
 
-    public void createMission(String fullname) {
+    public void createMission() {
 
         Scanner sc = new Scanner(System.in);
         System.out.println("Now you are going to create a mission");
@@ -1111,7 +1111,7 @@ public class MissionControl {
                 clearScreen();
                 break;
             case 3:
-                Jsave criteria = new Jsave();
+                EmployFast criteria = new EmployFast();
                 criteria.startCreateCriteria();
                 clearScreen();
                 break;
