@@ -17,9 +17,8 @@ import java.util.Scanner;
 public class Test {
 
     public static void main(String args[]){
-       MissionControl mc = new MissionControl();
-        mc.modifyMissions(7066);
-
+        MainPageController a = new MainPageController();
+        a.WelcomePage("Len Hale", 1);
 
     }
 

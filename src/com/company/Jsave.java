@@ -44,6 +44,7 @@ public class Jsave {
                 int id = sc.nextInt();
                 sc.nextLine();
                 mission.showOneMission(id);
+                System.out.println("please press enter to continue creating criteria");
             }
 
             //
@@ -113,12 +114,16 @@ public class Jsave {
                         break;
                     case 3:
                         yearsOfWorkExperience(criteria);
+                        break;
                     case 4:
                         occupations(criteria);
+                        break;
                     case 5:
                         computerSkills(criteria);
+                        break;
                     case 6:
                         languageSpoken(criteria);
+                        break;
 
                     default:
                         System.out.println("Invalid input!");
@@ -136,7 +141,18 @@ public class Jsave {
     private void ageRange(Criteria criteria){
         Scanner sc = new Scanner(System.in);
         Validate validate = new Validate();
+        MissionControl mission = new MissionControl();
+        System.out.println("Enter 'm' to check the criteria condition of mission");
         System.out.println("please enter the min age");
+        //
+        if (sc.nextLine().equals("m")){
+            System.out.println("please enter the ID of the mission that you want to check");
+            int id = sc.nextInt();
+            sc.nextLine();
+            mission.showMissionCriteria(id);
+            System.out.println("please enter the min age");
+        }
+        //
         String minAge = sc.nextLine();
         while (validate.checkInt(minAge) == false){
             System.out.println("please enter valid integer number");
@@ -196,8 +212,18 @@ public class Jsave {
     private void qualification(Criteria criteria){
         Scanner sc = new Scanner(System.in);
         Validate validate = new Validate();
-
+        MissionControl mission = new MissionControl();
+        System.out.println("Enter 'm' to check the criteria condition of mission");
         System.out.println("please enter the qualifications you want to set, please split them with ','");
+        //
+        if (sc.nextLine().equals("m")) {
+            System.out.println("please enter the ID of the mission that you want to check");
+            int id = sc.nextInt();
+            sc.nextLine();
+            mission.showMissionCriteria(id);
+            System.out.println("please enter the qualifications you want to set, please split them with ','");
+        }
+
         String[] quali = sc.nextLine().split(",");
         criteria.setQualification(quali);
         System.out.println("you have set qualifications: " + Arrays.toString(quali));
@@ -231,8 +257,18 @@ public class Jsave {
     private void yearsOfWorkExperience(Criteria criteria){
         Scanner sc = new Scanner(System.in);
         Validate validate = new Validate();
-
+        MissionControl mission = new MissionControl();
+        System.out.println("Enter 'm' to check the criteria condition of mission");
         System.out.println("please enter the years of work Experience");
+        //
+        if (sc.nextLine().equals("m")) {
+            System.out.println("please enter the ID of the mission that you want to check");
+            int id = sc.nextInt();
+            sc.nextLine();
+            mission.showMissionCriteria(id);
+            System.out.println("please enter the years of work Experience");
+        }
+
         String year = sc.nextLine();
         while (validate.checkInt(year) == false){
             System.out.println("please enter valid integer number");
@@ -275,8 +311,18 @@ public class Jsave {
     private void occupations(Criteria criteria){
         Scanner sc = new Scanner(System.in);
         Validate validate = new Validate();
-
+        MissionControl mission = new MissionControl();
+        System.out.println("Enter 'm' to check the criteria condition of mission");
         System.out.println("please enter the occupations you want to set, please split them with ','");
+        //
+        if (sc.nextLine().equals("m")) {
+            System.out.println("please enter the ID of the mission that you want to check");
+            int id = sc.nextInt();
+            sc.nextLine();
+            mission.showMissionCriteria(id);
+            System.out.println("please enter the occupations you want to set, please split them with ','");
+        }
+
         String[] occu = sc.nextLine().split(",");
         criteria.setOccupations(occu);
         System.out.println("you have set occupations: " + Arrays.toString(occu));
@@ -291,7 +337,7 @@ public class Jsave {
                 System.out.println("please enter the number again that how many" + occu[i] + " you need");
                 n = sc.nextLine();
             }
-            while (validate.checkRange(Integer.parseInt(n),0,occu.length) == false){
+            while (validate.checkRange(Integer.parseInt(n),0,100) == false){
                 System.out.println("Please enter valid range of number");
                 n = sc.nextLine();
             }
@@ -331,8 +377,18 @@ public class Jsave {
     private void computerSkills(Criteria criteria){
         Scanner sc = new Scanner(System.in);
         Validate validate = new Validate();
-
+        MissionControl mission = new MissionControl();
+        System.out.println("Enter 'm' to check the criteria condition of mission");
         System.out.println("please enter the computer skills you want to set, please split them with ','");
+        //
+        if (sc.nextLine().equals("m")) {
+            System.out.println("please enter the ID of the mission that you want to check");
+            int id = sc.nextInt();
+            sc.nextLine();
+            mission.showMissionCriteria(id);
+            System.out.println("please enter the computer skills you want to set, please split them with ','");
+        }
+
         String[] comp = sc.nextLine().split(",");
         criteria.setComputerSkills(comp);
         System.out.println("you have set computerSkills: " + Arrays.toString(comp));
@@ -365,8 +421,18 @@ public class Jsave {
     private void languageSpoken(Criteria criteria){
         Scanner sc = new Scanner(System.in);
         Validate validate = new Validate();
-
+        MissionControl mission = new MissionControl();
+        System.out.println("Enter 'm' to check the criteria condition of mission");
         System.out.println("please enter the language spoken you want to set, please split them with ','");
+        //
+        if (sc.nextLine().equals("m")) {
+            System.out.println("please enter the ID of the mission that you want to check");
+            int id = sc.nextInt();
+            sc.nextLine();
+            mission.showMissionCriteria(id);
+            System.out.println("please enter the language spoken you want to set, please split them with ','");
+        }
+
         String[] lang = sc.nextLine().split(",");
         criteria.setLanguageSpoken(lang);
         System.out.println("you have set language spoken: " + Arrays.toString(lang));

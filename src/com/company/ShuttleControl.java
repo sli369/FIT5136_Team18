@@ -107,7 +107,7 @@ public class ShuttleControl {
                 changeShuttleStatus(s2);
                 shuttlePage();
             case 4:
-                mp.WelcomePage();
+//                mp.WelcomePage();
         }
 
     }
