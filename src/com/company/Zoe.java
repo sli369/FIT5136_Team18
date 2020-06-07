@@ -93,19 +93,21 @@ public class Zoe {
         String nationality = signupCandiateNationality();
         candidateRecord.add(nationality);
 
+        System.out.println(candidateRecord);
+
 
 //FOR TESTING
-        Iterator it = candidateRecord.iterator();
-        while (it.hasNext()) {
-            System.out.println(it.next());
-        }
-
-        writeExcelWithArrayList(candidateRecord);
-
-        System.out.println("You have entered all personal details that required." +
-                "\nYour personal details can be viewed and modified in \"View profile\" in the main page.");
-        System.out.println("System will request your criminal and health records by using your identification ["
-                + identificationType + "]: [" + identificationNumber +"] automaticlly.");
+//        Iterator it = candidateRecord.iterator();
+//        while (it.hasNext()) {
+//            System.out.println(it.next());
+//        }
+//
+//        writeExcelWithArrayList(candidateRecord);
+//
+//        System.out.println("You have entered all personal details that required." +
+//                "\nYour personal details can be viewed and modified in \"View profile\" in the main page.");
+//        System.out.println("System will request your criminal and health records by using your identification ["
+//                + identificationType + "]: [" + identificationNumber +"] automaticlly.");
 
     }
 
@@ -478,32 +480,76 @@ public class Zoe {
         ArrayList<String> arrayListForChecking = new ArrayList<>();
         StringBuffer stringBuffer = new StringBuffer();
         //input computer skill
+        String computerSkills = null;
+        int userInput = 0;
+        Scanner sc = new Scanner(System.in);
         System.out.println("The next information awating to be entered is computerSkill(s).");
-        System.out.println("Please enter ( one of ) your computerSkill(s):");
-        System.out.println("(If you don't have any, please enter n/a.");
-        String computerSkill = forceinputString();
+        System.out.println("Please choose your computerSkill(s):");
+        System.out.println("1.novice  2.intermediate  3.advanced  4.expert  5.n/a");
+        while(true) {
+            try {
+                userInput = sc.nextInt();
+                while(true){
+                    if(userInput>=1 && userInput<=5){
+                        break;
+                    }
+                    else{
+                        System.out.println("Wrong input! Please enter a valid option:");
+                        userInput = sc.nextInt();
+                    }
+                }
+                break;
+            }catch(Exception e) {
+                System.out.println("Wrong input! please enter an Integer: ");
+                sc.next();
+            }
+        }
+//        String computerSkill = forceinputString();
+//
+//        while (!(computerSkill.equalsIgnoreCase("n/a"))) {
+//            arrayListForChecking.add(computerSkill);
+//            //
+//            System.out.println();
+//            System.out.println("Please enter your next computerSkill:");
+//            System.out.println("If you don't have more computerSkill, please enter n/a.");
+//            computerSkill = forceinputString();
+//        }
+//        if (computerSkill.equalsIgnoreCase("n/a") && arrayListForChecking.size() == 0) {
+//            computerSkill = "n/a";
+//            arrayListForChecking.add(computerSkill);
+//        }
+//        arrayListForChecking = userCheckInput("Computer Skill", arrayListForChecking);
+//        Iterator it = arrayListForChecking.iterator();
+//        while (it.hasNext()) {
+//            stringBuffer.append(it.next());
+//            stringBuffer.append((","));
+//        }
+//        stringBuffer.delete(stringBuffer.length() - 1, stringBuffer.length());
+//        System.out.println('\u000C');
+//        return stringBuffer.toString();
+        
+        switch (userInput) {
+            case 1:
+                computerSkills = "novice";
+                break;
+            case 2:
+                computerSkills = "intermediate";
+                break;
+            case 3:
+                computerSkills = "advanced";
+                break;
 
-        while (!(computerSkill.equalsIgnoreCase("n/a"))) {
-            arrayListForChecking.add(computerSkill);
-            //
-            System.out.println();
-            System.out.println("Please enter your next computerSkill:");
-            System.out.println("If you don't have more computerSkill, please enter n/a.");
-            computerSkill = forceinputString();
+            case 4:
+                computerSkills = "expert";
+                break;
+            case 5:
+                computerSkills = "n/a";
+                break;
         }
-        if (computerSkill.equalsIgnoreCase("n/a") && arrayListForChecking.size() == 0) {
-            computerSkill = "n/a";
-            arrayListForChecking.add(computerSkill);
-        }
-        arrayListForChecking = userCheckInput("Computer Skill", arrayListForChecking);
-        Iterator it = arrayListForChecking.iterator();
-        while (it.hasNext()) {
-            stringBuffer.append(it.next());
-            stringBuffer.append((","));
-        }
-        stringBuffer.delete(stringBuffer.length() - 1, stringBuffer.length());
         System.out.println('\u000C');
-        return stringBuffer.toString();
+        computerSkills = userCheckInput("Computer Skills", computerSkills);
+        return computerSkills;
+
     }
 
     public String signupCandiateLanguage() {
@@ -533,6 +579,8 @@ public class Zoe {
         stringBuffer.delete(stringBuffer.length() - 1, stringBuffer.length());
         System.out.println('\u000C');
         return stringBuffer.toString();
+
+
     }
 
 

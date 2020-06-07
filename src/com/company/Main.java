@@ -12,10 +12,10 @@ public class Main {
         int flag = 0;
         ArrayList<String> userList = readFile();
 
-        // search username in users.txt
-        for (String i : userList) {
-            System.out.println(i.substring(0, i.indexOf(",")));
-        }
+//        // search username in users.txt
+//        for (String i : userList) {
+//            System.out.println(i.substring(0, i.indexOf(",")));
+//        }
 
 
         while (true) {
@@ -77,9 +77,12 @@ public class Main {
                     if (input_password.equals(user_record[1])) {
                         System.out.println("Login successful!");
 
-                        System.out.println("Hello!" + user_record[0]);
 
-                        mainpage.WelcomePage();
+
+
+                        System.out.println("Hello!" + user_record[0] + "\n");
+
+                        mainpage.WelcomePage(user_record[4], Integer.parseInt(user_record[3]));
 
                     }
                     // login failed
@@ -121,6 +124,9 @@ public class Main {
                 Zoe zoe = new Zoe();
                 zoe.signupCandidate();
             }
+            System.out.println("Please enter your FULL name: ");
+            String fullname = sc.next();
+
             System.out.println("Please input username: ");
             String input_username = sc.next();
 
@@ -138,7 +144,7 @@ public class Main {
                 String input_password = sc.next();
                 //这里要写加入user id
 
-                list.add(input_username + "," + input_password + ",3,3");
+                list.add(input_username + "," + input_password + ",3,1," + fullname);
                 writeFile(list);
                 System.out.println("Registered successfully！");
                 break;

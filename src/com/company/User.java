@@ -2,16 +2,18 @@ package com.company;
 
 public class User {
 
-    private int userId;
-    private char account;
-    private Byte type;
+    private String username;
 
-    public User(){
+
+    public User() {
 
     }
 
-    public User(int userId, char account){
-        this.userId = userId;
-        this.account = account;
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

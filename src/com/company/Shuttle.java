@@ -3,7 +3,7 @@ package com.company;
 import java.util.Date;
 
 public class Shuttle {
-    private int shuttleId;
+    private final int shuttleId;
     private String shuttleName;
     private Date manuYear;
     private int fuelCapacity;

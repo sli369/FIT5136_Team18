@@ -62,31 +62,31 @@ public class MissionControl {
 //        missionId = sc.nextInt();
         int i = getMissionsIndex(missionId);
 
-                System.out.println("1.Mission Name:    " + missions.get(i).getMissionName());
-                System.out.println("2.Mission description:    " + missions.get(i).getMissionDescription());
-                System.out.println("3.Country of origin:    " + missions.get(i).getCountryOfOrigin());
-                System.out.println("4.countries allowed:    " + missions.get(i).getCountriesAllowed());
-                System.out.println("5.Coordinator information: " );
-                System.out.println("    a.name: " + missions.get(i).getCoordinator().getName());
-                System.out.println("    b.contact: " + missions.get(i).getCoordinator().getEmail() );
-                System.out.println("6.Job information");
-                for(int j = 0; j<missions.get(i).getJob().size(); j++) {
-                    missions.get(i).getJob().get(j).showJob();
-                }
-                System.out.println("7.Employment requirements: " + missions.get(i).getEmploymentRequirement());
-                System.out.println("    7.1 Age range is from: " + missions.get(i).getCriteria().getMinage() + " - " + missions.get(i).getCriteria().getMaxage());
-                System.out.println("    7.2 computer skill require: " + missions.get(i).getCriteria().getComputerSkill());
-                System.out.println("    7.3 experience requirements: " + missions.get(i).getCriteria().getExpYear() + "years");
-                System.out.println("    7.4 qualification requiremnts: " + missions.get(i).getCriteria().getQualification());
-                System.out.println("    7.5 language requirements: " + missions.get(i).getCriteria().getLanguage());
-                System.out.println("8.Cargo requirements");
-                System.out.println("     8.1 Cargo for: " + missions.get(i).getCargo().get(0).getCargoFor());
-                System.out.println("     8.2 Cargo requirements: " + missions.get(i).getCargo().get(0).getRequirement());
-                System.out.println("     8.2 Cargo quantity: " + missions.get(i).getCargo().get(0).getQuantity());
-                System.out.println("9.Launch date: " + missions.get(i).getLaunchDate());
-                System.out.println("10.Location: " + missions.get(i).getLocationDestination());
-                System.out.println("11.Duration of the mission: " + missions.get(i).getMissionDuration());
-                System.out.println("12.Status of the mission " + "(" + missions.get(i).getMissionStatus() +")");
+        System.out.println("1.Mission Name:    " + missions.get(i).getMissionName());
+        System.out.println("2.Mission description:    " + missions.get(i).getMissionDescription());
+        System.out.println("3.Country of origin:    " + missions.get(i).getCountryOfOrigin());
+        System.out.println("4.countries allowed:    " + missions.get(i).getCountriesAllowed());
+        System.out.println("5.Coordinator information: " );
+        System.out.println("    a.name: " + missions.get(i).getCoordinator().getName());
+        System.out.println("    b.contact: " + missions.get(i).getCoordinator().getEmail() );
+        System.out.println("6.Job information");
+        for(int j = 0; j<missions.get(i).getJob().size(); j++) {
+            missions.get(i).getJob().get(j).showJob();
+        }
+        System.out.println("7.Employment requirements: " + missions.get(i).getEmploymentRequirement());
+        System.out.println("    7.1 Age range is from: " + missions.get(i).getCriteria().getMinage() + " - " + missions.get(i).getCriteria().getMaxage());
+        System.out.println("    7.2 computer skill require: " + missions.get(i).getCriteria().getComputerSkill());
+        System.out.println("    7.3 experience requirements: " + missions.get(i).getCriteria().getExpYear() + "years");
+        System.out.println("    7.4 qualification requiremnts: " + missions.get(i).getCriteria().getQualification());
+        System.out.println("    7.5 language requirements: " + missions.get(i).getCriteria().getLanguage());
+        System.out.println("8.Cargo requirements");
+        System.out.println("     8.1 Cargo for: " + missions.get(i).getCargo().get(0).getCargoFor());
+        System.out.println("     8.2 Cargo requirements: " + missions.get(i).getCargo().get(0).getRequirement());
+        System.out.println("     8.2 Cargo quantity: " + missions.get(i).getCargo().get(0).getQuantity());
+        System.out.println("9.Launch date: " + missions.get(i).getLaunchDate());
+        System.out.println("10.Location: " + missions.get(i).getLocationDestination());
+        System.out.println("11.Duration of the mission: " + missions.get(i).getMissionDuration());
+        System.out.println("12.Status of the mission " + "(" + missions.get(i).getMissionStatus() +")");
 
     }
 
@@ -199,7 +199,7 @@ public class MissionControl {
 
     }
 
-//    check whether the input is blank
+    //    check whether the input is blank
     public boolean isBlank(String newValue)
     {
         boolean isTrue;
@@ -213,18 +213,18 @@ public class MissionControl {
         return isTrue;
     }
 
-//    check whether the input is char
+    //    check whether the input is char
     public boolean isChar(String d){
         boolean isTure;
-            if(d.charAt(0)== 'a' && d.charAt(0) == 'b' && d.charAt(0) == 'c' && d.charAt(0) == 'd' && d.charAt(0) == 'e' && d.charAt(0) == 'f'){
-                isTure = true;
-            }else {
-                isTure = false;
-            }
-            return isTure;
+        if(d.charAt(0)== 'a' && d.charAt(0) == 'b' && d.charAt(0) == 'c' && d.charAt(0) == 'd' && d.charAt(0) == 'e' && d.charAt(0) == 'f'){
+            isTure = true;
+        }else {
+            isTure = false;
+        }
+        return isTure;
     }
 
-//    check whether the input is int
+    //    check whether the input is int
     public boolean isInt(String st){
         int temp = 0;
         try{
@@ -544,19 +544,19 @@ public class MissionControl {
         System.out.println("****************************");
 
         // set mission name
-       String missionName = createMissionName();
-       clearScreen();
+        String missionName = createMissionName();
+        clearScreen();
 
         // set mission Description
         String missionDes = createMissionDes();
         clearScreen();
 
         // set countries of origin
-       String countryOrigin = createCountryOfOri();
+        String countryOrigin = createCountryOfOri();
         clearScreen();
 
         //set countries allowed
-       String countriesAllow = createCountriesAllowed();
+        String countriesAllow = createCountriesAllowed();
         ArrayList<String> countriesAllowed;
         if (countriesAllow.contains(",")) {
             String[] a = countriesAllow.split(",");
@@ -862,7 +862,7 @@ public class MissionControl {
 
             }
         }
-            System.out.println("Now back to the main page");
+        System.out.println("Now back to the main page");
 
 
     }

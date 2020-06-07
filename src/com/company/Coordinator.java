@@ -6,7 +6,8 @@ public class Coordinator extends User {
     private String name;
     private String email;
 
-    public Coordinator(String name, String email) {
+    public Coordinator(String name, String email){
+        super();
         this.name = name;
         this.email = email;
 
