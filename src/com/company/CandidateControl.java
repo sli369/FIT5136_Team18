@@ -22,6 +22,7 @@ public class CandidateControl {
     private static final String UTF8_ENCODING = "UTF-8";
     private ArrayList<Candidate> candidates;
     MainPageController mp = new MainPageController();
+    EmployFast ef = new EmployFast();
 
     public void addCandidate() {
         try {
@@ -126,7 +127,7 @@ public class CandidateControl {
         if(option.equals("Street")){
             System.out.println("Please enter your new Street");
             String newStreet = sc.next();
-            candidate.setStreet(newStreet);
+            candidate.setStreet(ef.removeExtraSpaces(newStreet));
 
         }
         else if(option.equals("City")){
@@ -162,7 +163,7 @@ public class CandidateControl {
         else if(option.equals("Allergies")){
             System.out.println("Please enter your new Allergies (split by ',')");
             String newAllergies = sc.next();
-            candidate.setAllergies(newAllergies);
+            candidate.setAllergies(ef.removeExtraSpaces(newAllergies));
         }
         else if(option.equals("FoodPreferences")){
             System.out.println("Please choose your new Food Preferences");
@@ -190,17 +191,17 @@ public class CandidateControl {
         else if(option.equals("Qualifications")){
             System.out.println("Please enter your new Qualifications (split by ',')");
             String newQualifications = sc.next();
-            candidate.setQualifications(newQualifications);
+            candidate.setQualifications(ef.removeExtraSpaces(newQualifications));
         }
         else if(option.equals("WorkExp.")){
             System.out.println("Please enter your new Work Exp.");
             String newWorkExp = sc.next();
-            candidate.setWorkExperience(newWorkExp);
+            candidate.setWorkExperience(ef.removeExtraSpaces(newWorkExp));
         }
         else if(option.equals("Occupation")){
             System.out.println("Please enter your new Occupation");
             String newOccupation = sc.next();
-            candidate.setOccupation(newOccupation);
+            candidate.setOccupation(ef.removeExtraSpaces(newOccupation));
         }
         else if(option.equals("ComputerSkills")){
             System.out.println("Please enter your new Computer Skill levels");
@@ -227,7 +228,7 @@ public class CandidateControl {
         else if(option.equals("Languages")){
             System.out.println("Please enter your new Languages (split by ',')");
             String newLanguages = sc.next();
-            candidate.setLanguage(newLanguages);
+            candidate.setLanguage(ef.removeExtraSpaces(newLanguages));
         }
 
         return candidate;
