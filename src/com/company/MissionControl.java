@@ -1107,7 +1107,7 @@ public class MissionControl {
                 break;
             case 2:
                 ShuttleControl shuttleControl = new ShuttleControl();
-                shuttleControl.shuttlePage();
+                shuttleControl.shuttlePage(corName);
                 clearScreen();
                 break;
             case 3:
