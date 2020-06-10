@@ -54,7 +54,7 @@ public class MissionControl {
                 index = i;
             }
         }
-        return index - 1;
+        return index;
     }
 
     public void showCorMission(String corName){
@@ -914,11 +914,13 @@ public class MissionControl {
                 case 2:
                     des = createMissionDes();
                     missions.get(i).setMissionDescription(des);
+                    System.out.println("new mission name is " + missions.get(i).getMissionDescription());
                     isDone = isModifyDone();
                     break;
                 case 3:
                     countryOri = createCountryOfOri();
                     missions.get(i).setCountryOfOrigin(countryOri);
+                    System.out.println("new mission name is " + missions.get(i).getCountryOfOrigin());
                     isDone = isModifyDone();
                     break;
                 case 4:
