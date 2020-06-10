@@ -807,7 +807,7 @@ public class MissionControl {
             String numberJob = String.valueOf(mission.getJob().get(0).getNumber());
             String missionDes = mission.getMissionDescription();
             String employeeRquire = mission.getEmploymentRequirement();
-            String ageRange = String.valueOf(mission.getCriteria().getMinage()) + " - " + String.valueOf(mission.getCriteria().getMaxage());
+            String ageRange = String.valueOf(mission.getCriteria().getMinage()) + "-" + String.valueOf(mission.getCriteria().getMaxage());
             String minExp = String.valueOf(mission.getCriteria().getExpYear());
             String qualification = mission.getCriteria().getQualification();
             String job = mission.getJob().get(0).getJobName();
